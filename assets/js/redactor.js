@@ -29,7 +29,7 @@
 
 	var uuid = 0;
 
-	// Plugin
+	// 插件
 	$.fn.redactor = function(options)
 	{
 		var val = [];
@@ -93,13 +93,13 @@
 
 	};
 
-	// Initialization
+	// 初始化
 	function Redactor(el, options)
 	{
 		return new Redactor.prototype.init(el, options);
 	}
 
-	// Options
+	// 选项
 	$.Redactor = Redactor;
 	$.Redactor.VERSION = '1.2.5';
 	$.Redactor.modules = ['air', 'autosave', 'block', 'buffer', 'build', 'button', 'caret', 'clean', 'code', 'core', 'detect', 'dropdown',
@@ -107,15 +107,15 @@
 						  'lang', 'line', 'link', 'linkify', 'list', 'marker', 'modal', 'observe', 'offset', 'paragraphize', 'paste', 'placeholder',
 						  'progress', 'selection', 'shortcuts', 'storage', 'toolbar', 'upload', 'uploads3', 'utils',
 
-						  'browser' // deprecated
+						  'browser' // 过时的
 						  ];
 
 	$.Redactor.settings = {};
 	$.Redactor.opts = {
 
-		// settings
+		// 设置
 		animation: false,
-		lang: 'en',
+		lang: 'zh_cn',
 		direction: 'ltr',
 
 		focus: false,
@@ -183,7 +183,7 @@
 		toolbar: true,
 		toolbarFixed: true,
 		toolbarFixedTarget: document,
-		toolbarFixedTopOffset: 0, // pixels
+		toolbarFixedTopOffset: 0, // 像素
 		toolbarExternal: false, // ID selector
 
 		air: false,
@@ -205,7 +205,7 @@
 			'strike': 'del'
 		},
 
-		// shortcuts
+		// 快捷键
 		shortcuts: {
 			'ctrl+shift+m, meta+shift+m': { func: 'inline.removeFormat' },
 			'ctrl+b, meta+b': { func: 'inline.format', params: ['bold'] },
@@ -228,7 +228,7 @@
 			strike: 'deleted'
 		},
 
-		// private lang
+		// 私人 lang
 		langs: {
 			en: {
 
@@ -283,7 +283,7 @@
 			}
 		},
 
-		// private
+		// 私有的
 		type: 'textarea', // textarea, div, inline, pre
 		inline: false,
 		buffer: [],
@@ -310,7 +310,7 @@
 
 	};
 
-	// Functionality
+	// 功能
 	Redactor.fn = $.Redactor.prototype = {
 
 		keyCode: {
@@ -350,15 +350,15 @@
 				this.$element.removeClass('redactor-click-to-edit');
 			}
 
-			// block & inline test tag regexp
+			//块和内联测试正则表达式
 			this.reIsBlock = new RegExp('^(' + this.opts.blockTags.join('|' ).toUpperCase() + ')$', 'i');
 			this.reIsInline = new RegExp('^(' + this.opts.inlineTags.join('|' ).toUpperCase() + ')$', 'i');
 
-			// set up drag upload
+			//设置拖动上传
 			this.opts.dragImageUpload = (this.opts.imageUpload === null) ? false : this.opts.dragImageUpload;
 			this.opts.dragFileUpload = (this.opts.fileUpload === null) ? false : this.opts.dragFileUpload;
 
-			// formatting storage
+			//格式存储
 			this.formatting = {};
 
 			// load lang

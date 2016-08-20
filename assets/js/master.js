@@ -15,8 +15,8 @@ $(function()
     if ($('#redactor-intro-box').size() !== 0)
     {
 	    $('#redactor').redactor({
-		    imageUpload: '/ajax/redactor/core/uploadImage/',
-            fileUpload: '/ajax/redactor/core/uploadFile/',
+		    imageUpload: 'http://up.imgapi.com/',
+            fileUpload: 'http://up.imgapi.com/',
             plugins: ['table', 'video']
         });
     }
