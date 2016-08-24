@@ -2,19 +2,14 @@
 	Redactor II
 	Version 1.2.5
 	Updated: July 4, 2015
-
 	http://imperavi.com/redactor/
-
 	Copyright (c) 2009-2016, Imperavi LLC.
 	License: http://imperavi.com/redactor/license/
-
-	Usage: $('#content').redactor();
+	使用: $('#content').redactor();
 */
-
 (function($)
 {
 	'use strict';
-
 	if (!Function.prototype.bind)
 	{
 		Function.prototype.bind = function(scope)
@@ -26,22 +21,18 @@
 			};
 		};
 	}
-
 	var uuid = 0;
-
 	// 插件
 	$.fn.redactor = function(options)
 	{
 		var val = [];
 		var args = Array.prototype.slice.call(arguments, 1);
-
 		if (typeof options === 'string')
 		{
 			this.each(function()
 			{
 				var instance = $.data(this, 'redactor');
 				var func;
-
 				if (options.search(/\./) !== '-1')
 				{
 					func = options.split('.');
@@ -54,7 +45,6 @@
 				{
 					func = instance[options];
 				}
-
 				if (typeof instance !== 'undefined' && $.isFunction(func))
 				{
 					var methodVal = func.apply(instance, args);
@@ -77,7 +67,6 @@
 				$.data(this, 'redactor', Redactor(this, options));
 			});
 		}
-
 		if (val.length === 0)
 		{
 			return this;
@@ -90,15 +79,12 @@
 		{
 			return val;
 		}
-
 	};
-
 	// 初始化
 	function Redactor(el, options)
 	{
 		return new Redactor.prototype.init(el, options);
 	}
-
 	// 选项
 	$.Redactor = Redactor;
 	$.Redactor.VERSION = '1.2.5';
@@ -106,97 +92,70 @@
 						  'events', 'file', 'focus', 'image', 'indent', 'inline', 'insert', 'keydown', 'keyup',
 						  'lang', 'line', 'link', 'linkify', 'list', 'marker', 'modal', 'observe', 'offset', 'paragraphize', 'paste', 'placeholder',
 						  'progress', 'selection', 'shortcuts', 'storage', 'toolbar', 'upload', 'uploads3', 'utils',
-
 						  'browser' // 过时的
 						  ];
-
 	$.Redactor.settings = {};
 	$.Redactor.opts = {
-
 		// 设置
 		animation: false,
 		lang: 'zh_cn',
 		direction: 'ltr',
-
 		focus: false,
 		focusEnd: false,
-
 		clickToEdit: false,
 		structure: false,
-
 		tabindex: false,
-
 		minHeight: false, // string
 		maxHeight: false, // string
-
 		maxWidth: false, // string
-
 		plugins: false, // array
 		callbacks: {},
-
 		placeholder: false,
-
 		linkify: true,
 		enterKey: true,
-
 		pastePlainText: false,
 		pasteImages: true,
 		pasteLinks: true,
 		pasteBlockTags: ['pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'table', 'tbody', 'thead', 'tfoot', 'th', 'tr', 'td', 'ul', 'ol', 'li', 'blockquote', 'p', 'figure', 'figcaption'],
 		pasteInlineTags: ['br', 'strong', 'ins', 'code', 'del', 'span', 'samp', 'kbd', 'sup', 'sub', 'mark', 'var', 'cite', 'small', 'b', 'u', 'em', 'i'],
-
 		preClass: false, // string
 		preSpaces: 4, // or false
-		tabAsSpaces: false, // true or number of spaces
+		tabAsSpaces: false, //真或空格数
 		tabKey: true,
-
-		autosave: false, // false or url
+		autosave: false, // 虚假或网址
 		autosaveName: false,
 		autosaveFields: false,
-
 		imageUpload: null,
 		imageUploadParam: 'file',
 		imageUploadFields: false,
 		imageUploadForms: false,
-
 		imageCaption: true,
-
 		dragImageUpload: true,
 		multipleImageUpload: true,
 		clipboardImageUpload: true,
-
 		fileUpload: null,
 		fileUploadParam: 'file',
 		fileUploadFields: false,
 		fileUploadForms: false,
 		dragFileUpload: true,
-
 		s3: false,
-
 		linkTooltip: true,
 		linkNofollow: false,
 		linkSize: 30,
 		pasteLinkTarget: false,
-
 		videoContainerClass: 'video-container',
-
 		toolbar: true,
 		toolbarFixed: true,
 		toolbarFixedTarget: document,
 		toolbarFixedTopOffset: 0, // 像素
 		toolbarExternal: false, // ID selector
-
 		air: false,
 		airWidth: false,
-
 		formatting: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
 		formattingAdd: false,
-
 		buttons: ['format', 'bold', 'italic', 'deleted', 'lists', 'image', 'file', 'link'], // + 'horizontalrule', 'underline', 'ol', 'ul', 'indent', 'outdent'
-
 		buttonsHide: [],
 		buttonsHideOnMobile: [],
-
 		script: true,
 		removeComments: true,
 		replaceTags: {
@@ -204,7 +163,6 @@
 			'i': 'em',
 			'strike': 'del'
 		},
-
 		// 快捷键
 		shortcuts: {
 			'ctrl+shift+m, meta+shift+m': { func: 'inline.removeFormat' },
@@ -217,7 +175,6 @@
 			'ctrl+shift+8':   { func: 'list.toggle', params: ['unorderedlist'] }
 		},
 		shortcutsAdd: false,
-
 		activeButtons: ['deleted', 'italic', 'bold'],
 		activeButtonsStates: {
 			b: 'bold',
@@ -227,11 +184,9 @@
 			del: 'deleted',
 			strike: 'deleted'
 		},
-
 		// 私人 lang
 		langs: {
 			en: {
-
 				"format": "Format",
 				"image": "Image",
 				"file": "File",
@@ -275,16 +230,13 @@
 				"horizontalrule": "Line",
 				"upload-label": "Drop file here or ",
 				"caption": "Caption",
-
 				"bulletslist": "Bullets",
 				"numberslist": "Numbers",
-
 				"accessibility-help-label": "Rich text editor"
 			}
 		},
-
 		// 私有的
-		type: 'textarea', // textarea, div, inline, pre
+		type: 'textarea', // text area, div, inline, pre
 		inline: false,
 		buffer: [],
 		rebuffer: [],
@@ -307,12 +259,9 @@
 			linkimage: /((https?|www)[^\s]+\.)(jpe?g|png|gif)(\?[^\s-]+)?/ig,
 			url: /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/ig
 		}
-
 	};
-
 	// 功能
 	Redactor.fn = $.Redactor.prototype = {
-
 		keyCode: {
 			BACKSPACE: 8,
 			DELETE: 46,
@@ -330,17 +279,14 @@
 			LEFT: 37,
 			LEFT_WIN: 91
 		},
-
 		// =init
 		init: function(el, options)
 		{
 			this.$element = $(el);
 			this.uuid = uuid++;
-
 			this.loadOptions(options);
 			this.loadModules();
-
-			// click to edit
+			//点击编辑
 			if (this.opts.clickToEdit && !this.$element.hasClass('redactor-click-to-edit'))
 			{
 				return this.loadToEdit(options);
@@ -349,38 +295,28 @@
 			{
 				this.$element.removeClass('redactor-click-to-edit');
 			}
-
 			//块和内联测试正则表达式
 			this.reIsBlock = new RegExp('^(' + this.opts.blockTags.join('|' ).toUpperCase() + ')$', 'i');
 			this.reIsInline = new RegExp('^(' + this.opts.inlineTags.join('|' ).toUpperCase() + ')$', 'i');
-
 			//设置拖动上传
 			this.opts.dragImageUpload = (this.opts.imageUpload === null) ? false : this.opts.dragImageUpload;
 			this.opts.dragFileUpload = (this.opts.fileUpload === null) ? false : this.opts.dragFileUpload;
-
 			//格式存储
 			this.formatting = {};
-
 			// load lang
 			this.lang.load();
-
 			// extend shortcuts
 			$.extend(this.opts.shortcuts, this.opts.shortcutsAdd);
-
 			// set editor
 			this.$editor = this.$element;
-
 			// detect type of editor
 			this.detectType();
-
 			// start callback
 			this.core.callback('start');
 			this.core.callback('startToEdit');
-
 			// build
 			this.start = true;
 			this.build.start();
-
 		},
 		detectType: function()
 		{
@@ -399,15 +335,11 @@
 		},
 		loadToEdit: function(options)
 		{
-
 			this.$element.on('click.redactor-click-to-edit', $.proxy(function()
 			{
 				this.initToEdit(options);
-
 			}, this));
-
 			this.$element.addClass('redactor-click-to-edit');
-
 			return;
 		},
 		initToEdit: function(options)
@@ -421,13 +353,11 @@
 				{
 					this.selection.restore();
 					this.clickToCancelStorage = this.code.get();
-
-					// cancel
+					//取消
 					$(this.opts.clickToCancel).off('.redactor-click-to-edit');
 					$(this.opts.clickToCancel).show().on('click.redactor-click-to-edit', $.proxy(function(e)
 					{
 						e.preventDefault();
-
 						this.core.destroy();
 						this.events.syncFire = false;
 						this.$element.html(this.clickToCancelStorage);
@@ -436,22 +366,17 @@
 						this.clickToCancelStorage = '';
 						$(this.opts.clickToCancel).hide();
 						$(this.opts.clickToSave).hide();
-
 						this.$element.on('click.redactor-click-to-edit', $.proxy(function()
 						{
 							this.initToEdit(options);
 						}, this));
-
 						this.$element.addClass('redactor-click-to-edit');
-
 					}, this));
-
-					// save
+					//保存
 					$(this.opts.clickToSave).off('.redactor-click-to-edit');
 					$(this.opts.clickToSave).show().on('click.redactor-click-to-edit', $.proxy(function(e)
 					{
 						e.preventDefault();
-
 						this.core.destroy();
 						this.core.callback('save', this.code.get());
 						$(this.opts.clickToCancel).hide();
@@ -461,21 +386,16 @@
 							this.initToEdit(options);
 						}, this));
 						this.$element.addClass('redactor-click-to-edit');
-
 					}, this));
 				}
-
 			});
-
 			this.$element.redactor(options);
 			this.$element.off('.redactor-click-to-edit');
-
 		},
 		loadOptions: function(options)
 		{
 			var settings = {};
-
-			// check namespace
+			// 检查命名空间
 			if (typeof $.Redactor.settings.namespace !== 'undefined')
 			{
 				 if (this.$element.hasClass($.Redactor.settings.namespace))
@@ -487,7 +407,6 @@
 			{
 				settings = $.Redactor.settings;
 			}
-
 			this.opts = $.extend(
 				{},
 				$.extend(true, {}, $.Redactor.opts),
@@ -517,20 +436,16 @@
 			{
 				return;
 			}
-
-			// init module
+			//初始化模块
 			this[module] = this[module]();
-
 			var methods = this.getModuleMethods(this[module]);
 			var len = methods.length;
-
 			// bind methods
 			for (var z = 0; z < len; z++)
 			{
 				this[module][methods[z]] = this[module][methods[z]].bind(this);
 			}
 		},
-
 		// =air
 		air: function()
 		{
@@ -556,27 +471,21 @@
 					{
 						return;
 					}
-
 					this.button.hideButtons();
 					this.button.hideButtonsOnMobile();
-
 					if (this.opts.buttons.length === 0)
 					{
 						return;
 					}
-
 					this.$air = this.air.createContainer();
-
 					if (this.opts.airWidth !== false)
 					{
 						this.$air.css('width', this.opts.airWidth);
 					}
-
 					this.air.append();
 					this.button.$toolbar = this.$air;
 					this.button.setFormatting();
 					this.button.load(this.$air);
-
 					this.core.editor().on('mouseup.redactor', this, $.proxy(function(e)
 					{
 						if (this.selection.text() !== '')
@@ -584,7 +493,6 @@
 							this.air.show(e);
 						}
 					}, this));
-
 				},
 				append: function()
 				{
@@ -599,22 +507,17 @@
 					this.marker.remove();
 					this.selection.save();
 					this.selection.restore(false);
-
 					$('.redactor-air').hide();
-
 					var leftFix = 0;
 					var width = this.$air.innerWidth();
-
 					if ($(window).width() < (e.clientX + width))
 					{
 						leftFix = 200;
 					}
-
 					this.$air.css({
 						left: (e.clientX - leftFix) + 'px',
 						top: (e.clientY + 10 + $(document).scrollTop()) + 'px'
 					}).show();
-
 					this.air.enabled = true;
 					this.air.bindHide();
 				},
@@ -623,7 +526,6 @@
 					$(document).on('mousedown.redactor-air.' + this.uuid, $.proxy(function(e)
 					{
 						var dropdown = $(e.target).closest('.redactor-dropdown').length;
-
 						if ($(e.target).closest(this.$air).length === 0 && dropdown === 0)
 						{
 							var hide = this.air.hide(e);
@@ -632,7 +534,6 @@
 								this.marker.remove();
 							}
 						}
-
 					}, this)).on('keydown.redactor-air.' + this.uuid, $.proxy(function(e)
 					{
 						var key = e.which;
@@ -640,7 +541,6 @@
 						{
 							return;
 						}
-
 						if (key === this.keyCode.ESC)
 						{
 							this.selection.get().collapseToStart();
@@ -658,7 +558,6 @@
 							this.selection.get().collapseToEnd();
 							this.marker.remove();
 						}
-
 						if (this.air.enabled)
 						{
 							this.air.hide(e);
@@ -668,8 +567,6 @@
 							this.selection.get().collapseToStart();
 							this.marker.remove();
 						}
-
-
 					}, this));
 				},
 				hide: function(e)
@@ -679,16 +576,13 @@
 					{
 						return false;
 					}
-
 					this.button.setInactiveAll();
 					this.$air.fadeOut(100);
 					this.air.enabled = false;
 					$(document).off('mousedown.redactor-air.' + this.uuid);
-
 				}
 			};
 		},
-
 		// =autosave
 		autosave: function()
 		{
@@ -701,10 +595,8 @@
 					{
 						return;
 					}
-
 					this.autosave.enabled = true;
 					this.autosave.name = (this.opts.autosaveName) ? this.opts.autosaveName : this.$textarea.attr('name');
-
 				},
 				is: function()
 				{
@@ -716,27 +608,22 @@
 					{
 						return;
 					}
-
 					this.autosave.source = this.code.get();
-
 					if (this.autosave.html === this.autosave.source)
 					{
 						return;
 					}
-
-					// data
+					//数据
 					var data = {};
 					data.name = this.autosave.name;
 					data[this.autosave.name] = this.autosave.source;
 					data = this.autosave.getHiddenFields(data);
-
 					// ajax
 					var jsxhr = $.ajax({
 						url: this.opts.autosave,
 						type: 'post',
 						data: data
 					});
-
 					jsxhr.done(this.autosave.success);
 				},
 				getHiddenFields: function(data)
@@ -745,20 +632,15 @@
 					{
 						return data;
 					}
-
 					$.each(this.opts.autosaveFields, $.proxy(function(k, v)
 					{
 						if (v !== null && v.toString().indexOf('#') === 0)
 						{
 							v = $(v).val();
 						}
-
 						data[k] = v;
-
 					}, this));
-
 					return data;
-
 				},
 				success: function(data)
 				{
@@ -769,24 +651,20 @@
 					}
 					catch(e)
 					{
-						//data has already been parsed
+						//数据已被解析
 						json = data;
 					}
-
 					var callbackName = (typeof json.error === 'undefined') ? 'autosave' :  'autosaveError';
-
 					this.core.callback(callbackName, this.autosave.name, json);
 					this.autosave.html = this.autosave.source;
 				},
 				disable: function()
 				{
 					this.autosave.enabled = false;
-
 					clearInterval(this.autosaveTimeout);
 				}
 			};
 		},
-
 		// =block
 		block: function()
 		{
@@ -794,28 +672,23 @@
 				format: function(tag, attr, value, type)
 				{
 					tag = (tag === 'quote') ? 'blockquote' : tag;
-
 					this.block.tags = ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'figure'];
 					if ($.inArray(tag, this.block.tags) === -1)
 					{
 						return;
 					}
-
 					if (tag === 'p' && typeof attr === 'undefined')
 					{
-						// remove all
+						// 移除所有
 						attr = 'class';
 					}
-
 					this.placeholder.hide();
 					this.buffer.set();
-
 					return (this.utils.isCollapsed()) ? this.block.formatCollapsed(tag, attr, value, type) : this.block.formatUncollapsed(tag, attr, value, type);
 				},
 				formatCollapsed: function(tag, attr, value, type)
 				{
 					this.selection.save();
-
 					var block = this.selection.block();
 					var currentTag = block.tagName.toLowerCase();
 					if ($.inArray(currentTag, this.block.tags) === -1)
@@ -823,14 +696,11 @@
 						this.selection.restore();
 						return;
 					}
-
 					if (currentTag === tag)
 					{
 						tag = 'p';
 					}
-
 					var replaced = this.utils.replaceToTag(block, tag);
-
 					if (typeof attr === 'object')
 					{
 						type = value;
@@ -843,35 +713,27 @@
 					{
 						replaced = this.block.setAttr(replaced, attr, value, type);
 					}
-
-
-					// trim pre
+					// 预修剪
 					if (tag === 'pre' && replaced.length === 1)
 					{
 						$(replaced).html($.trim($(replaced).html()));
 					}
-
-
 					this.selection.restore();
 					this.block.removeInlineTags(replaced);
-
 					return replaced;
 				},
 				formatUncollapsed: function(tag, attr, value, type)
 				{
 					this.selection.save();
-
 					var replaced = [];
 					var blocks = this.selection.blocks();
 					var len = blocks.length;
 					for (var i = 0; i < len; i++)
 					{
 						var currentTag = blocks[i].tagName.toLowerCase();
-
 						if ($.inArray(currentTag, this.block.tags) !== -1)
 						{
 							var block = this.utils.replaceToTag(blocks[i], tag);
-
 							if (typeof attr === 'object')
 							{
 								type = value;
@@ -884,15 +746,12 @@
 							{
 								block = this.block.setAttr(block, attr, value, type);
 							}
-
 							replaced.push(block);
 							this.block.removeInlineTags(block);
 						}
 					}
-
 					this.selection.restore();
-
-					// combine pre
+					// 结合预combine pre
 					if (tag === 'pre' && replaced.length !== 0)
 					{
 						var first = replaced[0];
@@ -904,31 +763,25 @@
 								$(s).remove();
 							}
 						});
-
 						replaced = [];
 						replaced.push(first);
 					}
-
 					return replaced;
 				},
 				removeInlineTags: function(node)
 				{
 					node = node[0] || node;
-
 					var tags = this.opts.inlineTags;
 					var blocks = ['PRE', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
-
 					if ($.inArray(node.tagName, blocks) === - 1)
 					{
 						return;
 					}
-
 					if (node.tagName !== 'PRE')
 					{
 						var index = tags.indexOf('a');
 						tags.splice(index, 1);
 					}
-
 					$(node).find(tags.join(',')).not('.redactor-selection-marker').contents().unwrap();
 				},
 				setAttr: function(block, attr, value, type)
@@ -937,9 +790,7 @@
 					{
 						return block;
 					}
-
 					var func = (typeof type === 'undefined') ? 'replace' : type;
-
 					if (attr === 'class')
 					{
 						block = this.block[func + 'Class'](value, block);
@@ -959,9 +810,7 @@
 							block = this.block[func + 'Attr'](attr, value, block);
 						}
 					}
-
 					return block;
-
 				},
 				getBlocks: function(block)
 				{
@@ -990,13 +839,11 @@
 				replaceAttr: function(attr, value, block)
 				{
 					block = this.block.removeAttr(attr, block);
-
 					return $(block).attr(attr, value)[0];
 				},
 				toggleAttr: function(attr, value, block)
 				{
 					block = this.block.getBlocks(block);
-
 					var self = this;
 					var returned = [];
 					$.each(block, function(i,s)
@@ -1011,9 +858,7 @@
 							returned.push(self.block.addAttr(attr, value, s));
 						}
 					});
-
 					return returned;
-
 				},
 				addAttr: function(attr, value, block)
 				{
@@ -1026,7 +871,6 @@
 				removeAllAttr: function(block)
 				{
 					block = this.block.getBlocks(block);
-
 					var returned = [];
 					$.each(block, function(i,s)
 					{
@@ -1034,23 +878,19 @@
 						{
 							returned.push(s);
 						}
-
 						var $el = $(s);
 						var len = s.attributes.length;
 						for (var z = 0; z < len; z++)
 						{
 							$el.removeAttr(s.attributes[z].name);
 						}
-
 						returned.push($el[0]);
 					});
-
 					return returned;
 				}
 			};
 		},
-
-		// buffer
+		// 缓冲
 		buffer: function()
 		{
 			return {
@@ -1060,7 +900,6 @@
                     {
                         this.buffer.clear();
                     }
-
 					if (typeof type === 'undefined' || type === 'undo')
 					{
 						this.buffer.setUndo();
@@ -1073,14 +912,12 @@
 				setUndo: function()
 				{
 					this.selection.save();
-
 					var last = this.opts.buffer[this.opts.buffer.length-1];
 					var current = this.core.editor().html();
 					if (last !== current)
 					{
 						this.opts.buffer.push(current);
 					}
-
 					this.selection.restore();
 				},
 				setRedo: function()
@@ -1107,10 +944,8 @@
 					{
 						return;
 					}
-
 					this.buffer.set('redo');
 					this.buffer.getUndo();
-
 					this.selection.restore();
 				},
 				redo: function()
@@ -1119,10 +954,8 @@
 					{
 						return;
 					}
-
 					this.buffer.set('undo');
 					this.buffer.getRedo();
-
 					this.selection.restore();
 				},
 				clear: function()
@@ -1131,7 +964,6 @@
 				}
 			};
 		},
-
 		// =build
 		build: function()
 		{
@@ -1144,7 +976,7 @@
 					}
 					else if (this.opts.type === 'div')
 					{
-						// empty
+						// 空
 						var html = $.trim(this.$editor.html());
 						if (html === '')
 						{
@@ -1155,22 +987,16 @@
 					{
 						this.build.startTextarea();
 					}
-
 					// set in
 					this.build.setIn();
-
 					// set id
 					this.build.setId();
-
-					// enable
+					//使可能
 					this.build.enableEditor();
-
-					// options
+					//选项
 					this.build.setOptions();
-
 					// call
 					this.build.callEditor();
-
 				},
 				createContainerBox: function()
 				{
@@ -1183,42 +1009,34 @@
 				setId: function()
 				{
 					var id = (this.opts.type === 'textarea') ? 'redactor-uuid-' + this.uuid : this.$element.attr('id');
-
 					this.core.editor().attr('id', (typeof id === 'undefined') ? 'redactor-uuid-' + this.uuid : id);
 				},
 				getName: function()
 				{
 					var name = this.$element.attr('name');
-
 					return (typeof name === 'undefined') ? 'content-' + this.uuid : name;
 				},
 				loadFromTextarea: function()
 				{
 					this.$editor = $('<div />');
-
 					// textarea
 					this.$textarea = this.$element;
 					this.$element.attr('name', this.build.getName());
-
 					// place
 					this.$box.insertAfter(this.$element).append(this.$editor).append(this.$element);
 					this.$editor.addClass('redactor-editor');
 					this.$element.hide();
-
 					this.$box.prepend('<span class="redactor-voice-label" id="redactor-voice-' + this.uuid +'" aria-hidden="false">' + this.lang.get('accessibility-help-label') + '</span>');
 					this.$editor.attr({ 'aria-labelledby': 'redactor-voice-' + this.uuid, 'role': 'presentation' });
 				},
 				startTextarea: function()
 				{
 					this.build.createContainerBox();
-
-					// load
+					// 加载
 					this.build.loadFromTextarea();
-
 					// set code
 					this.code.start(this.core.textarea().val());
-
-					// set value
+					// 设定值
 					this.core.textarea().val(this.clean.onSync(this.$editor.html()));
 				},
 				isTag: function(tag)
@@ -1240,7 +1058,6 @@
 					{
 						this.opts.enterKey = false;
 					}
-
 					// inline & pre
 					if (this.opts.type === 'inline' || this.opts.type === 'pre')
 					{
@@ -1248,32 +1065,26 @@
 						this.opts.toolbar = false;
 						this.opts.air = false;
 						this.opts.linkify = false;
-
 					}
-
 					// structure
 					if (this.opts.structure)
 					{
 						this.core.editor().addClass('redactor-structure');
 					}
-
-					// options sets only in textarea mode
+					// 选项只设置textarea的模式
 					if (this.opts.type !== 'textarea')
 					{
 						return;
 					}
-
-					// direction
+					//方向
 					this.core.box().attr('dir', this.opts.direction);
 					this.core.editor().attr('dir', this.opts.direction);
-
 					// tabindex
 					if (this.opts.tabindex)
 					{
 						this.core.editor().attr('tabindex', this.opts.tabindex);
 					}
-
-					// min height
+					//最小高度
 					if (this.opts.minHeight)
 					{
 						this.core.editor().css('min-height', this.opts.minHeight);
@@ -1282,35 +1093,28 @@
 					{
 						this.core.editor().css('min-height', '40px');
 					}
-
 					// max height
 					if (this.opts.maxHeight)
 					{
 						this.core.editor().css('max-height', this.opts.maxHeight);
 					}
-
 					// max width
 					if (this.opts.maxWidth)
 					{
 						this.core.editor().css({ 'max-width': this.opts.maxWidth, 'margin': 'auto' });
 					}
-
-
 				},
 				callEditor: function()
 				{
 					this.build.disableBrowsersEditing();
-
 					this.events.init();
 					this.build.setHelpers();
-
 					// init buttons
 					if (this.opts.toolbar || this.opts.air)
 					{
 						this.toolbarsButtons = this.button.init();
 					}
-
-					// load toolbar
+					//加载工具栏
 					if (this.opts.air)
 					{
 						this.air.build();
@@ -1319,46 +1123,35 @@
 					{
 						this.toolbar.build();
 					}
-
 					if (this.detect.isMobile() && this.opts.toolbarMobile && this.opts.air)
 					{
 						this.opts.toolbar = true;
 						this.toolbar.build();
 					}
-
-					// observe dropdowns
+					// 观察下拉菜单
 					if (this.opts.air || this.opts.toolbar)
 					{
 						this.core.editor().on('mouseup.redactor-observe.' + this.uuid + ' keyup.redactor-observe.' + this.uuid + ' focus.redactor-observe.' + this.uuid + ' touchstart.redactor-observe.' + this.uuid, $.proxy(this.observe.toolbar, this));
 						this.core.element().on('blur.callback.redactor', $.proxy(function()
 						{
 							this.button.setInactiveAll();
-
 						}, this));
 					}
-
-					// modal templates init
+					// 模式初始化模板
 					this.modal.templates();
-
 					// plugins
 					this.build.plugins();
-
 					// autosave
 					this.autosave.init();
-
 					// sync code
 					this.code.html = this.code.cleaned(this.core.editor().html());
-
 					// init callback
 					this.core.callback('init');
 					this.core.callback('initToEdit');
-
 					// get images & files list
 					this.storage.observe();
-
 					// started
 					this.start = false;
-
 				},
 				setHelpers: function()
 				{
@@ -1367,10 +1160,8 @@
 					{
 						this.linkify.format();
 					}
-
-					// placeholder
+					// 占位符
 					this.placeholder.init();
-
 					// focus
 					if (this.opts.focus)
 					{
@@ -1380,7 +1171,6 @@
 					{
 						setTimeout(this.focus.end, 100);
 					}
-
 				},
 				disableBrowsersEditing: function()
 				{
@@ -1388,7 +1178,7 @@
 						// FF fix
 						document.execCommand('enableObjectResizing', false, false);
 						document.execCommand('enableInlineTableEditing', false, false);
-						// IE prevent converting links
+						//IE防止在转换链接
 						document.execCommand("AutoUrlDetect", false, false);
 					} catch (e) {}
 				},
@@ -1398,29 +1188,23 @@
 					{
 						return;
 					}
-
 					$.each(this.opts.plugins, $.proxy(function(i, s)
 					{
 						var func = (typeof RedactorPlugins !== 'undefined' && typeof RedactorPlugins[s] !== 'undefined') ? RedactorPlugins : Redactor.fn;
-
 						if (!$.isFunction(func[s]))
 						{
 							return;
 						}
-
 						this[s] = func[s]();
-
-						// get methods
+						// 获得方法
 						var methods = this.getModuleMethods(this[s]);
 						var len = methods.length;
-
-						// bind methods
+						// 绑定方法
 						for (var z = 0; z < len; z++)
 						{
 							this[s][methods[z]] = this[s][methods[z]].bind(this);
 						}
-
-						// append lang
+						// 郎追加
 						if (typeof this[s].langs !== 'undefined')
 						{
 							var lang = {};
@@ -1432,7 +1216,6 @@
 							{
 								lang = this[s].langs.en;
 							}
-
 							// extend
 							var self = this;
 							$.each(lang, function(i,s)
@@ -1443,20 +1226,15 @@
 								}
 							});
 						}
-
 						// init
 						if ($.isFunction(this[s].init))
 						{
 							this[s].init();
 						}
-
-
 					}, this));
-
 				}
 			};
 		},
-
 		// =button
 		button: function()
 		{
@@ -1669,9 +1447,7 @@
 						{
 							delete this.toolbarsButtons.format.dropdown[i];
 						}
-
 					}, this));
-
 				},
 				hideButtons: function()
 				{
@@ -1696,13 +1472,11 @@
 						{
 						    this.opts.buttons.splice(index, 1);
 						}
-
 					}, this));
 				},
 				load: function($toolbar)
 				{
 					this.button.buttons = [];
-
 					$.each(this.opts.buttons, $.proxy(function(i, btnName)
 					{
 						if (!this.toolbarsButtons[btnName]
@@ -1711,9 +1485,7 @@
 						{
 							return;
 						}
-
 						$toolbar.append($('<li>').append(this.button.build(btnName, this.toolbarsButtons[btnName])));
-
 					}, this));
 				},
 				build: function(btnName, btnObject)
@@ -1722,34 +1494,27 @@
 					{
 						return;
 					}
-
 					var $button = $('<a href="javascript:void(null);" class="re-button re-' + btnName + '" title="' + btnObject.title + '" rel="' + btnName + '" />').html(btnObject.title);
 					$button.attr({ 'role': 'button', 'aria-label': btnObject.title, 'tabindex': '-1' });
-
 					if (typeof btnObject.label !== 'undefined')
 					{
 						$button.attr('aria-label', btnObject.label);
 						$button.attr('title', btnObject.label);
 					}
-
 					// click
 					if (btnObject.func || btnObject.command || btnObject.dropdown)
 					{
 						this.button.setEvent($button, btnName, btnObject);
 					}
-
 					// dropdown
 					if (btnObject.dropdown)
 					{
 						$button.addClass('redactor-toolbar-link-dropdown').attr('aria-haspopup', true);
-
 						var $dropdown = $('<ul class="redactor-dropdown redactor-dropdown-' + this.uuid + ' redactor-dropdown-box-' + btnName + '" style="display: none;">');
 						$button.data('dropdown', $dropdown);
 						this.dropdown.build(btnName, $dropdown, btnObject.dropdown);
 					}
-
 					this.button.buttons.push($button);
-
 					return $button;
 				},
 				getButtons: function()
@@ -1765,15 +1530,12 @@
 					$button.on('mousedown', $.proxy(function(e)
 					{
 						e.preventDefault();
-
 						if ($button.hasClass('redactor-button-disabled'))
 						{
 							return false;
 						}
-
 						var type = 'func';
 						var callback = btnObject.func;
-
 						if (btnObject.command)
 						{
 							type = 'command';
@@ -1784,22 +1546,17 @@
 							type = 'dropdown';
 							callback = false;
 						}
-
 						this.button.toggle(e, btnName, type, callback);
-
 						return false;
-
 					}, this));
 				},
 				toggle: function(e, btnName, type, callback, args)
 				{
-
 					if (this.detect.isIe() || !this.detect.isDesktop())
 					{
 						this.utils.freezeScroll();
 						e.returnValue = false;
 					}
-
 					if (type === 'command')
 					{
 						this.inline.format(callback);
@@ -1812,17 +1569,14 @@
 					{
 						this.button.clickCallback(e, callback, btnName, args);
 					}
-
 					if (type !== 'dropdown')
 					{
 						this.dropdown.hideAll(false);
 					}
-
 					if (this.opts.air && type !== 'dropdown')
 					{
 						this.air.hide(e);
 					}
-
 					if (this.detect.isIe() || !this.detect.isDesktop())
 					{
 						this.utils.unfreezeScroll();
@@ -1831,9 +1585,7 @@
 				clickCallback: function(e, callback, btnName, args)
 				{
 					var func;
-
 					args = (typeof args === 'undefined') ? btnName : args;
-
 					if ($.isFunction(callback))
 					{
 						callback.call(this, btnName);
@@ -1845,7 +1597,6 @@
 						{
 							return;
 						}
-
 						if (typeof args === 'object')
 						{
 							this[func[0]][func[1]].apply(this, args);
@@ -1857,7 +1608,6 @@
 					}
 					else
 					{
-
 						if (typeof args === 'object')
 						{
 							this[callback].apply(this, args);
@@ -1867,9 +1617,7 @@
 							this[callback].call(this, args);
 						}
 					}
-
 					this.observe.buttons(e, btnName);
-
 				},
 				all: function()
 				{
@@ -1881,7 +1629,6 @@
 					{
 						return;
 					}
-
 					return this.button.toolbar().find('a.re-' + key);
 				},
 				set: function(key, title)
@@ -1890,11 +1637,8 @@
 					{
 						return;
 					}
-
 					var $btn = this.button.toolbar().find('a.re-' + key);
-
 					$btn.html(title).attr('aria-label', title);
-
 					return $btn;
 				},
 				add: function(key, title)
@@ -1903,11 +1647,8 @@
 					{
 						return $();
 					}
-
 					var btn = this.button.build(key, { title: title });
-
 					this.button.toolbar().append($('<li>').append(btn));
-
 					return btn;
 				},
 				addFirst: function(key, title)
@@ -1916,11 +1657,8 @@
 					{
 						return $();
 					}
-
 					var btn = this.button.build(key, { title: title });
-
 					this.button.toolbar().prepend($('<li>').append(btn));
-
 					return btn;
 				},
 				addAfter: function(afterkey, key, title)
@@ -1929,10 +1667,8 @@
 					{
 						return $();
 					}
-
 					var btn = this.button.build(key, { title: title });
 					var $btn = this.button.get(afterkey);
-
 					if ($btn.length !== 0)
 					{
 						$btn.parent().after($('<li>').append(btn));
@@ -1941,7 +1677,6 @@
 					{
 						this.button.toolbar().append($('<li>').append(btn));
 					}
-
 					return btn;
 				},
 				addBefore: function(beforekey, key, title)
@@ -1950,10 +1685,8 @@
 					{
 						return $();
 					}
-
 					var btn = this.button.build(key, { title: title });
 					var $btn = this.button.get(beforekey);
-
 					if ($btn.length !== 0)
 					{
 						$btn.parent().before($('<li>').append(btn));
@@ -1962,7 +1695,6 @@
 					{
 						this.button.toolbar().append($('<li>').append(btn));
 					}
-
 					return btn;
 				},
 				isAdded: function(key)
@@ -1972,7 +1704,6 @@
                     {
 					    return false;
 					}
-
 					return true;
 				},
 				setIcon: function($btn, icon)
@@ -1985,7 +1716,6 @@
 					{
 						return;
 					}
-
 					var type = (callback === 'dropdown') ? 'dropdown' : 'func';
 					var key = $btn.attr('rel');
 					$btn.on('mousedown', $.proxy(function(e)
@@ -1994,9 +1724,7 @@
 						{
 							return false;
 						}
-
 						this.button.toggle(e, key, type, callback);
-
 					}, this));
 				},
 				addDropdown: function($btn, dropdown)
@@ -2005,21 +1733,16 @@
 					{
 						return;
 					}
-
 					$btn.addClass('redactor-toolbar-link-dropdown').attr('aria-haspopup', true);
-
 					var key = $btn.attr('rel');
 					this.button.addCallback($btn, 'dropdown');
-
 					var $dropdown = $('<div class="redactor-dropdown redactor-dropdown-' + this.uuid + ' redactor-dropdown-box-' + key + '" style="display: none;">');
 					$btn.data('dropdown', $dropdown);
-
-					// build dropdown
+					// 建立下拉
 					if (dropdown)
 					{
 						this.dropdown.build(key, $dropdown, dropdown);
 					}
-
 					return $dropdown;
 				},
 				setActive: function(key)
@@ -2033,12 +1756,10 @@
 				setInactiveAll: function(key)
 				{
 					var $btns = this.button.toolbar().find('a.re-button');
-
 					if (typeof key !== 'undefined')
 					{
 						$btns = $btns.not('.re-' + key);
 					}
-
 					$btns.removeClass('redactor-act');
 				},
 				disable: function(key)
@@ -2056,7 +1777,6 @@
 					{
 						$btns = $btns.not('.re-' + key);
 					}
-
 					$btns.addClass('redactor-button-disabled');
 				},
 				enableAll: function()
@@ -2069,7 +1789,6 @@
 				}
 			};
 		},
-
 		// =caret
 		caret: function()
 		{
@@ -2077,67 +1796,54 @@
 				set: function(node1, node2, end)
 				{
 					this.core.editor().focus();
-
 					end = (typeof end === 'undefined') ? 0 : 1;
-
 					node1 = node1[0] || node1;
 					node2 = node2[0] || node2;
-
 					var sel = this.selection.get();
 					var range = this.selection.range(sel);
-
 					try
 					{
 						range.setStart(node1, 0);
 						range.setEnd(node2, end);
 					}
 					catch (e) {}
-
 					this.selection.update(sel, range);
 				},
 				prepare: function(node)
 				{
-					// firefox focus
+					// 火狐焦点
 					if (this.detect.isFirefox() && typeof this.start !== 'undefined')
 					{
 						this.core.editor().focus();
 					}
-
 					return node[0] || node;
 				},
 				start: function(node)
 				{
-
 					var sel, range;
 					node = this.caret.prepare(node);
-
 					if (!node)
 					{
 						return;
 					}
-
 					if (node.tagName === 'BR')
 					{
 						return this.caret.before(node);
 					}
-
-					// empty or inline tag
+					//空的或内联的标签
 					var inline = this.utils.isInlineTag(node.tagName);
 					if (node.innerHTML === '' || inline)
 					{
                         sel = window.getSelection();
 					    range = document.createRange();
 						var textNode = document.createTextNode('\u200B');
-
 						range.setStart(node, 0);
 						range.insertNode(textNode);
 						range.setStartAfter(textNode);
 						range.collapse(true);
-
 						sel.removeAllRanges();
 						sel.addRange(range);
-
-						// remove invisible text node
+						// 除去看不见的文本节点
 						if (!inline)
 						{
 							this.core.editor().on('keydown.redactor-remove-textnode', function()
@@ -2152,65 +1858,50 @@
 					{
 						sel = window.getSelection();
 						sel.removeAllRanges();
-
 						range = document.createRange();
 						range.selectNodeContents(node);
 						range.collapse(true);
 						sel.addRange(range);
 					}
-
-
 				},
 				end: function(node)
 				{
 					var sel, range;
 					node = this.caret.prepare(node);
-
 					if (!node)
 					{
 						return;
 					}
-
 					// empty node
 					if (node.tagName !== 'BR' && node.innerHTML === '')
 					{
 						return this.caret.start(node);
 					}
-
 					// br
 					if (node.tagName === 'BR')
 					{
 						var space = document.createElement('span');
 						space.className = 'redactor-invisible-space';
 						space.innerHTML = '&#x200b;';
-
 						$(node).after(space);
-
 						sel = window.getSelection();
 						sel.removeAllRanges();
-
 						range = document.createRange();
-
 						range.setStartBefore(space);
 						range.setEndBefore(space);
 						sel.addRange(range);
-
 						$(space).replaceWith(function()
 						{
 							return $(this).contents();
 						});
-
 						return;
 					}
-
 					if (node.lastChild && node.lastChild.nodeType === 1)
 					{
 						return this.caret.after(node.lastChild);
 					}
-
 					sel = window.getSelection();
 					sel.removeAllRanges();
-
 					range = document.createRange();
 					range.selectNodeContents(node);
 					range.collapse(false);
@@ -2220,23 +1911,18 @@
 				{
 					var sel, range;
 					node = this.caret.prepare(node);
-
-
 					if (!node)
 					{
 						return;
 					}
-
 					if (node.tagName === 'BR')
 					{
 						return this.caret.end(node);
 					}
-
-					// block tag
+					// 块标记
 					if (this.utils.isBlockTag(node.tagName))
 					{
 						var next = this.caret.next(node);
-
 						if (typeof next === 'undefined')
 						{
 							this.caret.end(node);
@@ -2253,44 +1939,33 @@
 							{
 								next = $(next).find('li').first()[0];
 							}
-
 							this.caret.start(next);
 						}
-
 						return;
 					}
-
-					// inline tag
+					//内嵌代码
 					var textNode = document.createTextNode('\u200B');
-
 					sel = window.getSelection();
 					sel.removeAllRanges();
-
 					range = document.createRange();
 					range.setStartAfter(node);
 					range.insertNode(textNode);
 					range.setStartAfter(textNode);
 					range.collapse(true);
-
 					sel.addRange(range);
-
 				},
 				before: function(node)
 				{
 					var sel, range;
 					node = this.caret.prepare(node);
-
-
 					if (!node)
 					{
 						return;
 					}
-
 					// block tag
 					if (this.utils.isBlockTag(node.tagName))
 					{
 						var prev = this.caret.prev(node);
-
 						if (typeof prev === 'undefined')
 						{
 							this.caret.start(node);
@@ -2307,22 +1982,16 @@
 							{
 								prev = $(prev).find('li').last()[0];
 							}
-
 							this.caret.end(prev);
 						}
-
 						return;
 					}
-
-					// inline tag
+					// 内嵌标记
 					sel = window.getSelection();
 					sel.removeAllRanges();
-
 					range = document.createRange();
-
 			        range.setStartBefore(node);
 			        range.collapse(true);
-
 			        sel.addRange(range);
 				},
 				next: function(node)
@@ -2349,16 +2018,13 @@
 						return $prev[0];
 					}
 				},
-
 				// #backward
 				offset: function(node)
 				{
 					return this.offset.get(node);
 				}
-
 			};
 		},
-
 		// =clean
 		clean: function()
 		{
@@ -2367,28 +2033,22 @@
 				{
 					html = this.clean.savePreCode(html);
 					html = this.clean.saveFormTags(html);
-
-					// convert script tag
+					//转换脚本标记
 					if (this.opts.script)
 					{
 						html = html.replace(/<script(.*?[^>]?)>([\w\W]*?)<\/script>/gi, '<pre class="redactor-script-tag" $1>$2</pre>');
 					}
-
-					// converting entity
+					// 转换实体
 					html = html.replace(/\$/g, '&#36;');
 					html = html.replace(/&amp;/g, '&');
-
-					// replace special characters in links
+					// 替换链接中的特殊字符
 					html = html.replace(/<a href="(.*?[^>]?)®(.*?[^>]?)">/gi, '<a href="$1&reg$2">');
-
-					// save markers
+					//保存标记
 					html = html.replace(/<span(.*?[^>]?)id="selection-marker-1"(.*?[^>]?)>​<\/span>/gi, '[[[marker1]]]');
 					html = html.replace(/<span(.*?[^>]?)id="selection-marker-2"(.*?[^>]?)>​<\/span>/gi, '[[[marker2]]]');
-
-					// replace tags
+					// 更换标签
 					var self = this;
 					var $div = $("<div/>").html($.parseHTML(html, document, true));
-
 					var replacement = this.opts.replaceTags;
 					if (replacement)
 					{
@@ -2398,37 +2058,29 @@
     						self.utils.replaceToTag(s, replacement[s.tagName.toLowerCase()]);
     					});
 					}
-
 					html = $div.html();
-
 					// remove tags
 					var tags = ['font', 'html', 'head', 'link', 'body', 'meta', 'applet'];
 					if (!this.opts.script)
 					{
 						tags.push('script');
 					}
-
 					html = this.clean.stripTags(html, tags);
-
-					// remove html comments
+					// 删除HTML注释
 					if (this.opts.removeComments)
 					{
 					    html = html.replace(/<!--[\s\S]*?-->/gi, '');
 					}
-
 					// paragraphize
 					html = this.paragraphize.load(html);
-
-					// restore markers
+					// 恢复标记
 					html = html.replace('[[[marker1]]]', '<span id="selection-marker-1" class="redactor-selection-marker">​</span>');
 					html = html.replace('[[[marker2]]]', '<span id="selection-marker-2" class="redactor-selection-marker">​</span>');
-
 					// empty
 					if (html.search(/^(||\s||<br\s?\/?>||&nbsp;)$/i) !== -1)
 					{
 						return this.opts.emptyHtml;
 					}
-
 					return html;
 				},
 				onGet: function(html)
@@ -2437,30 +2089,25 @@
 				},
 				onSync: function(html)
 				{
-					// remove invisible spaces
+					// 除去看不见的空间
 					html = html.replace(/\u200B/g, '');
 					html = html.replace(/&#x200b;/gi, '');
 					//html = html.replace(/&nbsp;&nbsp;/gi, '&nbsp;');
-
 					if (html.search(/^<p>(||\s||<br\s?\/?>||&nbsp;)<\/p>$/i) !== -1)
 					{
 						return '';
 					}
-
 					var $div = $("<div/>").html($.parseHTML(html, document, true));
-
-					// remove empty atributes
+					// 删除空属性
 					$div.find('*[style=""]').removeAttr('style');
 					$div.find('*[class=""]').removeAttr('class');
 					$div.find('*[rel=""]').removeAttr('rel');
-
 					// remove markers
 					$div.find('.redactor-invisible-space').each(function()
 					{
 						$(this).contents().unwrap();
 					});
-
-					// remove span without attributes
+					// 除去跨度无属性
 				    $div.find('span').each(function()
 					{
     					if (this.attributes.length === 0)
@@ -2468,40 +2115,32 @@
 						    $(this).contents().unwrap();
 						}
 					});
-
 					$div.find('.redactor-selection-marker, #redactor-insert-marker').remove();
-
 					html = $div.html();
-
 					// reconvert script tag
 					if (this.opts.script)
 					{
 						html = html.replace(/<pre class="redactor-script-tag"(.*?[^>]?)>([\w\W]*?)<\/pre>/gi, '<script$1>$2</script>');
 					}
-
 					// restore form tag
 					html = this.clean.restoreFormTags(html);
-
 					// remove br in|of li/header tags
 					html = html.replace(new RegExp('<br\\s?/?></h', 'gi'), '</h');
 					html = html.replace(new RegExp('<br\\s?/?></li>', 'gi'), '</li>');
 					html = html.replace(new RegExp('</li><br\\s?/?>', 'gi'), '</li>');
-
 					// pre class
 					html = html.replace(/<pre>/gi, "<pre>\n");
 					if (this.opts.preClass)
 					{
 						html = html.replace(/<pre>/gi, '<pre class="' + this.opts.preClass + '">');
 					}
-
-					// link nofollow
+					// nofollow的链接
 					if (this.opts.linkNofollow)
 					{
 						html = html.replace(/<a(.*?)rel="nofollow"(.*?[^>])>/gi, '<a$1$2>');
 						html = html.replace(/<a(.*?[^>])>/gi, '<a$1 rel="nofollow">');
 					}
-
-					// replace special characters
+					//替换特殊字符
 					var chars = {
 						'\u2122': '&trade;',
 						'\u00a9': '&copy;',
@@ -2509,17 +2148,13 @@
 						'\u2014': '&mdash;',
 						'\u2010': '&dash;'
 					};
-
 					$.each(chars, function(i,s)
 					{
 						html = html.replace(new RegExp(i, 'g'), s);
 					});
-
 					html = html.replace(/&amp;/g, '&');
-
-					// remove empty paragpraphs
+					// 删除空段落
 					html = html.replace(/<p><\/p>/gi, "");
-
 					return html;
 				},
 				onPaste: function(html, data, insert)
@@ -2530,16 +2165,13 @@
     					// remove google docs markers
                         html = html.replace(/<b\sid="internal-source-marker(.*?)">([\w\W]*?)<\/b>/gi, "$2");
     					html = html.replace(/<b(.*?)id="docs-internal-guid(.*?)">([\w\W]*?)<\/b>/gi, "$3");
-
 						var msword = this.clean.isHtmlMsWord(html);
 						if (msword)
 						{
 							html = this.clean.cleanMsWord(html);
 						}
 					}
-
 					html = $.trim(html);
-
 					if (data.pre)
 					{
 						if (this.opts.preSpaces)
@@ -2552,14 +2184,11 @@
 						html = this.clean.replaceBrToNl(html);
 						html = this.clean.removeTagsInsidePre(html);
 					}
-
 					// if paste event
 					if (insert !== true)
 					{
 						html = this.clean.removeSpans(html);
 						html = this.clean.removeEmptyInlineTags(html);
-
-
 						if (data.encode === false)
 						{
 							html = html.replace(/&/g, '&amp;');
@@ -2567,39 +2196,29 @@
 							html = this.clean.getPlainText(html);
 							html = this.clean.reconvertTags(html, data);
 						}
-
 					}
-
 					if (data.text)
 					{
 						html = this.clean.replaceNbspToSpaces(html);
 						html = this.clean.getPlainText(html);
 					}
-
 					if (data.lists)
 					{
     					html = html.replace("\n", '<br>');
     				}
-
 					if (data.encode)
 					{
 						html = this.clean.encodeHtml(html);
 					}
-
-
 					if (data.paragraphize)
 					{
-
 						html = this.paragraphize.load(html);
 					}
-
 					return html;
-
 				},
 				getCurrentType: function(html, insert)
 				{
 					var blocks = this.selection.blocks();
-
 					var data = {
 						text: false,
 						encode: false,
@@ -2613,7 +2232,6 @@
 						links: true,
 						images: true
 					};
-
 					if (blocks.length === 1 && this.utils.isCurrentOrParent(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'figcaption']))
 					{
 						data.text = true;
@@ -2640,7 +2258,6 @@
 					{
 						data.block = false;
 						data.paragraphize = false;
-
 					}
 					else if (this.opts.type === 'pre' || (blocks.length === 1 && this.utils.isCurrentOrParent('pre')))
 					{
@@ -2652,25 +2269,20 @@
 						data.images = false;
 						data.links = false;
 					}
-
 					if (data.line === true)
 					{
 						data.paragraphize = false;
 					}
-
 					if (insert === true)
 					{
 						data.text = false;
 					}
-
 					return data;
-
 				},
 				isHtmlBlocked: function(html)
 				{
 					var match1 = html.match(new RegExp('</(' + this.opts.blockTags.join('|' ).toUpperCase() + ')>', 'gi'));
 					var match2 = html.match(new RegExp('<hr(.*?[^>])>', 'gi'));
-
 					return (match1 === null && match2 === null) ? false : true;
 				},
 				isHtmlLine: function(html)
@@ -2679,10 +2291,8 @@
 					{
 						return false;
 					}
-
 					var matchBR = html.match(/<br\s?\/?>/gi);
 					var matchNL = html.match(/\n/gi);
-
 					return (!matchBR && !matchNL) ? true : false;
 				},
 				isHtmlMsWord: function(html)
@@ -2697,14 +2307,12 @@
 					{
 						html = html.replace(new RegExp('<' + tags[i] + '[^>]*>(\s\n|\t)?</' + tags[i] + '>', 'gi'), '');
 					}
-
 					return html;
 				},
 				removeSpans: function(html)
 				{
 					html = html.replace(/<\/span>/gi, '');
 					html = html.replace(/<span[^>]*>/gi, '');
-
 					return html;
 				},
 				cleanMsWord: function(html)
@@ -2713,7 +2321,6 @@
     				html = html.replace(/<o:p>[\s\S]*?<\/o:p>/gi, '');
 					html = html.replace(/\n/g, " ");
 					html = html.replace(/<br\s?\/?>|<\/p>|<\/div>|<\/li>|<\/td>/gi, '\n\n');
-
 					return html;
 				},
 				replaceNbspToSpaces: function(html)
@@ -2730,42 +2337,33 @@
 				},
 				convertTags: function(html, data)
 				{
-
                     var $div = $('<div>').html(html);
-
-                    // remove iframe
+                    // 删除IFRAME
 					$div.find('iframe').remove();
-
-					// link target & attrs
+					//链接目标和ATTRS
 					var $links = $div.find('a');
 					$links.removeAttr('style');
 					if (this.opts.pasteLinkTarget !== false)
 					{
     					$links.attr('target', this.opts.pasteLinkTarget);
 					}
-
 					html = $div.html();
-
                     // links & images
 					if (data.links && this.opts.pasteLinks)
 					{
 						html = html.replace(/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/gi, '###a$1href="$2"$3###$4###/a###');
 					}
-
 					if (data.images && this.opts.pasteImages)
 					{
 						html = html.replace(/<img(.*?)src="(.*?)"(.*?[^>])>/gi, '###img$1src="$2"$3###');
 					}
-
 					// plain text
 					if (this.opts.pastePlainText)
 					{
 						return html;
 					}
-
 					// all tags
 					var blockTags = (data.lists) ? ['ul', 'ol', 'li'] : this.opts.pasteBlockTags;
-
 					var tags;
 					if (data.block || data.lists)
 					{
@@ -2775,12 +2373,10 @@
 					{
 						tags = (data.inline) ? this.opts.pasteInlineTags : [];
 					}
-
 					var len = tags.length;
 					for (var i = 0; i < len; i++)
 					{
 						html = html.replace(new RegExp('</' + tags[i] + '>', 'gi'), '###/' + tags[i] + '###');
-
 						if (tags[i] === 'td' || tags[i] === 'th')
 						{
 							html = html.replace(new RegExp('<' + tags[i] + '(.*?[^>])((colspan|rowspan)="(.*?[^>])")?(.*?[^>])>', 'gi'), '###' + tags[i] + ' $2###');
@@ -2790,10 +2386,7 @@
 							html = html.replace(new RegExp('<' + tags[i] + '[^>]*>', 'gi'), '###' + tags[i] + '###');
 						}
 					}
-
-
 					return html;
-
 				},
 				reconvertTags: function(html, data)
 				{
@@ -2802,21 +2395,16 @@
 					{
 						html = html.replace(/###a(.*?)href="(.*?)"(.*?)###(.*?)###\/a###/gi, '<a$1href="$2"$3>$4</a>');
 					}
-
 					if (data.images && this.opts.pasteImages)
 					{
 						html = html.replace(/###img(.*?)src="(.*?)"###/gi, '<img src="$2">');
 					}
-
 					// plain text
 					if (this.opts.pastePlainText)
 					{
 						return html;
 					}
-
-
 					var blockTags = (data.lists) ? ['ul', 'ol', 'li'] : this.opts.pasteBlockTags;
-
 					var tags;
 					if (data.block || data.lists)
 					{
@@ -2826,14 +2414,12 @@
 					{
 						tags = (data.inline) ? this.opts.pasteInlineTags : [];
 					}
-
 					var len = tags.length;
 					for (var i = 0; i < len; i++)
 					{
 						html = html.replace(new RegExp('###/' + tags[i] + '###', 'gi'), '</' + tags[i] + '>');
 						html = html.replace(new RegExp('###' + tags[i] + '###', 'gi'), '<' + tags[i] + '>');
                     }
-
 					for (var i = 0; i < len; i++)
 					{
                         if (tags[i] === 'td' || tags[i] === 'th')
@@ -2841,24 +2427,19 @@
 						    html = html.replace(new RegExp('###' + tags[i] + '\s?(.*?[^#])###', 'gi'), '<' + tags[i] + '$1>');
                         }
                     }
-
 					return html;
-
 				},
 				cleanPre: function(block)
 				{
 					block = (typeof block === 'undefined') ? $(this.selection.block()).closest('pre', this.core.editor()[0]) : block;
-
 					$(block).find('br').replaceWith(function()
 					{
 						return document.createTextNode('\n');
 					});
-
 					$(block).find('p').replaceWith(function()
 					{
 						return $(this).contents();
 					});
-
 				},
 				removeTagsInsidePre: function(html)
 				{
@@ -2868,15 +2449,11 @@
 						var str = $(this).html();
 						str = str.replace(/<br\s?\/?>|<\/p>|<\/div>|<\/li>|<\/td>/gi, '\n');
 						str = str.replace(/(<([^>]+)>)/gi, '');
-
 						return $('<pre />').append(str);
 					});
-
 					html = $div.html();
 					$div.remove();
-
 					return html;
-
 				},
 				getPlainText: function(html)
 				{
@@ -2884,11 +2461,9 @@
 					html = html.replace(/<style[\s\S]*?style>/gi, '');
 					html = html.replace(/<\/p>|<\/div>|<\/li>|<\/td>/gi, '\n');
 					html = html.replace(/<\/H[1-6]>/gi, '\n\n');
-
 					var tmp = document.createElement('div');
 					tmp.innerHTML = html;
 					html = tmp.textContent || tmp.innerText;
-
 					return $.trim(html);
 				},
 				savePreCode: function(html)
@@ -2896,7 +2471,6 @@
 					html = this.clean.savePreFormatting(html);
 					html = this.clean.saveCodeFormatting(html);
 					html = this.clean.restoreSelectionMarkers(html);
-
 					return html;
 				},
 				savePreFormatting: function(html)
@@ -2906,28 +2480,20 @@
 					{
 						return html;
 					}
-
 					$.each(pre, $.proxy(function(i,s)
 					{
 						var arr = s.match(/<pre(.*?)>([\w\W]*?)<\/pre>/i);
-
 						arr[2] = arr[2].replace(/<br\s?\/?>/g, '\n');
 						arr[2] = arr[2].replace(/&nbsp;/g, ' ');
-
 						if (this.opts.preSpaces)
 						{
 							arr[2] = arr[2].replace(/\t/g, new Array(this.opts.preSpaces + 1).join(' '));
 						}
-
 						arr[2] = this.clean.encodeEntities(arr[2]);
-
 						// $ fix
 						arr[2] = arr[2].replace(/\$/g, '&#36;');
-
 						html = html.replace(s, '<pre' + arr[1] + '>' + arr[2] + '</pre>');
-
 					}, this));
-
 					return html;
 				},
 				saveCodeFormatting: function(html)
@@ -2937,25 +2503,19 @@
 					{
 						return html;
 					}
-
 					$.each(code, $.proxy(function(i,s)
 					{
 						var arr = s.match(/<code(.*?)>([\w\W]*?)<\/code>/i);
-
 						arr[2] = arr[2].replace(/&nbsp;/g, ' ');
 						arr[2] = this.clean.encodeEntities(arr[2]);
 						arr[2] = arr[2].replace(/\$/g, '&#36;');
-
 						html = html.replace(s, '<code' + arr[1] + '>' + arr[2] + '</code>');
-
 					}, this));
-
 					return html;
 				},
 				restoreSelectionMarkers: function(html)
 				{
 					html = html.replace(/&lt;span id=&quot;selection-marker-([0-9])&quot; class=&quot;redactor-selection-marker&quot;&gt;​&lt;\/span&gt;/g, '<span id="selection-marker-$1" class="redactor-selection-marker">​</span>');
-
 					return html;
 				},
 				saveFormTags: function(html)
@@ -2973,14 +2533,12 @@
 					html = html.replace(/‘/g, '\'');
 					html = html.replace(/’/g, '\'');
 					html = this.clean.encodeEntities(html);
-
 					return html;
 				},
 				encodeEntities: function(str)
 				{
 					str = String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
 					str = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-
 					return str;
 				},
 				stripTags: function(input, denied)
@@ -2989,9 +2547,7 @@
 					{
 						return input.replace(/(<([^>]+)>)/gi, '');
 					}
-
 				    var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
-
 				    return input.replace(tags, function ($0, $1)
 				    {
 				        return denied.indexOf($1.toLowerCase()) === -1 ? $0 : '';
@@ -3012,7 +2568,6 @@
 					html = html.replace( />\s{2,}</g, '> <'); // between inline tags can be only one space
 					html = html.replace(/\n\n/g, "\n");
 					html = html.replace(/\u200B/g, '');
-
 					return html;
 				},
 				removeSpacesHard: function(html)
@@ -3026,7 +2581,6 @@
 					html = html.replace( />\s{2,}</g, '><');
 					html = html.replace(/\n\n/g, "\n");
 					html = html.replace(/\u200B/g, '');
-
 					return html;
 				},
 				normalizeCurrentHeading: function()
@@ -3039,7 +2593,6 @@
 				}
 			};
 		},
-
 		// =code
 		code: function()
 		{
@@ -3050,7 +2603,6 @@
 				{
 					html = $.trim(html);
 					html = html.replace(/^(<span id="selection-marker-1" class="redactor-selection-marker">​<\/span>)/, '');
-
 					// clean
 					if (this.opts.type === 'textarea')
 					{
@@ -3060,7 +2612,6 @@
 					{
 						html = this.opts.emptyHtml;
 					}
-
 					this.events.stopDetectChanges();
 					this.core.editor().html(html);
 					this.observe.load();
@@ -3069,7 +2620,6 @@
 				set: function(html)
 				{
 					html = $.trim(html);
-
 					// clean
 					if (this.opts.type === 'textarea')
 					{
@@ -3079,14 +2629,11 @@
 					{
 						html = this.opts.emptyHtml;
 					}
-
 					this.core.editor().html(html);
-
 					if (this.opts.type === 'textarea')
 					{
 						this.core.textarea().val(this.clean.onSync(html));
 					}
-
 					this.placeholder.enable();
 				},
 				get: function()
@@ -3098,10 +2645,8 @@
 					else
 					{
 						var html = this.core.editor().html();
-
 						// clean
 						html = this.clean.onGet(html);
-
 						return html;
 					}
 				},
@@ -3111,62 +2656,50 @@
 					{
 						return;
 					}
-
 					var html = this.core.editor().html();
 					var htmlCleaned = this.code.cleaned(html);
-
 					// is there a need to synchronize
 					if (this.code.isSync(htmlCleaned))
 					{
 						// do not sync
 						return;
 					}
-
 					// save code
 					this.code.html = htmlCleaned;
-
 					if (this.opts.type !== 'textarea')
 					{
 						this.core.callback('sync', html);
 						this.core.callback('change', html);
 						return;
 					}
-
 					if (this.opts.type === 'textarea')
 					{
 						setTimeout($.proxy(function()
 						{
 							this.code.startSync(html);
-
 						}, this), 10);
 					}
 				},
 				startSync: function(html)
 				{
-					// before clean callback
+					//以前干净回调
 					html = this.core.callback('syncBefore', html);
-
 					// clean
 					html = this.clean.onSync(html);
-
 					// set code
 					this.core.textarea().val(html);
-
 					// after sync callback
 					this.core.callback('sync', html);
-
 					// change callback
 					if (this.start === false)
 					{
 						this.core.callback('change', html);
 					}
-
 					this.start = false;
 				},
 				isSync: function(htmlCleaned)
 				{
 					var html = (this.code.html !== false) ? this.code.html : false;
-
 					return (html !== false && html === htmlCleaned);
 				},
 				cleaned: function(html)
@@ -3176,12 +2709,10 @@
 				}
 			};
 		},
-
 		// =core
 		core: function()
 		{
 			return {
-
 				id: function()
 				{
 					return this.$editor.attr('id');
@@ -3231,8 +2762,7 @@
 					var eventNamespace = 'redactor';
 					var returnValue = false;
 					var events = $._data(this.core.element()[0], 'events');
-
-					// on callback
+					//回调
 					if (typeof events !== 'undefined' && typeof events[type] !== 'undefined')
 					{
 						var len = events[type].length;
@@ -3247,21 +2777,17 @@
 							}
 						}
 					}
-
 					if (returnValue)
 					{
 						return returnValue;
 					}
-
 					// no callback
 					if (typeof this.opts.callbacks[type] === 'undefined')
 					{
 						return (typeof data === 'undefined') ? e : data;
 					}
-
 					// callback
 					var callback = this.opts.callbacks[type];
-
 					if ($.isFunction(callback))
 					{
 						return (typeof data === 'undefined') ? callback.call(this, e) : callback.call(this, e, data);
@@ -3274,30 +2800,21 @@
 				destroy: function()
 				{
 					this.opts.destroyed = true;
-
 					this.core.callback('destroy');
-
 					// placeholder
 					this.placeholder.destroy();
-
 					// progress
 					this.progress.destroy();
-
 					// help label
 					$('#redactor-voice-' + this.uuid).remove();
-
 					this.core.editor().removeClass('redactor-in redactor-structure');
-
 					// caret service
 					this.core.editor().off('keydown.redactor-remove-textnode');
-
 					// observer
 					this.core.editor().off('.redactor-observe.' + this.uuid);
-
 					// off events and remove data
 					this.$element.off('.redactor').removeData('redactor');
 					this.core.editor().off('.redactor');
-
 					$(document).off('.redactor-dropdown');
 					$(document).off('.redactor-air.' + this.uuid);
 					$(document).off('mousedown.redactor-blur.' + this.uuid);
@@ -3306,10 +2823,8 @@
 					$(window).off('.redactor-toolbar.' + this.uuid);
 					$(window).off('touchmove.redactor.' + this.uuid);
 					$("body").off('scroll.redactor.' + this.uuid);
-
 					$(this.opts.toolbarFixedTarget).off('scroll.redactor.' + this.uuid);
-
-					// plugins events
+					// 插件事件
 					var self = this;
 					if (this.opts.plugins !== false)
 					{
@@ -3321,20 +2836,16 @@
 							self.core.editor().off('.redactor-plugin-' + s);
 						});
 					}
-
-					// click to edit
+					//点击编辑
 					this.$element.off('click.redactor-click-to-edit');
 					this.$element.removeClass('redactor-click-to-edit');
-
 					// common
 					this.core.editor().removeClass('redactor-editor');
 					this.core.editor().removeAttr('contenteditable');
-
 					var html = this.code.get();
-
 					if (this.opts.toolbar && this.$toolbar)
 					{
-						// dropdowns off
+						// 下拉菜单关闭
 						this.$toolbar.find('a').each(function()
 						{
 							var $el = $(this);
@@ -3345,50 +2856,41 @@
 							}
 						});
 					}
-
 					if (this.opts.type === 'textarea')
 					{
 						this.$box.after(this.$element);
 						this.$box.remove();
 						this.$element.val(html).show();
 					}
-
 					// air
 					if (this.opts.air)
 					{
 						this.$air.remove();
 					}
-
 					if (this.opts.toolbar && this.$toolbar)
 					{
 						this.$toolbar.remove();
 					}
-
 					// modal
 					if (this.$modalBox)
 					{
 						this.$modalBox.remove();
 					}
-
 					if (this.$modalOverlay)
 					{
 						this.$modalOverlay.remove();
 					}
-
 					// hide link's tooltip
 					$('.redactor-link-tooltip').remove();
-
 					// autosave
 					clearInterval(this.autosaveTimeout);
 				}
 			};
 		},
-
 		// =detect
 		detect: function()
 		{
 			return {
-
 				// public
 				isWebkit: function()
 				{
@@ -3420,10 +2922,8 @@
 				{
 					return /iPad/.test(navigator.userAgent);
 				}
-
 			};
 		},
-
 		// =dropdown
 		dropdown: function()
 		{
@@ -3439,14 +2939,11 @@
 				build: function(name, $dropdown, dropdownObject)
 				{
 					dropdownObject = this.dropdown.buildFormatting(name, dropdownObject);
-
 					$.each(dropdownObject, $.proxy(function(btnName, btnObject)
 					{
 						var $item = this.dropdown.buildItem(btnName, btnObject);
-
 						this.observe.addDropdown($item, btnName, btnObject);
 						$dropdown.attr('rel', name).append($item);
-
 					}, this));
 				},
 				buildFormatting: function(name, dropdownObject)
@@ -3455,19 +2952,15 @@
 					{
 						return dropdownObject;
 					}
-
 					$.each(this.opts.formattingAdd, $.proxy(function(i,s)
 					{
 						var type = (this.utils.isBlockTag(s.args[0])) ? 'block' : 'inline';
-
 						dropdownObject[i] = {
 							func: (type === 'block') ? 'block.format' : 'inline.format',
 							args: s.args,
 							title: s.title
 						};
-
 					}, this));
-
 					return dropdownObject;
 				},
 				buildItem: function(btnName, btnObject)
@@ -3477,30 +2970,21 @@
 					{
     					$itemContainer.addClass(btnObject.classname);
 					}
-
 					if (btnName.search(/^divider/i) !== -1)
 					{
     					$itemContainer.addClass('redactor-dropdown-divider');
-
     					return $itemContainer;
 					}
-
 					var $item = $('<a href="#" class="redactor-dropdown-' + btnName + '" role="button" />');
 					var $itemSpan = $('<span />').html(btnObject.title);
-
 					$item.append($itemSpan);
 					$item.on('mousedown', $.proxy(function(e)
 					{
 						e.preventDefault();
-
 						this.dropdown.buildClick(e, btnName, btnObject);
-
 					}, this));
-
 					$itemContainer.append($item);
-
 					return $itemContainer;
-
 				},
 				buildClick: function(e, btnName, btnObject)
 				{
@@ -3508,9 +2992,7 @@
 					{
 						return;
 					}
-
 					var command = this.dropdown.buildCommand(btnObject);
-
 					if (typeof btnObject.args !== ' undefined')
 					{
 						this.button.toggle(e, btnName, command.type, command.callback, btnObject.args);
@@ -3525,7 +3007,6 @@
 					var command = {};
 					command.type = 'func';
 					command.callback = btnObject.func;
-
 					if (btnObject.command)
 					{
 						command.type = 'command';
@@ -3536,7 +3017,6 @@
 						command.type = 'dropdown';
 						command.callback = btnObject.dropdown;
 					}
-
 					return command;
 				},
 				show: function(e, key)
@@ -3545,31 +3025,23 @@
 					{
 						this.core.editor().focus();
 					}
-
 					this.dropdown.hideAll(false, key);
-
 					this.dropdown.key = key;
 					this.dropdown.button = this.button.get(this.dropdown.key);
-
 					if (this.dropdown.button.hasClass('dropact'))
 					{
 						this.dropdown.hide();
 						return;
 					}
-
 					// re append
 					this.dropdown.active = this.dropdown.button.data('dropdown').appendTo(document.body);
-
 					// callback
 					this.core.callback('dropdownShow', { dropdown: this.dropdown.active, key: this.dropdown.key, button: this.dropdown.button });
-
 					// set button
 					this.button.setActive(this.dropdown.key);
 					this.dropdown.button.addClass('dropact');
-
 					// position
 					this.dropdown.getButtonPosition();
-
 					// show
 					if (this.button.toolbar().hasClass('toolbar-fixed-box') && this.detect.isDesktop())
 					{
@@ -3579,60 +3051,47 @@
 					{
 						this.dropdown.showIsUnFixedToolbar();
 					}
-
 					// disable scroll whan dropdown scroll
 					if (this.detect.isDesktop() && !this.detect.isFirefox())
 					{
 						this.dropdown.active.on('mouseover.redactor-dropdown', $.proxy(this.utils.disableBodyScroll, this));
 						this.dropdown.active.on('mousedown.redactor-dropdown', $.proxy(this.utils.enableBodyScroll, this));
 					}
-
 					e.stopPropagation();
-
 				},
 				showIsFixedToolbar: function()
 				{
 					var top = this.dropdown.button.position().top + this.dropdown.button.innerHeight() + this.opts.toolbarFixedTopOffset;
-
 					var position = 'fixed';
 					if (this.opts.toolbarFixedTarget !== document)
 					{
 						top = (this.dropdown.button.innerHeight() + this.$toolbar.offset().top) + this.opts.toolbarFixedTopOffset;
 						position = 'absolute';
 					}
-
 					this.dropdown.active.css({
-
 						position: position,
 						left: this.dropdown.position.left + 'px',
 						top: top + 'px'
-
 					}).show();
-
 					// animate
 					this.dropdown.active.redactorAnimation('slideDown', { duration: 0.2 }, $.proxy(function()
 					{
 						this.dropdown.enableCallback();
 						this.dropdown.enableEvents();
-
 					}, this));
 				},
 				showIsUnFixedToolbar: function()
 				{
 					this.dropdown.active.css({
-
 						position: 'absolute',
 						left: this.dropdown.position.left + 'px',
 						top: (this.dropdown.button.innerHeight() + this.dropdown.position.top) + 'px'
-
 					}).show();
-
 					// animate
 					this.dropdown.active.redactorAnimation(((this.opts.animation) ? 'slideDown' : 'show'), { duration: 0.2 }, $.proxy(function()
 					{
 						this.dropdown.enableCallback();
 						this.dropdown.enableEvents();
-
 					}, this));
 				},
 				enableEvents: function()
@@ -3648,14 +3107,12 @@
 				getButtonPosition: function()
 				{
 					this.dropdown.position = this.dropdown.button.offset();
-
-					// fix right placement
+					// 找准位置
 					var dropdownWidth = this.dropdown.active.width();
 					if ((this.dropdown.position.left + dropdownWidth) > $(document).width())
 					{
 						this.dropdown.position.left = Math.max(0, this.dropdown.position.left - dropdownWidth + parseInt(this.dropdown.button.innerWidth()));
 					}
-
 				},
 				closeHandler: function(e)
 				{
@@ -3663,7 +3120,6 @@
 					{
 						return;
 					}
-
 					this.dropdown.hideAll(e);
 					this.core.editor().focus();
 				},
@@ -3673,34 +3129,25 @@
 					{
 						this.utils.enableBodyScroll();
 					}
-
 					if (e !== false && $(e.target).closest('.redactor-dropdown').length !== 0)
 					{
 						return;
 					}
-
 					var $buttons = (typeof key === 'undefined') ? this.button.toolbar().find('a.dropact') : this.button.toolbar().find('a.dropact').not('.re-' + key);
 					var $elements = (typeof key === 'undefined') ? $('.redactor-dropdown-' + this.uuid) : $('.redactor-dropdown-' + this.uuid).not('.redactor-dropdown-box-' + key);
-
 					if ($elements.length !== 0)
 					{
 						$(document).off('.redactor-dropdown');
 						this.core.editor().off('.redactor-dropdown');
-
 						$.each($elements, $.proxy(function(i,s)
 						{
 							var $el = $(s);
-
 							this.core.callback('dropdownHide', $el);
-
 							$el.hide();
 							$el.off('mouseover mouseout').off('.redactor-dropdown');
-
 						}, this));
-
 						$buttons .removeClass('redactor-act dropact');
 					}
-
 				},
 				hide: function ()
 				{
@@ -3708,26 +3155,20 @@
 					{
 						return;
 					}
-
 					if (this.detect.isDesktop())
 					{
 						this.utils.enableBodyScroll();
 					}
-
 					this.dropdown.active.redactorAnimation(((this.opts.animation) ? 'slideUp' : 'hide'), { duration: 0.2 }, $.proxy(function()
 					{
 						$(document).off('.redactor-dropdown');
 						this.core.editor().off('.redactor-dropdown');
-
 						this.dropdown.hideOut();
-
-
 					}, this));
 				},
 				hideOut: function()
 				{
 					this.core.callback('dropdownHide', this.dropdown.active);
-
 					this.dropdown.button.removeClass('redactor-act dropact');
 					this.dropdown.active.off('mouseover mouseout').off('.redactor-dropdown');
 					this.dropdown.button = false;
@@ -3736,7 +3177,6 @@
 				}
 			};
 		},
-
 		// =events
 		events: function()
 		{
@@ -3761,36 +3201,30 @@
 				{
 					e.preventDefault();
 					e.stopPropagation();
-
 					if (e.target.tagName === 'IMG')
 					{
 						$(e.target).addClass('redactor-image-dragover');
 					}
-
 				},
 				dragleave: function(e)
 				{
-					// remove image dragover
+					// 删除图像的dragover
 					this.core.editor().find('img').removeClass('redactor-image-dragover');
 				},
 				drop: function(e)
 				{
 					e = e.originalEvent || e;
-
 					// remove image dragover
 					this.core.editor().find('img').removeClass('redactor-image-dragover');
-
 					if (this.opts.type === 'inline' || this.opts.type === 'pre')
 					{
 						e.preventDefault();
 						return false;
 					}
-
 					if (window.FormData === undefined || !e.dataTransfer)
 					{
 						return true;
 					}
-
 					if (e.dataTransfer.files.length === 0)
 					{
 						return this.events.onDrop(e);
@@ -3799,15 +3233,12 @@
 					{
 						this.events.onDropUpload(e);
 					}
-
 					this.core.callback('drop', e);
-
 				},
 				click: function(e)
 				{
 					var event = this.core.getEvent();
 					var type = (event === 'click' || event === 'arrow') ? false : 'click';
-
 					this.core.addEvent(type);
 					this.utils.disableSelectAll();
 					this.core.callback('click', e);
@@ -3818,26 +3249,21 @@
 					{
 						return;
 					}
-
 					if (this.events.isCallback('focus'))
 					{
 						this.core.callback('focus', e);
 					}
-
 					this.events.focused = true;
 					this.events.blured = false;
-
 					// tab
 					if (this.selection.current() === false)
 					{
 						var sel = this.selection.get();
 						var range = this.selection.range(sel);
-
 						range.setStart(this.core.editor()[0], 0);
 						range.setEnd(this.core.editor()[0], 0);
 						this.selection.update(sel, range);
 					}
-
 				},
 				blur: function(e)
 				{
@@ -3845,17 +3271,14 @@
 					{
 						return;
 					}
-
 					if ($(e.target).closest('#' + this.core.id() + ', .redactor-toolbar, .redactor-dropdown, #redactor-modal-box').length !== 0)
 					{
 						return;
 					}
-
 					if (!this.events.blured && this.events.isCallback('blur'))
 					{
 						this.core.callback('blur', e);
 					}
-
 					this.events.focused = false;
 					this.events.blured = true;
 				},
@@ -3870,13 +3293,10 @@
 						{
 							clearTimeout(scrollTimer);
 						}
-
 						scrollTimer = setTimeout($.proxy(function()
 						{
 							this.events.imageEditing = false;
-
 						}, this), 500);
-
 					}, this));
 				},
 				init: function()
@@ -3889,14 +3309,10 @@
 					this.core.editor().on('keydown.redactor', $.proxy(this.keydown.init, this));
 					this.core.editor().on('keyup.redactor', $.proxy(this.keyup.init, this));
 					this.core.editor().on('focus.redactor', $.proxy(this.events.focus, this));
-
 					$(document).on('mousedown.redactor-blur.' + this.uuid, $.proxy(this.events.blur, this));
-
 					this.events.touchImageEditing();
-
 					this.events.createObserver();
 					this.events.setupObserver();
-
 				},
 				createObserver: function()
 				{
@@ -3905,21 +3321,17 @@
 					{
 						mutations.forEach($.proxy(self.events.iterateObserver, self));
 					});
-
 				},
 				iterateObserver: function(mutation)
 				{
 					var stop = false;
-
 					// observe
 					this.observe.load();
-
 					// target
 					if ((this.opts.type === 'textarea' || this.opts.type === 'div') && (!this.detect.isFirefox() && mutation.target === this.core.editor()[0]))
 					{
 						stop = true;
 					}
-
 					if (!stop)
 					{
 						this.events.changeHandler();
@@ -3941,32 +3353,26 @@
 					{
 						return;
 					}
-
 					this.code.sync();
-
 					// autosave
 					if (this.autosave.is())
 					{
 						clearTimeout(this.autosaveTimeout);
 						this.autosaveTimeout = setTimeout($.proxy(this.autosave.send, this), 300);
 					}
-
 				},
 				onDropUpload: function(e)
 				{
 					e.preventDefault();
 					e.stopPropagation();
-
 					if ((!this.opts.dragImageUpload && !this.opts.dragFileUpload) || (this.opts.imageUpload === null && this.opts.fileUpload === null))
 					{
 						return;
 					}
-
 					if (e.target.tagName === 'IMG')
 					{
 						this.events.dropImage = e.target;
 					}
-
 					var files = e.dataTransfer.files;
 					this.upload.directUpload(files[0], e);
 				},
@@ -3978,7 +3384,6 @@
 				{
 					return (typeof this.opts.callbacks[name] !== 'undefined' && $.isFunction(this.opts.callbacks[name]));
 				},
-
 				// #backward
 				stopDetect: function()
 				{
@@ -3988,10 +3393,8 @@
 				{
 					this.events.startDetectChanges();
 				}
-
 			};
 		},
-
 		// =file
 		file: function()
 		{
@@ -4002,82 +3405,68 @@
 				},
 				show: function()
 				{
-					// build modal
+					//建立模型
 					this.modal.load('file', this.lang.get('file'), 700);
-
-					// build upload
+					// 构建上传
 					this.upload.init('#redactor-modal-file-upload', this.opts.fileUpload, this.file.insert);
-
-					// set selected text
+					//设置所选文本
 					$('#redactor-filename').val(this.selection.get().toString());
-
 					// show
 					this.modal.show();
 				},
 				insert: function(json, direct, e)
 				{
-					// error callback
+					// 错误回调
 					if (typeof json.error !== 'undefined')
 					{
 						this.modal.close();
 						this.core.callback('fileUploadError', json);
 						return;
 					}
-
 					this.file.release(e, direct);
-
 					// prepare
 					this.buffer.set();
 					this.air.collapsed();
-
 					// get
 					var text = this.file.text(json);
 					var $link = $('<a />').attr('href', json.url).text(text);
 					var id = (typeof json.id === 'undefined') ? '' : json.id;
 					var type = (typeof json.s3 === 'undefined') ? 'file' : 's3';
-
 					// set id
 					$link.attr('data-' + type, id);
-
 					// insert
 					$link = $(this.insert.node($link));
-
 					// focus
 					this.caret.after($link);
-
 					// callback
 					this.storage.add({ type: type, node: $link[0], url: $link[0].href, id: id });
-
 					if (direct !== null)
 					{
 						this.core.callback('fileUpload', $link, json);
 					}
-
 				},
 				release: function(e, direct)
 				{
 					if (direct)
 					{
-						// drag and drop upload
+						// 拖放上传
 						this.marker.remove();
 						this.insert.nodeToPoint(e, this.marker.get());
 						this.selection.restore();
 					}
 					else
 					{
-						// upload from modal
+						// 从上传模式
 						this.modal.close();
 					}
 				},
 				text: function(json)
 				{
 					var text = $('#redactor-filename').val();
-
 					return (typeof text === 'undefined' || text === '') ? json.name : text;
 				}
 			};
 		},
-
 		// =focus
 		focus: function()
 		{
@@ -4085,12 +3474,10 @@
 				start: function()
 				{
 					this.core.editor().focus();
-
 					if (this.opts.type === 'inline')
 					{
 						return;
 					}
-
 					var $first = this.focus.first();
 					if ($first !== false)
 					{
@@ -4100,14 +3487,12 @@
 				end: function()
 				{
 					this.core.editor().focus();
-
 					var last = (this.opts.inline) ? this.core.editor() : this.focus.last();
 					if (last.length === 0)
 					{
 						return;
 					}
-
-					// get inline last node
+					// 得到行内最后一个节点
 					var lastNode = this.focus.lastChild(last);
 					if (!this.detect.isWebkit() && lastNode !== false)
 					{
@@ -4117,12 +3502,10 @@
 					{
 						var sel = this.selection.get();
 						var range = this.selection.range(sel);
-
 						if (range !== null)
 						{
 							range.selectNodeContents(last[0]);
 							range.collapse(false);
-
 							this.selection.update(sel, range);
 						}
 						else
@@ -4130,7 +3513,6 @@
 							this.caret.end(last);
 						}
 					}
-
 				},
 				first: function()
 				{
@@ -4139,14 +3521,11 @@
 					{
 						return false;
 					}
-
 					if ($first[0].tagName === 'UL' || $first[0].tagName === 'OL')
 					{
 						return $first.find('li').first();
 					}
-
 					return $first;
-
 				},
 				last: function()
 				{
@@ -4155,7 +3534,6 @@
 				lastChild: function(last)
 				{
 					var lastNode = last[0].lastChild;
-
 					return (lastNode !== null && this.utils.isInlineTag(lastNode.tagName)) ? lastNode : false;
 				},
 				is: function()
@@ -4164,7 +3542,6 @@
 				}
 			};
 		},
-
 		// =image
 		image: function()
 		{
@@ -4175,20 +3552,16 @@
 				},
 				show: function()
 				{
-					// build modal
+					//建立模型
 					this.modal.load('image', this.lang.get('image'), 700);
-
-					// build upload
+					//构建上传
 					this.upload.init('#redactor-modal-image-droparea', this.opts.imageUpload, this.image.insert);
 					this.modal.show();
-
 				},
 				insert: function(json, direct, e)
 				{
 					var $img;
-
-
-					// error callback
+					// 错误回调
 					if (typeof json.error !== 'undefined')
 					{
 						this.modal.close();
@@ -4196,55 +3569,40 @@
 						this.core.callback('imageUploadError', json, e);
 						return;
 					}
-
-					// change image
+					//改变image
 					if (this.events.dropImage !== false)
 					{
 						$img = $(this.events.dropImage);
-
 						this.core.callback('imageDelete', $img[0].src, $img);
-
 						$img.attr('src', json.url);
-
 						this.events.dropImage = false;
 						this.core.callback('imageUpload', $img, json);
 						return;
 					}
-
 					this.placeholder.hide();
 					var $figure = $('<figure>');
-
 					$img = $('<img>');
 					$img.attr('src', json.url);
-
-					// set id
+					//集ID
 					var id = (typeof json.id === 'undefined') ? '' : json.id;
 					var type = (typeof json.s3 === 'undefined') ? 'image' : 's3';
 					$img.attr('data-' + type, id);
-
 					$figure.append($img);
-
 					var pre = this.utils.isTag(this.selection.current(), 'pre');
-
 					if (direct)
 					{
 						this.air.collapsed();
 						this.marker.remove();
-
 						var node = this.insert.nodeToPoint(e, this.marker.get());
 						var $next = $(node).next();
-
 						this.selection.restore();
-
 						// buffer
 						this.buffer.set();
-
 						// insert
 						if (typeof $next !== 'undefined' && $next.length !== 0 && $next[0].tagName === 'IMG')
 						{
 							// delete callback
 							this.core.callback('imageDelete', $next[0].src, $next);
-
 							// replace
 							$next.closest('figure, p', this.core.editor()[0]).replaceWith($figure);
 							this.caret.after($figure);
@@ -4259,21 +3617,16 @@
 							{
 								this.insert.node($figure);
 							}
-
 							this.caret.after($figure);
 						}
-
 					}
 					else
 					{
 						this.modal.close();
-
 						// buffer
 						this.buffer.set();
-
 						// insert
 						this.air.collapsed();
-
 						if (pre)
 						{
 							$(pre).after($figure);
@@ -4282,14 +3635,10 @@
 						{
 							this.insert.node($figure);
 						}
-
 						this.caret.after($figure);
 					}
-
 					this.events.dropImage = false;
-
 					this.storage.add({ type: type, node: $img[0], url: $img[0].src, id: id });
-
 					if (direct !== null)
 					{
 						this.core.callback('imageUpload', $img, json);
@@ -4301,15 +3650,12 @@
 					{
 						e.preventDefault();
 					});
-
 					$image.off('click.redactor touchstart.redactor').on('click.redactor touchstart.redactor', $.proxy(function(e)
 					{
 						setTimeout($.proxy(function()
 						{
 							this.image.showEdit($image);
-
 						}, this), 200);
-
 					}, this));
 				},
 				showEdit: function($image)
@@ -4318,19 +3664,13 @@
 					{
 						return;
 					}
-
 					this.observe.image = $image;
-
 					var $link = $image.closest('a', this.$editor[0]);
-
 					this.modal.load('image-edit', this.lang.get('edit'), 705);
-
 					this.image.buttonDelete = this.modal.getDeleteButton().text(this.lang.get('delete'));
 					this.image.buttonSave = this.modal.getActionButton().text(this.lang.get('save'));
-
 					this.image.buttonDelete.on('click', $.proxy(this.image.remove, this));
 					this.image.buttonSave.on('click', $.proxy(this.image.update, this));
-
 					if (this.opts.imageCaption === false)
 					{
 						$('#redactor-image-caption').val('').hide().prev().hide();
@@ -4343,10 +3683,8 @@
 							$('#redactor-image-caption').val($next.text()).show();
 						}
 					}
-
 					$('#redactor-image-preview').html($('<img src="' + $image.attr('src') + '" style="max-width: 100%;">'));
 					$('#redactor-image-title').val($image.attr('alt'));
-
 					var $redactorImageLink = $('#redactor-image-link');
 					$redactorImageLink.attr('href', $image.attr('src'));
 					if ($link.length !== 0)
@@ -4357,27 +3695,21 @@
 							$('#redactor-image-link-blank').prop('checked', true);
 						}
 					}
-
-					// hide link's tooltip
+					// 隐藏链接提示
 					$('.redactor-link-tooltip').remove();
-
 					this.modal.show();
-
 					// focus
 					if (this.detect.isDesktop())
 					{
 						$('#redactor-image-title').focus();
 					}
-
 				},
 				update: function()
 				{
 					var $image = this.observe.image;
 					var $link = $image.closest('a', this.core.editor()[0]);
-
 					var title = $('#redactor-image-title').val().replace(/(<([^>]+)>)/ig,"");
 					$image.attr('alt', title).attr('title', title);
-
 					// as link
 					var link = $.trim($('#redactor-image-link').val()).replace(/(<([^>]+)>)/ig,"");
 					if (link !== '')
@@ -4386,14 +3718,11 @@
 						var pattern = '((xn--)?[a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}';
 						var re = new RegExp('^(http|ftp|https)://' + pattern, 'i');
 						var re2 = new RegExp('^' + pattern, 'i');
-
 						if (link.search(re) === -1 && link.search(re2) === 0 && this.opts.linkProtocol)
 						{
 							link = this.opts.linkProtocol + '://' + link;
 						}
-
 						var target = ($('#redactor-image-link-blank').prop('checked')) ? true : false;
-
 						if ($link.length === 0)
 						{
 							var a = $('<a href="' + link + '">' + this.utils.getOuterHtml($image) + '</a>');
@@ -4401,7 +3730,6 @@
 							{
 								a.attr('target', '_blank');
 							}
-
 							$image.replaceWith(a);
 						}
 						else
@@ -4420,18 +3748,13 @@
 					else if ($link.length !== 0)
 					{
 						$link.replaceWith(this.utils.getOuterHtml($image));
-
 					}
-
-
 					var caption = $('#redactor-image-caption').val();
-
 					var $figcaption = $image.next();
 					if ($figcaption.length === 0 || $figcaption[0].tagName !== 'FIGCAPTION')
 					{
 						$figcaption = false;
 					}
-
 					if (caption !== '')
 					{
 						if ($figcaption === false)
@@ -4448,35 +3771,26 @@
 					{
 						$figcaption.remove();
 					}
-
-
 					this.modal.close();
-
 					// buffer
 					this.buffer.set();
-
 				},
 				remove: function(e, $image, index)
 				{
 					$image = (typeof $image === 'undefined') ? $(this.observe.image) : $image;
-
-					// delete from modal
+					//从模式中删除
 					if (typeof e !== 'boolean')
 					{
 						this.buffer.set();
 					}
-
 					this.events.stopDetectChanges();
-
 					var $link = $image.closest('a', this.core.editor()[0]);
 					var $figure = $image.closest('figure', this.core.editor()[0]);
 					var $parent = $image.parent();
-
 					if ($('#redactor-image-box').length !== 0)
 					{
 						$parent = $('#redactor-image-box').parent();
 					}
-
 					var $next;
 					if ($figure.length !== 0)
 					{
@@ -4492,9 +3806,7 @@
 					{
 						$image.remove();
 					}
-
 					$('#redactor-image-box').remove();
-
 					if (e !== false)
 					{
 						if ($figure.length !== 0 && $next.length !== 0)
@@ -4506,23 +3818,18 @@
 							this.caret.start($parent);
 						}
 					}
-
 					if (typeof e !== 'boolean')
 					{
-
 						this.modal.close();
 					}
-
 					this.utils.restoreScroll();
 					this.observe.image = false;
 					this.events.startDetectChanges();
 					this.placeholder.enable();
 					this.code.sync();
-
 				}
 			};
 		},
-
 		// =indent
 		indent: function()
 		{
@@ -4533,37 +3840,28 @@
 					{
 						return;
 					}
-
 					var $current = $(this.selection.current()).closest('li');
 					var $list = $current.closest('ul, ol');
-
 					var $li = $current.closest('li');
 					var $prev = $li.prev();
 					if ($prev.length === 0 || $prev[0].tagName !== 'LI')
 					{
 						return;
 					}
-
 					this.buffer.set();
-
-
 					if (this.utils.isCollapsed())
 					{
 						var listTag = $list[0].tagName;
 						var $newList = $('<' + listTag + ' />');
-
 						this.selection.save();
-
 						$newList.append($current);
 						$prev.append($newList);
-
 						this.selection.restore();
 					}
 					else
 					{
 						document.execCommand('indent');
-
-						// normalize
+						//正常化
 						this.selection.save();
 						this.indent.removeEmpty();
 						this.indent.normalize();
@@ -4576,23 +3874,15 @@
 					{
 						return;
 					}
-
 					var $current = $(this.selection.current()).closest('li');
 					var $list = $current.closest('ul, ol');
-
 					this.buffer.set();
-
 					document.execCommand('outdent');
-
-
 					var $item = $(this.selection.current()).closest('li', this.core.editor()[0]);
-
 					if (this.utils.isCollapsed())
 					{
 						this.indent.repositionItem($item);
 					}
-
-
 					if ($item.length === 0)
 					{
 						document.execCommand('formatblock', false, 'p');
@@ -4603,13 +3893,11 @@
 							$next.remove();
 						}
 					}
-
-					// normalize
+					//正常化
 					this.selection.save();
 					this.indent.removeEmpty();
 					this.indent.normalize();
 					this.selection.restore();
-
 				},
 				repositionItem: function($item)
 				{
@@ -4627,57 +3915,45 @@
 					this.core.editor().find('li').each($.proxy(function(i,s)
 					{
 						var $el = $(s);
-
 						// remove style
 						$el.find(this.opts.inlineTags.join(',')).each(function()
 						{
 							$(this).removeAttr('style');
 						});
-
 						var $parent = $el.parent();
 						if ($parent.length !== 0 && $parent[0].tagName === 'LI')
 						{
 							$parent.after($el);
 							return;
 						}
-
 						var $next = $el.next();
 						if ($next.length !== 0 && ($next[0].tagName === 'UL' || $next[0].tagName === 'OL'))
 						{
 							$el.append($next);
 						}
-
 					}, this));
-
 				},
 				removeEmpty: function($list)
 				{
 					var $lists = this.core.editor().find('ul, ol');
 					var $items = this.core.editor().find('li');
-
 					$items.each($.proxy(function(i, s)
 					{
 						this.indent.removeItemEmpty(s);
-
 					}, this));
-
 					$lists.each($.proxy(function(i, s)
 					{
 						this.indent.removeItemEmpty(s);
-
 					}, this));
-
 					$items.each($.proxy(function(i, s)
 					{
 						this.indent.removeItemEmpty(s);
-
 					}, this));
 				},
 				removeItemEmpty: function(s)
 				{
 					var html = s.innerHTML.replace(/[\t\s\n]/g, '');
 					html = html.replace(/<span><\/span>/g, '');
-
 					if (html === '')
 					{
 						$(s).remove();
@@ -4685,7 +3961,6 @@
 				}
 			};
 		},
-
 		// =inline
 		inline: function()
 		{
@@ -4693,16 +3968,13 @@
 				format: function(tag, attr, value, type)
 				{
 					tag = tag.toLowerCase();
-
-					// Stop formatting pre
+					// 停止预格式化
 					if (this.utils.isCurrentOrParent(['PRE']))
 					{
 						return;
 					}
-
 					var tags = ['b', 'bold', 'i', 'italic', 'underline', 'strikethrough', 'deleted', 'superscript', 'subscript'];
 					var replaced = ['strong', 'strong', 'em', 'em', 'u', 'del', 'del', 'sup', 'sub'];
-
 					for (var i = 0; i < tags.length; i++)
 					{
 						if (tag === tags[i])
@@ -4710,10 +3982,8 @@
 							tag = replaced[i];
 						}
 					}
-
 					this.placeholder.hide();
 					this.buffer.set();
-
 					if (this.utils.isCollapsed())
 					{
     					this.inline.formatCollapsed(tag, attr, value, type);
@@ -4732,9 +4002,8 @@
     				{
     				    inlines.push(current);
     				}
-
     				this.selection.save();
-					// save del tag
+					// 保存del标签
 					if (tag !== 'del')
 					{
 						this.core.editor().find('del').each(function(i,s)
@@ -4760,18 +4029,13 @@
           				}
     				});
     				this.selection.restore();
-
-
     				document.execCommand('strikethrough');
-
     				var formatting = true;
     				var parent = this.selection.parent();
     				if (parent === false || parent.tagName !== 'STRIKE')
     				{
                         formatting = false;
     				}
-
-
                     this.selection.save();
                     if (tag !== 'u')
     				{
@@ -4800,7 +4064,7 @@
                         }
                         $(this).removeClass('redactor-converted');
     				});
-                    // restore del tag
+                    // 戴尔恢复标签
 					if (tag !== 'del')
 					{
 						this.core.editor().find('deline').each(function(i,s)
@@ -4808,7 +4072,7 @@
 							self.utils.replaceToTag(s, 'del');
 						});
 					}
-                    // restore u tag
+                    // 恢复u标签
 					if (tag !== 'u')
 					{
 						this.core.editor().find('inline').each(function(i,s)
@@ -4817,24 +4081,18 @@
 						});
 					}
     				this.selection.restore();
-
                 },
-
-
                 inlines: function()
                 {
         			var inlines = [];
         			var nodes = this.inline.nodes();
-
         			$.each(nodes, $.proxy(function(i,node)
         			{
         				if (this.utils.isInline(node))
         				{
         					inlines.push(node);
         				}
-
         			}, this));
-
         			var inline = this.selection.inline();
         			if (inline === false && inlines.length === 0)
         			{
@@ -4852,14 +4110,11 @@
                 nodes: function()
                 {
                     var sel = document.getSelection();
-
                     if (!sel.rangeCount || sel.isCollapsed || !sel.getRangeAt(0).commonAncestorContainer)
                     {
                         return [];
                     }
-
                     var range = sel.getRangeAt(0);
-
                     if (range.commonAncestorContainer.nodeType === 3)
                     {
                         var toRet = [];
@@ -4869,17 +4124,13 @@
                             toRet.push(currNode.parentNode);
                             currNode = currNode.parentNode;
                         }
-
                         return toRet;
                     }
-
                     return [].filter.call(range.commonAncestorContainer.getElementsByTagName('*'), function (el)
                     {
                         return (typeof sel.containsNode === 'function') ? sel.containsNode(el, true) : true;
                     });
                 },
-
-
 				formatCollapsed: function(tag, attr, value, type)
 				{
     				var inline = this.selection.inline();
@@ -4914,34 +4165,28 @@
     				{
                         this.inline.insertInline(tag, attr, value, type);
     				}
-
 				},
                 insertBreakpoint: function(inline, currentTag)
 				{
 					var breakpoint = document.createElement('span');
 					breakpoint.id = 'redactor-inline-breakpoint';
 					breakpoint = this.insert.node(breakpoint);
-
 					var end = this.utils.isEndOfElement(inline);
 					var code = this.utils.getOuterHtml(inline);
 					var endTag = (end) ? '' : '<' + currentTag + '>';
-
 					code = code.replace(/<span\sid="redactor-inline-breakpoint">​<\/span>/i, '</' + currentTag + '>' + endTag);
 					var $code = $(code);
 					$(inline).replaceWith($code);
-
 					if (endTag !== '')
 					{
     					this.utils.cloneAttributes(inline, $code.last());
 					}
-
 					return $code.first();
 				},
 				insertInline: function(tag, attr, value, type)
 				{
 					var node = document.createElement(tag);
 					node = this.inline.setAttr(node, attr, value, type);
-
 					this.insert.node(node);
 					this.caret.start(node);
 				},
@@ -4951,9 +4196,7 @@
 					{
 						return inline;
 					}
-
 					var func = (typeof type === 'undefined') ? 'toggle' : type;
-
 					if (attr === 'class')
 					{
 						inline = this.inline[func + 'Class'](value, inline);
@@ -4973,7 +4216,6 @@
 							inline = this.inline[func + 'Attr'](attr, value, inline);
 						}
 					}
-
 					return inline;
 				},
                 getInlines: function(inline)
@@ -4985,7 +4227,6 @@
 					var inlines = this.selection.inlines();
 					var result = [];
 					var self = this;
-
 					$.each(inlines, function(i,s)
 					{
 						if ($.isArray(tag))
@@ -5002,13 +4243,9 @@
 								return;
 							}
 						}
-
 						result.push(self.inline.setAttr(s, attr, value, type));
-
 					});
-
 					return result;
-
 				},
 				replaceClass: function(value, inline)
 				{
@@ -5033,13 +4270,11 @@
 				replaceAttr: function(inline, attr, value)
 				{
 					inline = this.inline.removeAttr(attr, this.inline.getInlines(inline));
-
 					return $(inline).attr(attr, value)[0];
 				},
 				toggleAttr: function(attr, value, inline)
 				{
 					inline = this.inline.getInlines(inline);
-
 					var self = this;
 					var returned = [];
 					$.each(inline, function(i,s)
@@ -5054,9 +4289,7 @@
 							returned.push(self.inline.addAttr(attr, value, s));
 						}
 					});
-
 					return returned;
-
 				},
 				addAttr: function(attr, value, inline)
 				{
@@ -5069,7 +4302,6 @@
 				removeAllAttr: function(inline)
 				{
 					inline = this.inline.getInlines(inline);
-
 					var returned = [];
 					$.each(inline, function(i, s)
 					{
@@ -5077,17 +4309,14 @@
 						{
 							returned.push(s);
 						}
-
 						var $el = $(s);
 						var len = s.attributes.length;
 						for (var z = 0; z < len; z++)
 						{
 							$el.removeAttr(s.attributes[z].name);
 						}
-
 						returned.push($el[0]);
 					});
-
 					return returned;
 				},
 				removeFormat: function()
@@ -5098,13 +4327,9 @@
     			formatUncollapsed: function(tag, attr, value, type)
 				{
 					var self = this;
-
 					this.inline.formatConvert(tag);
-
                     document.execCommand('strikethrough');
-
                     this.selection.save();
-
                     var converted = true;
 					var $formatted = this.core.editor().find('strike');
 					$formatted.each(function(i,s)
@@ -5114,15 +4339,12 @@
 						{
                             converted = false;
 						}
-
                         var $newEl = self.utils.replaceToTag($oldEl, tag);
                         if (!converted)
                         {
                             $newEl = self.inline.setAttr($newEl[0], attr, value, type);
                         }
-
 					});
-
                     // restore del tag
 					if (tag !== 'del')
 					{
@@ -5131,7 +4353,6 @@
 							self.utils.replaceToTag(s, 'del');
 						});
 					}
-
 					// restore u tag
 					if (tag !== 'u')
 					{
@@ -5140,19 +4361,16 @@
 							self.utils.replaceToTag(s, 'u');
 						});
 					}
-
 					// remove format in pre
 					this.core.editor().find('pre').children(tag).replaceWith(function()
 					{
 						return $(this).contents();
 					});
-
 					// clear text decoration & service tags
 					this.$editor.find(this.opts.inlineTags.join(', ')).each($.proxy(function(i,s)
 					{
 						var $el = $(s);
 						var property = $el.css('text-decoration');
-
 						if ($el.hasClass('redactor-selection-marker'))
 						{
 							return;
@@ -5180,26 +4398,20 @@
 							}
 						}
 					}, this));
-
 					this.selection.restore();
-
 				},
 				formatConvert: function(tag)
 				{
 					this.selection.save();
-
 					var self = this;
-
 					// save del tag
 					if (tag !== 'del')
 					{
-
 						this.core.editor().find('del').each(function(i,s)
 						{
 							self.utils.replaceToTag(s, 'inline');
 						});
 					}
-
 					// save u tag
 					if (tag !== 'u')
 					{
@@ -5208,24 +4420,17 @@
 							self.utils.replaceToTag(s, 'unline');
 						});
 					}
-
 					// convert tag
 					this.core.editor().find(tag).each(function()
 					{
 						var $el = self.utils.replaceToTag(this, 'strike');
 						$el.addClass('redactor-inline-converted');
 					});
-
 					this.selection.restore();
-
 				},
-
-
-
 */
 			};
 		},
-
 		// =insert
 		insert: function()
 		{
@@ -5233,48 +4438,38 @@
 				set: function(html)
 				{
 					this.placeholder.hide();
-
 					this.code.set(html);
 					this.focus.end();
-
 					this.placeholder.enable();
 				},
 				html: function(html, data)
 				{
 					this.placeholder.hide();
 					this.core.editor().focus();
-
 					var block = this.selection.block();
 					var inline = this.selection.inline();
-
 					// clean
 					if (typeof data === 'undefined')
 					{
 						data = this.clean.getCurrentType(html, true);
 						html = this.clean.onPaste(html, data, true);
 					}
-
 					html = $.parseHTML(html);
-
 					// delete selected content
 					var sel = this.selection.get();
 					var range = this.selection.range(sel);
 					range.deleteContents();
-
 					this.selection.update(sel, range);
-
-					// insert list in list
+					// 插入清单列表
 					if (data.lists)
 					{
 						var $list = $(html);
 						if ($list.length !== 0 && ($list[0].tagName === 'UL' || $list[0].tagName === 'OL'))
 						{
-
 							this.insert.appendLists(block, $list);
 							return;
 						}
 					}
-
 					if (data.blocks && block)
 					{
 						if (this.utils.isSelectAll())
@@ -5292,7 +4487,6 @@
 							else
 							{
 								html = $(html).append(this.marker.get());
-
 								if (breaked.type === 'start')
 								{
 									breaked.$block.before(html);
@@ -5301,7 +4495,6 @@
 								{
 									breaked.$block.after(html);
 								}
-
 								this.selection.restore();
 								this.core.editor().find('p').each(function()
 								{
@@ -5317,17 +4510,14 @@
 					{
 						if (inline)
 						{
-							// remove same tag inside
+							// 内部取出相同的标签
 							var $div = $("<div/>").html(html);
 							$div.find(inline.tagName.toLowerCase()).each(function()
 							{
 								$(this).contents().unwrap();
 							});
-
 							html = $div.html();
-
 						}
-
 						if (this.utils.isSelectAll())
 						{
 							var $node = $(this.opts.emptyHtml);
@@ -5340,40 +4530,30 @@
 							this.insert.placeHtml(html);
 						}
 					}
-
-
 					this.utils.disableSelectAll();
 					this.linkify.format();
-
 					if (data.pre)
 					{
 						this.clean.cleanPre();
 					}
-
 				},
 				text: function(text)
 				{
 					text = text.toString();
 					text = $.trim(text);
-
 					var tmp = document.createElement('div');
 					tmp.innerHTML = text;
 					text = tmp.textContent || tmp.innerText;
-
 					if (typeof text === 'undefined')
 					{
 						return;
 					}
-
 					this.placeholder.hide();
 					this.core.editor().focus();
-
 					// blocks
 					var blocks = this.selection.blocks();
-
-					// nl to spaces
+					// NL为空格
 					text = text.replace(/\n/g, ' ');
-
 					// select all
 					if (this.utils.isSelectAll())
 					{
@@ -5387,7 +4567,6 @@
 						// insert
 						var sel = this.selection.get();
 						var node = document.createTextNode(text);
-
 						if (sel.getRangeAt && sel.rangeCount)
 						{
 							var range = sel.getRangeAt(0);
@@ -5395,44 +4574,34 @@
 							range.insertNode(node);
 							range.setStartAfter(node);
 							range.collapse(true);
-
 							this.selection.update(sel, range);
 						}
-
-						// wrap node if selected two or more block tags
+						//换选择的两个或更多个块标签的节点
 						if (blocks.length > 1)
 						{
 							$(node).wrap('<p>');
 							this.caret.after(node);
 						}
 					}
-
 					this.utils.disableSelectAll();
 					this.linkify.format();
 					this.clean.normalizeCurrentHeading();
-
 				},
 				raw: function(html)
 				{
 					this.placeholder.hide();
 					this.core.editor().focus();
-
 					var sel = this.selection.get();
-
 					var range = this.selection.range(sel);
 					range.deleteContents();
-
 		            var el = document.createElement("div");
 		            el.innerHTML = html;
-
 		            var frag = document.createDocumentFragment(), node, lastNode;
 		            while ((node = el.firstChild))
 		            {
 		                lastNode = frag.appendChild(node);
 		            }
-
 		            range.insertNode(frag);
-
 					if (lastNode)
 					{
 						range = range.cloneRange();
@@ -5445,17 +4614,13 @@
 				node: function(node, deleteContent)
 				{
 					this.placeholder.hide();
-
 					if (typeof this.start !== 'undefined')
 					{
 						this.core.editor().focus();
 					}
-
 					node = node[0] || node;
-
 					var block = this.selection.block();
 					var gap = this.utils.isBlockTag(node.tagName);
-
 					if (this.utils.isSelectAll())
 					{
 						if (gap)
@@ -5466,7 +4631,6 @@
 						{
 							this.core.editor().html($('<p>').html(node));
 						}
-
 						this.code.sync();
 					}
 					else if (gap && block)
@@ -5486,7 +4650,6 @@
 							{
 								breaked.$block.after(node);
 							}
-
 							this.core.editor().find('p:empty').remove();
 						}
 					}
@@ -5494,19 +4657,15 @@
 					{
 						this.insert.placeNode(node, deleteContent);
 					}
-
 					this.utils.disableSelectAll();
 					this.caret.end(node);
-
 					return node;
-
 				},
 				appendLists: function(block, $list)
 				{
 					var $block = $(block);
 					var last;
 					var isEmpty = this.utils.isEmpty(block.innerHTML);
-
 					if (isEmpty || this.utils.isEndOfElement(block))
 					{
 						last = $block;
@@ -5515,7 +4674,6 @@
 							last.after(this);
 							last = $(this);
 						});
-
 						if (isEmpty)
 						{
 							$block.remove();
@@ -5532,19 +4690,15 @@
 					else
 					{
 				        var endOfNode = this.selection.extractEndOfNode(block);
-
 				        $block.after($('<li>').append(endOfNode));
 				        $block.append($list);
 						last = $list;
 					}
-
 					this.marker.remove();
-
 					if (last)
 					{
 						this.caret.end(last);
 					}
-
 					this.linkify.format();
 				},
 				placeHtml: function(html)
@@ -5552,7 +4706,6 @@
 					var marker = document.createElement('span');
 					marker.id = 'redactor-insert-marker';
 					marker = this.insert.node(marker);
-
 					$(marker).before(html);
 					this.selection.restore();
 					this.caret.after(marker);
@@ -5562,32 +4715,24 @@
 				{
 					var sel = this.selection.get();
 					var range = this.selection.range(sel);
-
 					if (deleteContent !== false)
 					{
 						range.deleteContents();
 					}
-
 					range.insertNode(node);
 					range.collapse(false);
-
 					this.selection.update(sel, range);
 				},
 				nodeToPoint: function(e, node)
 				{
 					this.placeholder.hide();
-
 					node = node[0] || node;
-
 					if (this.utils.isEmpty())
 					{
 						node = (this.utils.isBlock(node)) ? node : $('<p />').append(node);
-
 						this.core.editor().html(node);
-
 						return node;
 					}
-
 					var range;
 					var x = e.clientX, y = e.clientY;
 					if (document.caretPositionFromPoint)
@@ -5613,11 +4758,8 @@
 				        range.setEndPoint("EndToEnd", endRange);
 				        range.select();
 					}
-
 					return node;
-
 				},
-
 				// #backward
 				nodeToCaretPositionFromPoint: function(e, node)
 				{
@@ -5629,7 +4771,6 @@
 				}
 			};
 		},
-
 		// =keydown
 		keydown: function()
 		{
@@ -5640,21 +4781,17 @@
 					{
 						return;
 					}
-
 					var key = e.which;
 					var arrow = (key >= 37 && key <= 40);
-
 					this.keydown.ctrl = e.ctrlKey || e.metaKey;
 					this.keydown.parent = this.selection.parent();
 					this.keydown.current = this.selection.current();
 					this.keydown.block = this.selection.block();
-
 			        // detect tags
 					this.keydown.pre = this.utils.isTag(this.keydown.current, 'pre');
 					this.keydown.blockquote = this.utils.isTag(this.keydown.current, 'blockquote');
 					this.keydown.figcaption = this.utils.isTag(this.keydown.current, 'figcaption');
 					this.keydown.figure = this.utils.isTag(this.keydown.current, 'figure');
-
 					// callback
 					var keydownStop = this.core.callback('keydown', e);
 					if (keydownStop === false)
@@ -5662,127 +4799,98 @@
 						e.preventDefault();
 						return false;
 					}
-
-					// shortcuts setup
+					// 快捷键设置
 					this.shortcuts.init(e, key);
-
 					// buffer
 					this.keydown.checkEvents(arrow, key);
                     this.keydown.setupBuffer(e, key);
-
 					if (this.utils.isSelectAll() && ( key === this.keyCode.ENTER || key === this.keyCode.BACKSPACE || key === this.keyCode.DELETE))
 					{
 						e.preventDefault();
-
 						this.code.set(this.opts.emptyHtml);
-
 						return;
 					}
-
 					this.keydown.addArrowsEvent(arrow);
 					this.keydown.setupSelectAll(e, key);
-
 					// turn off enter key
 					if (!this.opts.enterKey && key === this.keyCode.ENTER)
 					{
 						e.preventDefault();
-
-						// remove selected
+						// 删除选定
 						var sel = this.selection.get();
 						var range = this.selection.range(sel);
-
 						if (!range.collapsed)
 						{
 							range.deleteContents();
 						}
-
 						return;
 					}
-
 					// down
 					if (this.opts.enterKey && key === this.keyCode.DOWN)
 					{
 						this.keydown.onArrowDown();
 					}
-
 					// up
 					if (this.opts.enterKey && key === this.keyCode.UP)
 					{
 						this.keydown.onArrowUp();
 					}
-
-
-					// replace to p before / after the table or into body
+					// 在表后或进入体内/前更换顶部
 					if ((this.opts.type === 'textarea' || this.opts.type === 'div') && this.keydown.current && this.keydown.current.nodeType === 3 && $(this.keydown.parent).hasClass('redactor-in'))
 					{
 						this.keydown.wrapToParagraph();
 					}
-
-					// on Shift+Space or Ctrl+Space
+					// 上Shift +空格键或Ctrl +空格键
 					if (key === this.keyCode.SPACE && (e.ctrlKey || e.shiftKey))
 					{
 						e.preventDefault();
-
 						return this.keydown.onShiftSpace();
 					}
-
 					// on Shift+Enter or Ctrl+Enter
 					if (key === this.keyCode.ENTER && (e.ctrlKey || e.shiftKey))
 					{
 						e.preventDefault();
-
 						return this.keydown.onShiftEnter(e);
 					}
-
 					// on enter
 					if (key === this.keyCode.ENTER && !e.shiftKey && !e.ctrlKey && !e.metaKey)
 					{
 						return this.keydown.onEnter(e);
 					}
-
 					// tab or cmd + [
 					if (key === this.keyCode.TAB || e.metaKey && key === 221 || e.metaKey && key === 219)
 					{
 						return this.keydown.onTab(e, key);
 					}
-
-					// backspace & delete
+					// 退格键和删除
 					if (key === this.keyCode.BACKSPACE || key === this.keyCode.DELETE)
 					{
 						this.keydown.onBackspaceAndDeleteBefore();
 					}
-
-
 					if (key === this.keyCode.DELETE)
 					{
 						var $next = $(this.keydown.block).next();
-
-						// delete figure
+						// 删除人物
 						if (this.utils.isEndOfElement(this.keydown.block) && $next.length !== 0 && $next[0].tagName === 'FIGURE')
 						{
 							$next.remove();
 							return false;
 						}
-
-						// append list (safari bug)
+						// 追加列表（Safari浏览器的bug）
 						var tagLi = (this.keydown.block && this.keydown.block.tagName === 'LI') ? this.keydown.block : false;
 						if (tagLi)
 						{
 							var $list = $(this.keydown.block).parents('ul, ol').last();
 							var $nextList = $list.next();
-
 							if (this.utils.isRedactorParent($list) && this.utils.isEndOfElement($list) && $nextList.length !== 0
 								&& ($nextList[0].tagName === 'UL' || $nextList[0].tagName === 'OL'))
 							{
 								e.preventDefault();
-
 								$list.append($nextList.contents());
 								$nextList.remove();
-
 								return false;
 							}
 						}
-
 						// append pre
 						if (this.utils.isEndOfElement(this.keydown.block) && $next.length !== 0 && $next[0].tagName === 'PRE')
 						{
@@ -5790,32 +4898,26 @@
 							$next.remove();
 							return false;
 						}
-
 					}
-
-					// image delete
+					// 图像删除
 					if (key === this.keyCode.DELETE && $('#redactor-image-box').length !== 0)
 					{
 						this.image.remove();
 					}
-
-					// backspace
+					// 退格
 					if (key === this.keyCode.BACKSPACE)
 					{
-
 						if (this.detect.isFirefox())
 						{
 							this.line.removeOnBackspace(e);
 						}
-
-                        // combine list after and before if paragraph is empty
+                        // 合并后的名单和前一段是空的
                         if (this.list.combineAfterAndBefore(this.keydown.block))
                         {
                             e.preventDefault();
                             return;
                         }
-
-						// backspace as outdent
+						// 退格为凸出
 						var block = this.selection.block();
 						if (block && block.tagName === 'LI' && this.utils.isCollapsed() && this.utils.isStartOfElement())
 						{
@@ -5823,29 +4925,23 @@
 							e.preventDefault();
 							return;
 						}
-
 						this.keydown.removeInvisibleSpace();
 						this.keydown.removeEmptyListInTable(e);
-
 					}
-
 					if (key === this.keyCode.BACKSPACE || key === this.keyCode.DELETE)
 					{
 						this.keydown.onBackspaceAndDeleteAfter(e);
 					}
-
 				},
 				onShiftSpace: function()
 				{
 					this.buffer.set();
 					this.insert.raw('&nbsp;');
-
 					return false;
 				},
 				onShiftEnter: function(e)
 				{
 					this.buffer.set();
-
 					return (this.keydown.pre) ? this.keydown.insertNewLine(e) : this.insert.raw('<br>');
 				},
 				onBackspaceAndDeleteBefore: function()
@@ -5854,17 +4950,14 @@
 				},
 				onBackspaceAndDeleteAfter: function(e)
 				{
-					// remove style tag
+					// 删除样式标签
 					setTimeout($.proxy(function()
 					{
 						this.code.syncFire = false;
 						this.keydown.removeEmptyLists();
-
 						this.core.editor().find('*[style]').not('img, #redactor-image-box, #redactor-image-editter').removeAttr('style');
-
 						this.keydown.formatEmpty(e);
 						this.code.syncFire = true;
-
 					}, this), 1);
 				},
 				onEnter: function(e)
@@ -5875,13 +4968,11 @@
 						e.preventDefault();
 						return false;
 					}
-
-					// blockquote exit
+					// 块引用退出
 					if (this.keydown.blockquote && this.keydown.exitFromBlockquote(e) === true)
 					{
 						return false;
 					}
-
 					// pre
 					if (this.keydown.pre)
 					{
@@ -5898,7 +4989,6 @@
 						setTimeout($.proxy(function()
 						{
 							this.keydown.replaceToParagraph('FIGURE');
-
 						}, this), 1);
 					}
 					// paragraphs
@@ -5907,36 +4997,29 @@
 						setTimeout($.proxy(function()
 						{
 							this.keydown.replaceToParagraph('DIV');
-
 						}, this), 1);
-
-						// empty list exit
+						// 空单退出
 						if (this.keydown.block.tagName === 'LI')
 						{
 							var current = this.selection.current();
 							var $parent = $(current).closest('li', this.$editor[0]);
 							var $list = $parent.parents('ul,ol', this.$editor[0]).last();
-
 							if ($parent.length !== 0 && this.utils.isEmpty($parent.html()) && $list.next().length === 0 && this.utils.isEmpty($list.find("li").last().html()))
 							{
 								$list.find("li").last().remove();
-
 								var node = $(this.opts.emptyHtml);
 								$list.after(node);
 								this.caret.start(node);
-
 								return false;
 							}
 						}
-
 					}
-					// outside
+					// 外
 					else if (!this.keydown.block)
 					{
 						return this.keydown.insertParagraph(e);
 					}
-
-					// remove inline tags in new-empty paragraph
+					// 删除新的空段内标签
 					setTimeout($.proxy(function()
 					{
 						var inline = this.selection.inline();
@@ -5945,30 +5028,23 @@
 							var parent = this.selection.block();
 							$(inline).remove();
 							//this.caret.start(parent);
-
                             var range = document.createRange();
                             range.setStart(parent, 0);
-
                             var textNode = document.createTextNode('\u200B');
-
                             range.insertNode(textNode);
                             range.setStartAfter(textNode);
                             range.collapse(true);
-
                             var sel = window.getSelection();
             				sel.removeAllRanges();
             				sel.addRange(range);
 						}
-
 					}, this), 1);
-
 				},
 				checkEvents: function(arrow, key)
 				{
 					if (!arrow && (this.core.getEvent() === 'click' || this.core.getEvent() === 'arrow'))
 					{
 						this.core.addEvent(false);
-
 						if (this.keydown.checkKeyEvents(key))
 						{
 							this.buffer.set();
@@ -5979,9 +5055,7 @@
 				{
 					var k = this.keyCode;
 					var keys = [k.BACKSPACE, k.DELETE, k.ENTER, k.ESC, k.TAB, k.CTRL, k.META, k.ALT, k.SHIFT];
-
 					return ($.inArray(key, keys) === -1) ? true : false;
-
 				},
 				addArrowsEvent: function(arrow)
 				{
@@ -5989,13 +5063,11 @@
 					{
 						return;
 					}
-
 					if ((this.core.getEvent() === 'click' || this.core.getEvent() === 'arrow'))
 					{
 						this.core.addEvent(false);
 						return;
 					}
-
 				    this.core.addEvent('arrow');
 				},
 				setupBuffer: function(e, key)
@@ -6006,7 +5078,7 @@
 						this.buffer.undo();
 						return;
 					}
-					// redo
+					//重做
 					else if (this.keydown.ctrl && key === 90 && e.shiftKey && !e.altKey && this.opts.rebuffer.length !== 0)
 					{
 						e.preventDefault();
@@ -6023,39 +5095,29 @@
 				},
 				exitFromBlockquote: function(e)
 				{
-
 					if (!this.utils.isEndOfElement(this.keydown.blockquote))
 					{
 						return;
 					}
-
 					var tmp = this.clean.removeSpacesHard($(this.keydown.blockquote).html());
 					if (tmp.search(/(<br\s?\/?>){3}$/i) !== -1)
 					{
 						e.preventDefault();
-
 						var $last = $(this.keydown.blockquote).children().last().prev();
-
 						$last.prev().filter('br').remove();
 						$last.filter('br').remove();
 						$(this.keydown.blockquote).children().last().filter('br').remove();
 						$(this.keydown.blockquote).children().last().filter('span').remove();
-
 						var node = $(this.opts.emptyHtml);
 						$(this.keydown.blockquote).after(node);
 						this.caret.start(node);
-
 						return true;
-
 					}
-
 					return;
-
 				},
 				onArrowDown: function()
 				{
 					var tags = [this.keydown.blockquote, this.keydown.pre, this.keydown.figcaption];
-
 					for (var i = 0; i < tags.length; i++)
 					{
 						if (tags[i])
@@ -6068,7 +5130,6 @@
 				onArrowUp: function()
 				{
 					var tags = [this.keydown.blockquote, this.keydown.pre, this.keydown.figcaption];
-
 					for (var i = 0; i < tags.length; i++)
 					{
 						if (tags[i])
@@ -6084,10 +5145,8 @@
 					{
 						return;
 					}
-
 					var last = this.core.editor().contents().last();
 					var $next = (element.tagName === 'FIGCAPTION') ? $(this.keydown.block).parent().next() : $(this.keydown.block).next();
-
 					if ($next.length !== 0)
 					{
 						return;
@@ -6100,7 +5159,6 @@
 					else
 					{
 						var node = $(this.opts.emptyHtml);
-
 						if (element.tagName === 'FIGCAPTION')
 						{
 						    $(element).parent().after(node);
@@ -6109,10 +5167,8 @@
 						{
     						$(element).after(node);
 						}
-
 						this.caret.start(node);
 					}
-
 				},
 				insertBeforeFirstElement: function(element)
 				{
@@ -6120,16 +5176,13 @@
 					{
 						return;
 					}
-
 					if (this.core.editor().contents().length > 1 && this.core.editor().contents().first()[0] !== element)
 					{
 						return;
 					}
-
 					var node = $(this.opts.emptyHtml);
 					$(element).before(node);
 					this.caret.start(node);
-
 				},
 				onTab: function(e, key)
 				{
@@ -6137,15 +5190,12 @@
 					{
 						return true;
 					}
-
 					if (this.utils.isEmpty(this.code.get()) && this.opts.tabAsSpaces === false)
 					{
 						return true;
 					}
-
 					e.preventDefault();
 					this.buffer.set();
-
 					var node;
 					if (this.keydown.pre && !e.shiftKey)
 					{
@@ -6176,7 +5226,6 @@
 							this.indent.decrease();
 						}
 					}
-
 					return false;
 				},
 				setupSelectAll: function(e, key)
@@ -6193,34 +5242,24 @@
 				insertNewLine: function(e)
 				{
 					e.preventDefault();
-
 					var node = document.createTextNode('\n');
-
 					var sel = this.selection.get();
 					var range = this.selection.range(sel);
-
 					range.deleteContents();
 					range.insertNode(node);
-
 					this.caret.after(node);
-
 					return false;
 				},
 				insertParagraph: function(e)
 				{
 					e.preventDefault();
-
 					var p = document.createElement('p');
 					p.innerHTML = this.opts.invisibleSpace;
-
 					var sel = this.selection.get();
 					var range = this.selection.range(sel);
-
 					range.deleteContents();
 					range.insertNode(p);
-
 					this.caret.start(p);
-
 					return false;
 				},
 				insertBreakLine: function(e)
@@ -6234,59 +5273,45 @@
 				insertBreakLineProcessing: function(e, dbl)
 				{
 					e.stopPropagation();
-
 					var br1 = document.createElement('br');
 					this.insert.node(br1);
-
 					if (dbl === true)
 					{
 						var br2 = document.createElement('br');
 						this.insert.node(br2);
 					}
-
 					return false;
-
 				},
 				wrapToParagraph: function()
 				{
 					var $current = $(this.keydown.current);
 					var	node = $('<p>').append($current.clone());
 					$current.replaceWith(node);
-
-
 					var next = $(node).next();
 					if (typeof(next[0]) !== 'undefined' && next[0].tagName === 'BR')
 					{
 						next.remove();
 					}
-
 					this.caret.end(node);
-
 				},
 				replaceToParagraph: function(tag)
 				{
 					var blockElem = this.selection.block();
-
 					var blockHtml = blockElem.innerHTML.replace(/<br\s?\/?>/gi, '');
 					if (blockElem.tagName === tag && this.utils.isEmpty(blockHtml) && !$(blockElem).hasClass('redactor-in'))
 					{
 						var p = document.createElement('p');
 						$(blockElem).replaceWith(p);
-
-                        // caret to p
+                        //符号P
                         var range = document.createRange();
                         range.setStart(p, 0);
-
                         var textNode = document.createTextNode('\u200B');
-
                         range.insertNode(textNode);
                         range.setStartAfter(textNode);
                         range.collapse(true);
-
                         var sel = window.getSelection();
         				sel.removeAllRanges();
         				sel.addRange(range);
-
 						return false;
 					}
 					else if (blockElem.tagName === 'P')
@@ -6307,19 +5332,15 @@
 					var $current = $(this.keydown.current);
 					var $parent = $(this.keydown.parent);
 					var td = $current.closest('td', this.$editor[0]);
-
 					if (td.length !== 0 && $current.closest('li', this.$editor[0]) && $parent.children('li').length === 1)
 					{
 						if (!this.utils.isEmpty($current.text()))
 						{
 							return;
 						}
-
 						e.preventDefault();
-
 						$current.remove();
 						$parent.remove();
-
 						this.caret.start(td);
 					}
 				},
@@ -6333,21 +5354,17 @@
 							$(this).remove();
 						}
 					};
-
 					this.core.editor().find('li').each(removeIt);
 					this.core.editor().find('ul, ol').each(removeIt);
 				},
 				formatEmpty: function(e)
 				{
 					var html = $.trim(this.core.editor().html());
-
 					if (!this.utils.isEmpty(html))
 					{
 						return;
 					}
-
 					e.preventDefault();
-
 					if (this.opts.type === 'inline' || this.opts.type === 'pre')
 					{
 						this.core.editor().html(this.marker.html());
@@ -6358,39 +5375,32 @@
 						this.core.editor().html(this.opts.emptyHtml);
 						this.focus.start();
 					}
-
 					return false;
-
 				}
 			};
 		},
-
 		// =keyup
 		keyup: function()
 		{
 			return {
 				init: function(e)
 				{
-
 					if (this.rtePaste)
 					{
 						return;
 					}
-
 					var key = e.which;
 					this.keyup.block = this.selection.block();
 					this.keyup.current = this.selection.current();
 					this.keyup.parent = this.selection.parent();
-
-					// callback
+					// 回调
 					var stop = this.core.callback('keyup', e);
 					if (stop === false)
 					{
 						e.preventDefault();
 						return false;
 					}
-
-                    // replace a prev figure to paragraph if caret is before image
+                    //取代沪指图如果插入图像
                     if (key === this.keyCode.ENTER)
                     {
                         if (this.keyup.block && this.keyup.block.tagName === 'FIGURE')
@@ -6404,36 +5414,28 @@
                             }
                         }
                     }
-
-					// replace figure to paragraph
+					//更换数字到段落
 					if (key === this.keyCode.BACKSPACE || key === this.keyCode.DELETE)
 					{
 						if (this.utils.isSelectAll())
 						{
 							this.focus.start();
-
 							return;
 						}
-
-						// if caret before figure - delete image
+						// 如果插入符号在图-删除图像
 						if (this.keyup.block && this.keydown.block && this.keyup.block.tagName === 'FIGURE' && this.utils.isStartOfElement(this.keydown.block))
 						{
     						e.preventDefault();
-
                             this.selection.save();
                             $(this.keyup.block).find('figcaption').remove();
     						$(this.keyup.block).find('img').first().remove();
     						this.utils.replaceToTag(this.keyup.block, 'p');
-
     						var $marker = this.marker.find();
     						$('html, body').animate({ scrollTop: $marker.position().top + 20 }, 500);
-
     						this.selection.restore();
     						return;
 						}
-
-
-						// if paragraph does contain only image replace to figure
+						// 如果段落只包含图像替换为数字
 						if (this.keyup.block && this.keyup.block.tagName === 'P')
 						{
 							var isContainImage = $(this.keyup.block).find('img').length;
@@ -6443,8 +5445,7 @@
 								this.utils.replaceToTag(this.keyup.block, 'figure');
 							}
 						}
-
-						// if figure does not contain image - replace to paragraph
+						//如果图中不包含图像-替换到段落
 						if (this.keyup.block && this.keyup.block.tagName === 'FIGURE' && $(this.keyup.block).find('img').length === 0)
 						{
 							this.selection.save();
@@ -6452,18 +5453,14 @@
 							this.selection.restore();
 						}
 					}
-
 					// linkify
 					if (this.linkify.isKey(key))
 					{
 						this.linkify.format();
 					}
-
 				}
-
 			};
 		},
-
 		// =lang
 		lang: function()
 		{
@@ -6478,7 +5475,6 @@
 				}
 			};
 		},
-
 		// =line
 		line: function()
 		{
@@ -6486,16 +5482,12 @@
 				insert: function()
 				{
 					this.buffer.set();
-
 					// insert
 					this.insert.html(this.line.getLineHtml());
-
 					// find
 					var $hr = this.core.editor().find('#redactor-hr-tmp-id');
 					$hr.removeAttr('id');
-
 					this.core.callback('insertedLine', $hr);
-
 					return $hr;
 				},
 				getLineHtml: function()
@@ -6505,7 +5497,6 @@
 					{
 						html += '<p>' + this.opts.emptyHtml + '</p>';
 					}
-
 					return html;
 				},
 				// ff only
@@ -6515,14 +5506,12 @@
 					{
 						return;
 					}
-
 					var $block = $(this.selection.block());
 					if ($block.length === 0 || !this.utils.isStartOfElement($block))
 					{
 						return;
 					}
-
-					// if hr is previous element
+					// 如果HR是一个元素
 					var $prev = $block.prev();
 					if ($prev && $prev[0].tagName === 'HR')
 					{
@@ -6532,13 +5521,11 @@
 				}
 			};
 		},
-
 		// =link
 		link: function()
 		{
 			return {
-
-				// public
+				// 公众的
 				get: function()
 				{
 					return $(this.selection.inlines('a'));
@@ -6547,36 +5534,29 @@
 				{
 					var nodes = this.selection.nodes() ;
 					var $link = $(this.selection.current()).closest('a', this.core.editor()[0]);
-
 					return ($link.length === 0 || nodes.length > 1) ? false : $link;
 				},
 				unlink: function(e)
 				{
-					// if call from clickable element
+					// 如果从可点击的元素召唤
 					if (typeof e !== 'undefined' && e.preventDefault)
 					{
 						e.preventDefault();
 					}
-
 					// buffer
 					this.buffer.set();
-
 					var links = this.selection.inlines('a');
 					if (links.length === 0)
 					{
 						return;
 					}
-
 					var $links = this.link.replaceLinksToText(links);
-
 					this.observe.closeAllTooltip();
 					this.core.callback('deletedLink', $links);
-
 				},
 				insert: function(link, cleaned)
 				{
 					var $el = this.link.is();
-
 					if (cleaned !== true)
 					{
 						link = this.link.buildLinkFromObject($el, link);
@@ -6585,51 +5565,42 @@
 							return false;
 						}
 					}
-
 					// buffer
 					this.buffer.set();
-
 					if ($el === false)
 					{
 						// insert
 						$el = $('<a />');
 						$el = this.link.update($el, link);
 						$el = $(this.insert.node($el));
-
 						var $parent = $el.parent();
 						if (this.utils.isRedactorParent($parent) === false)
 						{
 							$el.wrap('<p>');
 						}
-
-						// remove unlink wrapper
+						// 删除取消包装
 						if ($parent.hasClass('redactor-unlink'))
 						{
 							$parent.replaceWith(function(){
 								return $(this).contents();
 							});
 						}
-
 						this.caret.after($el);
 						this.core.callback('insertedLink', $el);
 					}
 					else
 					{
-						// update
+						// 更新
 						$el = this.link.update($el, link);
 						this.caret.after($el);
 					}
-
 				},
 				update: function($el, link)
 				{
 					$el.text(link.text);
 					$el.attr('href', link.url);
-
 					this.link.target($el, link.target);
-
 					return $el;
-
 				},
 				target: function($el, target)
 				{
@@ -6637,40 +5608,31 @@
 				},
 				show: function(e)
 				{
-					// if call from clickable element
+					// 如果从可点击的元素召唤
 					if (typeof e !== 'undefined' && e.preventDefault)
 					{
 						e.preventDefault();
 					}
-
-					// close tooltip
+					//关闭提示
 					this.observe.closeAllTooltip();
-
 					// is link
 					var $el = this.link.is();
-
-					// build modal
+					// 建立模型
 					this.link.buildModal($el);
-
-					// build link
+					// 建立链接
 					var link = this.link.buildLinkFromElement($el);
-
-					// if link cut & paste inside editor browser added self host to a link
+					// 如果链接剪切和粘贴在编辑器浏览器中添加了自主机到一个链接
 					link.url = this.link.removeSelfHostFromUrl(link.url);
-
 					// set modal values
 					this.link.setModalValues(link);
-
 					// show modal
 					this.modal.show();
-
 					// focus
 					if (this.detect.isDesktop())
 					{
 						$('#redactor-link-url').focus();
 					}
 				},
-
 				// private
 				setModalValues: function(link)
 				{
@@ -6681,11 +5643,9 @@
 				buildModal: function($el)
 				{
 					this.modal.load('link', this.lang.get(($el === false) ? 'link-insert' : 'link-edit'), 600);
-
-					// button insert
+					// 插入按钮
 					var $btn = this.modal.getActionButton();
 					$btn.text(this.lang.get(($el === false) ? 'insert' : 'save')).on('click', $.proxy(this.link.callback, this));
-
 				},
 				callback: function()
 				{
@@ -6695,11 +5655,9 @@
 					{
 						return false;
 					}
-
 					// close
 					this.modal.close();
-
-					// insert or update
+					//插入或更新
 					this.link.insert(link, true);
 				},
 				cleanUrl: function(url)
@@ -6717,24 +5675,20 @@
 				isUrl: function(url)
 				{
 					var pattern = '((xn--)?[\\W\\w\\D\\d]+(-[\\W\\w\\D\\d]+)*\\.)+[\\W\\w]{2,}';
-
 					var re1 = new RegExp('^(http|ftp|https)://' + pattern, 'i');
 					var re2 = new RegExp('^' + pattern, 'i');
 					var re3 = new RegExp('\.(html|php)$', 'i');
 					var re4 = new RegExp('^/', 'i');
 					var re5 = new RegExp('^tel:(.*?)', 'i');
-
-					// add protocol
+					//补充协议
 					if (url.search(re1) === -1 && url.search(re2) !== -1)
 					{
 						url = 'http://' + url;
 					}
-
 					if (url.search(re1) !== -1 || url.search(re3) !== -1 || url.search(re4) !== -1 || url.search(re5) !== -1)
 					{
 						return url;
 					}
-
 					return false;
 				},
 				isMailto: function(url)
@@ -6761,44 +5715,33 @@
 					{
 						link.url = this.link.isUrl(link.url);
 					}
-
-					// empty url or text or isn't url
+					//空的网址或文字或是不是网址
 					return (this.link.isEmpty(link) || link.url === false) ? false : link;
-
 				},
 				buildLinkFromModal: function()
 				{
 					var link = {};
-
 					// url
 					link.url = this.link.cleanUrl($('#redactor-link-url').val());
-
 					// text
 					link.text = this.link.cleanText($('#redactor-link-url-text').val());
 					link.text = this.link.getText(link);
-
 					// target
 					link.target = ($('#redactor-link-blank').prop('checked')) ? true : false;
-
 					// parse
 					return this.link.parse(link);
-
 				},
 				buildLinkFromObject: function($el, link)
 				{
 					// url
 					link.url = this.link.cleanUrl(link.url);
-
 					// text
 					link.text = (typeof link.text === 'undefined' && this.selection.is()) ? this.selection.text() : this.link.cleanText(link.text);
 					link.text = this.link.getText(link);
-
 					// target
 					link.target = ($el === false) ? link.target : this.link.buildTarget($el);
-
 					// parse
 					return this.link.parse(link);
-
 				},
 				buildLinkFromElement: function($el)
 				{
@@ -6807,14 +5750,12 @@
 						text: (this.selection.is()) ? this.selection.text() : '',
 						target: false
 					};
-
 					if ($el !== false)
 					{
 						link.url = $el.attr('href');
 						link.text = $el.text();
 						link.target = this.link.buildTarget($el);
 					}
-
 					return link;
 				},
 				buildTarget: function($el)
@@ -6834,26 +5775,21 @@
 						var $el = $(s);
 						var $unlinked = $('<span class="redactor-unlink" />').append($el.contents());
 						$el.replaceWith($unlinked);
-
 						if (i === 0)
 						{
 							$first = $unlinked;
 						}
-
 						return $el;
 					});
-
 					// set caret after unlinked node
 					if (links.length === 1 && this.selection.isCollapsed())
 					{
 						this.caret.after($first);
 					}
-
 					return $links;
 				}
 			};
 		},
-
 		// =linkify
 		linkify: function()
 		{
@@ -6875,7 +5811,6 @@
 					var $el = $(node);
 					var text = $el.text();
 					var html = text;
-
 					if (html.match(this.opts.regexps.linkyoutube) || html.match(this.opts.regexps.linkvimeo))
 					{
 						html = this.linkify.convertVideoLinks(html);
@@ -6888,7 +5823,6 @@
 					{
 						html = this.linkify.convertLinks(html);
 					}
-
 					$el.before(text.replace(text, html)).remove();
 				},
 				format: function()
@@ -6897,9 +5831,7 @@
 					{
 						return;
 					}
-
 					this.core.editor().find(":not(iframe,img,a,pre,.redactor-unlink)").addBack().contents().filter($.proxy(this.linkify.isFiltered, this)).each($.proxy(this.linkify.handler, this));
-
 					// collect
 					var $objects = this.core.editor().find('.redactor-linkify-object').each($.proxy(function(i,s)
 					{
@@ -6909,7 +5841,6 @@
 						{
 							$el.removeAttr('class');
 						}
-
 						if (s.tagName === 'DIV') // video container
 						{
 							this.linkify.breakBlockTag($el, 'video');
@@ -6922,19 +5853,14 @@
 						{
 							this.core.callback('insertedLink', $el);
 						}
-
 						return $el;
-
 					}, this));
-
 					// callback
 					setTimeout($.proxy(function()
 					{
 						this.code.sync();
 						this.core.callback('linkify', $objects);
-
 					}, this), 100);
-
 				},
 				breakBlockTag: function($el, type)
 				{
@@ -6943,13 +5869,11 @@
 					{
 						return;
 					}
-
 					var $newBlock = $el;
 					if (type === 'image')
 					{
 						$newBlock = $('<figure />').append($el);
 					}
-
 					if (breaked.type === 'start')
 					{
 						breaked.$block.before($newBlock);
@@ -6958,29 +5882,23 @@
 					{
 						breaked.$block.after($newBlock);
 					}
-
-
 					if (type === 'image')
 					{
 						this.caret.after($newBlock);
 					}
-
 				},
 				convertVideoLinks: function(html)
 				{
 					var iframeStart = '<div class="' + this.opts.videoContainerClass + ' redactor-linkify-object"><iframe class="redactor-linkify-object" width="500" height="281" src="';
 					var iframeEnd = '" frameborder="0" allowfullscreen></iframe></div>';
-
 					if (html.match(this.opts.regexps.linkyoutube))
 					{
 						html = html.replace(this.opts.regexps.linkyoutube, iframeStart + '//www.youtube.com/embed/$1' + iframeEnd);
 					}
-
 					if (html.match(this.opts.regexps.linkvimeo))
 					{
 						html = html.replace(this.opts.regexps.linkvimeo, iframeStart + '//player.vimeo.com/video/$2' + iframeEnd);
 					}
-
 					return html;
 				},
 				convertImages: function(html)
@@ -6990,7 +5908,6 @@
 					{
 						return html;
 					}
-
 					return html.replace(html, '<img src="' + matches + '" class="redactor-linkify-object" />');
 				},
 				convertLinks: function(html)
@@ -7000,44 +5917,33 @@
 					{
 						return html;
 					}
-
 					matches = $.grep(matches, function(v, k) { return $.inArray(v, matches) === k; });
-
 					var length = matches.length;
-
 					for (var i = 0; i < length; i++)
 					{
 						var href = matches[i], text = href;
 						var linkProtocol = (href.match(/(https?|ftp):\/\//i) !== null) ? '' : 'http://';
-
 						if (text.length > this.opts.linkSize)
 						{
 							text = text.substring(0, this.opts.linkSize) + '...';
 						}
-
 						if (text.search('%') === -1)
 						{
 							text = decodeURIComponent(text);
 						}
-
 						var regexB = "\\b";
-
 						if ($.inArray(href.slice(-1), ["/", "&", "="]) !== -1)
 						{
 							regexB = "";
 						}
-
 						// escaping url
 						var regexp = new RegExp('(' + href.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") + regexB + ')', 'g');
-
 						html = html.replace(regexp, '<a href="' + linkProtocol + $.trim(href) + '" class="redactor-linkify-object">' + $.trim(text) + '</a>');
 					}
-
 					return html;
 				}
 			};
 		},
-
 		// =list
 		list: function()
 		{
@@ -7048,21 +5954,15 @@
 					{
 						return;
 					}
-
 					var tag = (cmd === 'orderedlist' || cmd === 'ol') ? 'OL' : 'UL';
 					cmd = (tag === 'OL') ? 'orderedlist' : 'unorderedlist'
-
 					var $list = $(this.selection.current()).parentsUntil('.redactor-in', 'ul, ol').first();
-
 					this.placeholder.hide();
 					this.buffer.set();
-
-
 					if ($list.length !== 0 && $list[0].tagName === tag && this.utils.isRedactorParent($list))
 					{
 						this.selection.save();
-
-						// remove list
+						// 删除列表
 						$list.find('ul, ol').each(function()
 						{
 							var parent = $(this).closest('li');
@@ -7071,7 +5971,6 @@
 								$(parent).after(this);
 							});
 						});
-
 						$list.find('ul, ol').remove();
 						$list.find('li').each(function()
 						{
@@ -7080,35 +5979,26 @@
 								return $('<p />').append($(this).contents());
 							});
 						});
-
-
 						$list.replaceWith(function()
 						{
 							return $(this).contents();
 						});
-
 						this.selection.restore();
 						return;
 					}
-
-
 					this.selection.save();
-
 					if ($list.length !== 0 && $list[0].tagName !== tag)
 					{
                         $list.each($.proxy(function(i,s)
                         {
                             this.utils.replaceToTag(s, tag);
-
                         }, this));
 					}
 					else
 					{
 					    document.execCommand('insert' + cmd);
 					}
-
 					this.selection.restore();
-
 					var $insertedList = this.list.get();
 					if (!$insertedList)
 					{
@@ -7116,39 +6006,31 @@
 						{
 							document.execCommand('formatblock', false, 'p');
 						}
-
 						return;
 					}
-
 					// clear span
 					$insertedList.find('span').replaceWith(function()
 					{
 						return $(this).contents();
 					});
-
 					// remove style
 					$insertedList.find(this.opts.inlineTags.join(',')).each(function()
 					{
 						$(this).removeAttr('style');
 					});
-
-					// remove block-element list wrapper
+					// 删除块元素列表包装器
 					var $listParent = $insertedList.parent();
 					if (this.utils.isRedactorParent($listParent) && $listParent[0].tagName !== 'LI' && this.utils.isBlock($listParent))
 					{
 						this.selection.save();
-
 						$listParent.replaceWith($listParent.contents());
-
 						this.selection.restore();
 					}
-
 				},
 				get: function()
 				{
 					var current = this.selection.current();
 					var $list = $(current).closest('ul, ol', this.core.editor()[0]);
-
 					return ($list.length === 0) ? false : $list;
 				},
 				combineAfterAndBefore: function(block)
@@ -7157,38 +6039,29 @@
     				var $next = $(block).next();
                     var isEmptyBlock = (block && block.tagName === 'P' && (block.innerHTML === '<br>' || block.innerHTML === ''));
                     var isBlockWrapped = ($prev.closest('ol, ul').length === 1 && $next.closest('ol, ul').length === 1);
-
                     if (isEmptyBlock && isBlockWrapped)
                     {
                         $prev.children('li').last().append(this.marker.get());
                         $prev.append($next.contents());
                         this.selection.restore();
-
                         return true;
                     }
-
                     return false;
-
 				}
 			};
 		},
-
 		// =marker
 		marker: function()
 		{
 			return {
-
 				// public
 				get: function(num)
 				{
 					num = (typeof num === 'undefined') ? 1 : num;
-
 					var marker = document.createElement('span');
-
 					marker.id = 'selection-marker-' + num;
 					marker.className = 'redactor-selection-marker';
 					marker.innerHTML = this.opts.invisibleSpace;
-
 					return marker;
 				},
 				html: function(num)
@@ -7198,26 +6071,22 @@
 				find: function(num)
 				{
 					num = (typeof num === 'undefined') ? 1 : num;
-
 					return this.core.editor().find('span#selection-marker-' + num);
 				},
 				insert: function()
 				{
 					var sel = this.selection.get();
 					var range = this.selection.range(sel);
-
 					this.marker.insertNode(range, this.marker.get(1), true);
 					if (range && range.collapsed === false)
 					{
 						this.marker.insertNode(range, this.marker.get(2), false);
 					}
-
 				},
 				remove: function()
 				{
 					this.core.editor().find('.redactor-selection-marker').each(this.marker.iterateRemove);
 				},
-
 				// private
 				insertNode: function(range, node, collapse)
 				{
@@ -7226,9 +6095,7 @@
 					{
 						return;
 					}
-
 					range = range.cloneRange();
-
 					try {
 						range.collapse(collapse);
 						range.insertNode(node);
@@ -7242,12 +6109,10 @@
 				{
 					var $el = $(el);
 					var text = $el.text().replace(/\u200B/g, '');
-
 					return (text === '') ? $el.remove() : $el.replaceWith(function() { return $(this).contents(); });
 				}
 			};
 		},
-
 		// =modal
 		modal: function()
 		{
@@ -7283,14 +6148,12 @@
 								+ '</section>'
 							+ '</div>'
 						+ '</div>',
-
 						'image': String()
 						+ '<div class="redactor-modal-tab" data-title="Upload">'
 							+ '<section>'
 								+ '<div id="redactor-modal-image-droparea"></div>'
 	 						+ '</section>'
  						+ '</div>',
-
 						'file': String()
 						+ '<div class="redactor-modal-tab" data-title="Upload">'
 							+ '<section>'
@@ -7301,7 +6164,6 @@
 								+ '<div id="redactor-modal-file-upload"></div>'
 							+ '</section>'
 						+ '</div>',
-
 						'link': String()
 						+ '<div class="redactor-modal-tab" data-title="General">'
 							+ '<section>'
@@ -7321,9 +6183,7 @@
 							+ '</section>'
 						+ '</div>'
 					};
-
 					$.extend(this.opts, this.opts.modal);
-
 				},
 				addCallback: function(name, callback)
 				{
@@ -7359,79 +6219,60 @@
 					{
 						return;
 					}
-
 					this.modal.templateName = templateName;
 					this.modal.width = width;
-
 					this.modal.build();
 					this.modal.enableEvents();
 					this.modal.setTitle(title);
 					this.modal.setDraggable();
 					this.modal.setContent();
-
 					// callbacks
 					if (typeof this.modal.callbacks[templateName] !== 'undefined')
 					{
 						this.modal.callbacks[templateName].call(this);
 					}
-
 				},
 				show: function()
 				{
-
 					if (!this.detect.isDesktop())
 					{
 						document.activeElement.blur();
 					}
-
 					this.selection.save();
 					this.modal.buildTabber();
-
 					if (this.detect.isMobile())
 					{
 						this.modal.width = '96%';
 					}
-
 					// resize
 					setTimeout($.proxy(this.modal.buildWidth, this), 0);
 					$(window).on('resize.redactor-modal', $.proxy(this.modal.buildWidth, this));
-
-
 					this.$modalOverlay.redactorAnimation('fadeIn', {
 						duration: 0.25
 					});
-
 					this.$modalBox.addClass('open').show();
 					this.$modal.redactorAnimation('fadeIn', {
 							timing: 'cubic-bezier(0.175, 0.885, 0.320, 1.105)'
 						},
 						$.proxy(function()
 						{
-
 							this.utils.saveScroll();
 							this.utils.disableBodyScroll();
-
-							// modal shown callback
+							// 模态显示回调
 							this.core.callback('modalOpened', this.modal.templateName, this.$modal);
-
 							// fix bootstrap modal focus
 							$(document).off('focusin.modal');
-
 							// enter
 							var $elements = this.$modal.find('input[type=text],input[type=url],input[type=email]');
 							$elements.on('keydown.redactor-modal', $.proxy(this.modal.setEnter, this));
-
 						}, this)
 					);
-
 				},
 				buildWidth: function()
 				{
 					var windowHeight = $(window).height();
 					var windowWidth = $(window).width();
-
 					var number = (typeof this.modal.width === 'number');
-
 					if (!number && this.modal.width.match(/%$/))
 					{
 						this.$modal.css({ 'width': this.modal.width, 'margin-bottom': '16px' });
@@ -7446,14 +6287,11 @@
 						{
 							this.modal.width += 'px';
 						}
-
 						this.$modal.css({ 'width': this.modal.width, 'margin-bottom': '16px' });
 					}
-
-					// margin top
+					//距顶部
 					var height = this.$modal.outerHeight();
 					var top = (windowHeight/2 - height/2) + 'px';
-
 					if (this.detect.isMobile())
 					{
 						top = '2%';
@@ -7461,54 +6299,39 @@
 					else if (height > windowHeight)
 					{
 						top = '16px';
-
 					}
-
 					this.$modal.css('margin-top', top);
 				},
 				buildTabber: function()
 				{
 					this.modal.tabs = this.$modal.find('.redactor-modal-tab');
-
 					if (this.modal.tabs.length < 2)
 					{
 						return;
 					}
-
 					this.modal.$tabsBox = $('<div id="redactor-modal-tabber" />');
 					$.each(this.modal.tabs, $.proxy(function(i,s)
 					{
 						var a = $('<a href="#" rel="' + i + '" />').text($(s).attr('data-title'));
-
 						a.on('click', $.proxy(this.modal.showTab, this));
-
 						if (i === 0)
 						{
 							a.addClass('active');
 						}
-
 						this.modal.$tabsBox.append(a);
-
 					}, this));
-
 					this.$modalBody.prepend(this.modal.$tabsBox);
-
 				},
 				showTab: function(e)
 				{
 					e.preventDefault();
-
 					var $el = $(e.target);
 					var index = $el.attr('rel');
-
 					this.modal.tabs.hide();
 					this.modal.tabs.eq(index).show();
-
 					$('#redactor-modal-tabber').find('a').removeClass('active');
 					$el.addClass('active');
-
 					return false;
-
 				},
 				setTitle: function(title)
 				{
@@ -7517,7 +6340,6 @@
 				setContent: function()
 				{
 					this.$modalBody.html(this.modal.getTemplate(this.modal.templateName));
-
 					this.modal.getCancelButton().on('mousedown', $.proxy(this.modal.close, this));
 				},
 				setDraggable: function()
@@ -7526,7 +6348,6 @@
 					{
 						return;
 					}
-
 					this.$modal.draggable({ handle: this.$modalHeader });
 					this.$modalHeader.css('cursor', 'move');
 				},
@@ -7536,26 +6357,22 @@
 					{
 						return;
 					}
-
 					e.preventDefault();
 					this.modal.getActionButton().click();
 				},
 				build: function()
 				{
 					this.modal.buildOverlay();
-
 					this.$modalBox = $('<div id="redactor-modal-box"/>').hide();
 					this.$modal = $('<div id="redactor-modal" role="dialog" />');
 					this.$modalHeader = $('<div id="redactor-modal-header" />');
 					this.$modalClose = $('<button type="button" id="redactor-modal-close" aria-label="' + this.lang.get('close') + '" />').html('&times;');
 					this.$modalBody = $('<div id="redactor-modal-body" />');
-
 					this.$modal.append(this.$modalHeader);
 					this.$modal.append(this.$modalBody);
 					this.$modal.append(this.$modalClose);
 					this.$modalBox.append(this.$modal);
 					this.$modalBox.appendTo(document.body);
-
 				},
 				buildOverlay: function()
 				{
@@ -7583,7 +6400,6 @@
 					{
 						return;
 					}
-
 					this.modal.close(false);
 				},
 				close: function(e)
@@ -7594,33 +6410,24 @@
 						{
 							return;
 						}
-
 						e.preventDefault();
 					}
-
 					if (!this.$modalBox)
 					{
 						return;
 					}
-
-					// restore selection
+					// 恢复选择
 					this.selection.restore();
-
 					this.modal.disableEvents();
 					this.utils.enableBodyScroll();
 					this.utils.restoreScroll();
-
 					this.$modalOverlay.redactorAnimation('fadeOut', { duration: 0.4 }, $.proxy(function()
 					{
 						this.$modalOverlay.remove();
-
 					}, this));
-
 					this.$modal.redactorAnimation('fadeOut', {
-
 						duration: 0.3,
 						timing: 'cubic-bezier(0.175, 0.885, 0.320, 1.175)'
-
 					}, $.proxy(function()
 					{
 						if (typeof this.$modalBox !== 'undefined')
@@ -7628,16 +6435,12 @@
 							this.$modalBox.remove();
 							this.$modalBox = undefined;
 						}
-
 						$(document.body).css('overflow', this.modal.bodyOveflow);
 						this.core.callback('modalClosed', this.modal.templateName);
-
 					}, this));
-
 				}
 			};
 		},
-
 		// =observe
 		observe: function()
 		{
@@ -7648,10 +6451,8 @@
 					{
 						return;
 					}
-
 					this.observe.links();
 					this.observe.images();
-
 				},
 				isCurrent: function($el, $current)
 				{
@@ -7659,7 +6460,6 @@
 					{
 						$current = $(this.selection.current());
 					}
-
 					return $current.is($el) || $current.parents($el).length > 0;
 				},
 				toolbar: function()
@@ -7671,7 +6471,6 @@
 				{
 					var current = this.selection.current();
 					var parent = this.selection.parent();
-
 					if (e !== false)
 					{
 						this.button.setInactiveAll();
@@ -7680,22 +6479,18 @@
 					{
 						this.button.setInactiveAll(btnName);
 					}
-
 					if (e === false && btnName !== 'html')
 					{
 						if ($.inArray(btnName, this.opts.activeButtons) !== -1)
 						{
 							this.button.toggleActive(btnName);
 						}
-
 						return;
 					}
-
 					if (!this.utils.isRedactorParent(current))
 					{
 						return;
 					}
-
 					// disable line
 					if (this.utils.isCurrentOrParentHeader() || this.utils.isCurrentOrParent(['table', 'pre', 'blockquote', 'li']))
 					{
@@ -7705,37 +6500,29 @@
 					{
 						this.button.enable('horizontalrule');
 					}
-
-
 					$.each(this.opts.activeButtonsStates, $.proxy(function(key, value)
 					{
 						var parentEl = $(parent).closest(key, this.$editor[0]);
 						var currentEl = $(current).closest(key, this.$editor[0]);
-
 						if (parentEl.length !== 0 && !this.utils.isRedactorParent(parentEl))
 						{
 							return;
 						}
-
 						if (!this.utils.isRedactorParent(currentEl))
 						{
 							return;
 						}
-
 						if (parentEl.length !== 0 || currentEl.closest(key, this.$editor[0]).length !== 0)
 						{
 							this.button.setActive(value);
 						}
-
 					}, this));
-
 				},
 				dropdowns: function()
 				{
     				var finded = $('<div />').html(this.selection.html()).find('a').length;
 					var $current = $(this.selection.current());
 					var isRedactor = this.utils.isRedactorParent($current);
-
 					$.each(this.opts.observe.dropdowns, $.proxy(function(key, value)
 					{
 						var observe = value.observe,
@@ -7743,7 +6530,6 @@
 							$item   = value.item,
 							inValues = typeof observe.in !== 'undefined' ? observe.in : false,
 							outValues = typeof observe.out !== 'undefined' ? observe.out : false;
-
 						if (($current.closest(element).length > 0 && isRedactor) || (element === 'a' && finded !== 0))
 						{
 							this.observe.setDropdownProperties($item, inValues, outValues);
@@ -7752,7 +6538,6 @@
 						{
 							this.observe.setDropdownProperties($item, outValues, inValues);
 						}
-
 					}, this));
 				},
 				setDropdownProperties: function($item, addProperties, deleteProperties)
@@ -7761,12 +6546,10 @@
 					{
 						this.observe.setDropdownAttr($item, deleteProperties.attr, true);
 					}
-
 					if (typeof addProperties.attr !== 'undefined')
 					{
 						this.observe.setDropdownAttr($item, addProperties.attr);
 					}
-
 					if (typeof addProperties.title !== 'undefined')
 					{
 						$item.find('span').text(addProperties.title);
@@ -7806,27 +6589,18 @@
 					{
 						return;
 					}
-
 					btnObject.item = $item;
-
 					this.opts.observe.dropdowns.push(btnObject);
 				},
 				images: function()
 				{
-
 					this.core.editor().find('img').each($.proxy(function(i, img)
 					{
 						var $img = $(img);
-
-						// IE fix (when we clicked on an image and then press backspace IE does goes to image's url)
+						// IE修复（当我们点击一个图像，然后按空格键IE浏览器进入到图片的网址)
 						$img.closest('a', this.$editor[0]).on('click', function(e) { e.preventDefault(); });
-
 						this.image.setEditable($img);
-
-
 					}, this));
-
-
 				},
 				links: function()
 				{
@@ -7834,7 +6608,6 @@
 					{
 						return;
 					}
-
 					this.core.editor().find('a').each($.proxy(function(i, s)
 					{
     					var $link = $(s);
@@ -7843,9 +6616,7 @@
         					$link.data('cached', true);
         					$link.on('touchstart.redactor.' + this.uuid + ' click.redactor.' + this.uuid, $.proxy(this.observe.showTooltip, this));
     					}
-
 					}, this));
-
 				},
 				getTooltipPosition: function($link)
 				{
@@ -7854,56 +6625,43 @@
 				showTooltip: function(e)
 				{
 					var $el = $(e.target);
-
 					if ($el[0].tagName === 'IMG')
 					{
 						return;
 					}
-
 					if ($el[0].tagName !== 'A')
 					{
 						$el = $el.closest('a', this.$editor[0]);
 					}
-
 					if ($el[0].tagName !== 'A')
 					{
 						return;
 					}
-
 					var $link = $el;
-
 					var pos = this.observe.getTooltipPosition($link);
 					var tooltip = $('<span class="redactor-link-tooltip"></span>');
-
 					var href = $link.attr('href');
 					if (href === undefined)
 					{
 						href = '';
 					}
-
 					if (href.length > 24)
 					{
 						href = href.substring(0, 24) + '...';
 					}
-
 					var aLink = $('<a href="' + $link.attr('href') + '" target="_blank" />').html(href).addClass('redactor-link-tooltip-action');
 					var aEdit = $('<a href="#" />').html(this.lang.get('edit')).on('click', $.proxy(this.link.show, this)).addClass('redactor-link-tooltip-action');
 					var aUnlink = $('<a href="#" />').html(this.lang.get('unlink')).on('click', $.proxy(this.link.unlink, this)).addClass('redactor-link-tooltip-action');
-
 					tooltip.append(aLink).append(' | ').append(aEdit).append(' | ').append(aUnlink);
-
 					var lineHeight = parseInt($link.css('line-height'), 10);
                     var lineClicked = Math.ceil((e.pageY - pos.top)/lineHeight);
                     var top = pos.top + lineClicked * lineHeight;
-
 					tooltip.css({
 						top: top + 'px',
 						left: pos.left + 'px'
 					});
-
 					$('.redactor-link-tooltip').remove();
 					$('body').append(tooltip);
-
 					this.core.editor().on('touchstart.redactor.' + this.uuid + ' click.redactor.' + this.uuid, $.proxy(this.observe.closeTooltip, this));
 					$(document).on('touchstart.redactor.' + this.uuid + ' click.redactor.' + this.uuid, $.proxy(this.observe.closeTooltip, this));
 				},
@@ -7914,7 +6672,6 @@
 				closeTooltip: function(e)
 				{
 					e = e.originalEvent || e;
-
 					var target = e.target;
 					var $parent = $(target).closest('a', this.$editor[0]);
 					if ($parent.length !== 0 && $parent[0].tagName === 'A' && target.tagName !== 'A')
@@ -7925,16 +6682,12 @@
 					{
 						return;
 					}
-
 					this.observe.closeAllTooltip();
-
 					this.core.editor().off('touchstart.redactor.' + this.uuid + ' click.redactor.' + this.uuid, $.proxy(this.observe.closeTooltip, this));
 					$(document).off('touchstart.redactor.' + this.uuid + ' click.redactor.' + this.uuid, $.proxy(this.observe.closeTooltip, this));
 				}
-
 			};
 		},
-
 		// =offset
 		offset: function()
 		{
@@ -7946,54 +6699,42 @@
 					{
 						return 0;
 					}
-
 					var div = document.createElement('div');
 					div.appendChild(cloned.cloneContents());
 					div.innerHTML = div.innerHTML.replace(/<img(.*?[^>])>$/gi, 'i');
-
 			        var text = $.trim($(div).text()).replace(/[\t\n\r\n]/g, '').replace(/\u200B/g, '');
-
 					return text.length;
-
 				},
 				clone: function(node)
 				{
 					var sel = this.selection.get();
 					var range = this.selection.range(sel);
-
 					if (range === null && typeof node === 'undefined')
 					{
 						return false;
 					}
-
 					node = (typeof node === 'undefined') ? this.$editor : node;
 					if (node === false)
 					{
 						return false;
 					}
-
 					node = node[0] || node;
-
 					var cloned = range.cloneRange();
 					cloned.selectNodeContents(node);
 					cloned.setEnd(range.endContainer, range.endOffset);
-
 					return cloned;
 				},
 				set: function(start, end)
 				{
 					end = (typeof end === 'undefined') ? start : end;
-
 					if (!this.focus.is())
 					{
 						this.focus.start();
 					}
-
 					var sel = this.selection.get();
 					var range = this.selection.range(sel);
 					var node, offset = 0;
 					var walker = document.createTreeWalker(this.$editor[0], NodeFilter.SHOW_TEXT, null, null);
-
 					while ((node = walker.nextNode()) !== null)
 					{
 						offset += node.nodeValue.length;
@@ -8002,20 +6743,17 @@
 							range.setStart(node, node.nodeValue.length + start - offset);
 							start = Infinity;
 						}
-
 						if (offset >= end)
 						{
 							range.setEnd(node, node.nodeValue.length + end - offset);
 							break;
 						}
 					}
-
 					range.collapse(false);
 					this.selection.update(sel, range);
 				}
 			};
 		},
-
 		// =paragraphize
 		paragraphize: function()
 		{
@@ -8026,56 +6764,39 @@
 					{
 						return html;
 					}
-
 					if (html === '' || html === '<p></p>')
 					{
 						return this.opts.emptyHtml;
 					}
-
 					html = html + "\n";
-
 					this.paragraphize.safes = [];
 					this.paragraphize.z = 0;
-
 					// before
 					html = html.replace(/(<br\s?\/?>){1,}\n?<\/blockquote>/gi, '</blockquote>');
 					html = html.replace(/<\/pre>/gi, "</pre>\n\n");
-
 					html = this.paragraphize.getSafes(html);
-
 					html = html.replace('<br>', "\n");
 					html = this.paragraphize.convert(html);
-
 					html = this.paragraphize.clear(html);
 					html = this.paragraphize.restoreSafes(html);
-
 					// after
 					html = html.replace(new RegExp('<br\\s?/?>\n?<(' + this.opts.paragraphizeBlocks.join('|') + ')(.*?[^>])>', 'gi'), '<p><br /></p>\n<$1$2>');
-
 					return $.trim(html);
 				},
 				getSafes: function(html)
 				{
 					var $div = $('<div />').append(html);
-
-					// remove paragraphs in blockquotes
+					//删除块引用段落
 					$div.find('blockquote p').replaceWith(function()
 					{
 						return $(this).append('<br />').contents();
 					});
-
-
                     $div.find(this.opts.paragraphizeBlocks.join(', ')).each($.proxy(function(i,s)
 					{
 						this.paragraphize.z++;
 						this.paragraphize.safes[this.paragraphize.z] = s.outerHTML;
-
 						return $(s).replaceWith('\n#####replace' + this.paragraphize.z + '#####\n\n');
-
-
 					}, this));
-
-
 					return $div.html();
 				},
 				restoreSafes: function(html)
@@ -8084,9 +6805,7 @@
 					{
 						s = (typeof s !== 'undefined') ? s.replace(/\$/g, '&#36;') : s;
 						html = html.replace('#####replace' + i + '#####', s);
-
 					});
-
 					return html;
 				},
 				convert: function(html)
@@ -8094,19 +6813,14 @@
 					html = html.replace(/\r\n/g, "xparagraphmarkerz");
 					html = html.replace(/\n/g, "xparagraphmarkerz");
 					html = html.replace(/\r/g, "xparagraphmarkerz");
-
 					var re1 = /\s+/g;
 					html = html.replace(re1, " ");
 					html = $.trim(html);
-
 					var re2 = /xparagraphmarkerzxparagraphmarkerz/gi;
 					html = html.replace(re2, "</p><p>");
-
 					var re3 = /xparagraphmarkerz/gi;
 					html = html.replace(re3, "<br>");
-
 					html = '<p>' + html + '</p>';
-
 					html = html.replace("<p></p>", "");
 					html = html.replace("\r\n\r\n", "");
 					html = html.replace(/<\/p><p>/g, "</p>\r\n\r\n<p>");
@@ -8117,20 +6831,16 @@
 					html = html.replace(/<p>&nbsp;<\/p>/gi, "");
 					html = html.replace(/<p>\s?<br>&nbsp;<\/p>/gi, '');
 					html = html.replace(/<p>\s?<br>/gi, '<p>');
-
 					return html;
 				},
 				clear: function(html)
 				{
-
 					html = html.replace(/<p>(.*?)#####replace(.*?)#####\s?<\/p>/gi, '<p>$1</p>#####replace$2#####');
 					html = html.replace(/(<br\s?\/?>){2,}<\/p>/gi, '</p>');
-
 					html = html.replace(new RegExp('</blockquote></p>', 'gi'), '</blockquote>');
 					html = html.replace(new RegExp('<p></blockquote>', 'gi'), '</blockquote>');
 					html = html.replace(new RegExp('<p><blockquote>', 'gi'), '<blockquote>');
 					html = html.replace(new RegExp('<blockquote></p>', 'gi'), '<blockquote>');
-
 					html = html.replace(new RegExp('<p><p ', 'gi'), '<p ');
 					html = html.replace(new RegExp('<p><p>', 'gi'), '<p>');
 					html = html.replace(new RegExp('</p></p>', 'gi'), '</p>');
@@ -8138,12 +6848,10 @@
 					html = html.replace(new RegExp("\n</p>", 'gi'), '</p>');
 					html = html.replace(new RegExp('<p>\t?\t?\n?<p>', 'gi'), '<p>');
 					html = html.replace(new RegExp('<p>\t*</p>', 'gi'), '');
-
 					return html;
 				}
 			};
 		},
-
 		// =paste
 		paste: function()
 		{
@@ -8152,73 +6860,55 @@
 				{
 					this.rtePaste = true;
 					var pre = (this.opts.type === 'pre' || this.utils.isCurrentOrParent('pre')) ? true : false;
-
-					// clipboard event
+					//剪贴板事件
 					if (!this.paste.pre && !this.detect.isMobile() && this.opts.clipboardImageUpload && this.opts.imageUpload && this.paste.detectClipboardUpload(e))
 					{
 						if (this.detect.isIe())
 						{
 							setTimeout($.proxy(this.paste.clipboardUpload, this), 100);
 						}
-
 						return;
 					}
-
 					this.utils.saveScroll();
 					this.selection.save();
 					this.paste.createPasteBox(pre);
-
 					$(window).on('scroll.redactor-freeze', $.proxy(function()
 					{
 						$(window).scrollTop(this.saveBodyScroll);
-
 					}, this));
-
 					setTimeout($.proxy(function()
 					{
 						var html = this.paste.getPasteBoxCode(pre);
-
 						// buffer
 						this.buffer.set();
 						this.selection.restore();
-
 						this.utils.restoreScroll();
-
 						// paste info
 						var data = this.clean.getCurrentType(html);
-
 						// clean
 						html = this.clean.onPaste(html, data);
-
 						// callback
 						var returned = this.core.callback('paste', html);
 						html = (typeof returned === 'undefined') ? html : returned;
-
 						this.paste.insert(html, data);
 						this.rtePaste = false;
-
-						// clean pre breaklines
+						// 预清洁断裂线clean pre breaklines
 						if (pre)
 						{
 							this.clean.cleanPre();
 						}
-
 						$(window).off('scroll.redactor-freeze');
-
 					}, this), 1);
-
 				},
 				getPasteBoxCode: function(pre)
 				{
 					var html = (pre) ? this.$pasteBox.val() : this.$pasteBox.html();
 					this.$pasteBox.remove();
-
 					return html;
 				},
 				createPasteBox: function(pre)
 				{
 					var css = { position: 'fixed', width: 0, top: 0, left: '-9999px' };
-
 					this.$pasteBox = (pre) ? $('<textarea>').css(css) : $('<div>').attr('contenteditable', 'true').css(css);
 					this.paste.appendPasteBox();
 					this.$pasteBox.focus();
@@ -8246,43 +6936,34 @@
 				detectClipboardUpload: function(e)
 				{
 					e = e.originalEvent || e;
-
 					var clipboard = e.clipboardData;
-
 					if (this.detect.isIe())
 					{
 						return true;
 					}
-
 					if (this.detect.isFirefox())
 					{
 						return false;
 					}
-
-					// prevent safari fake url
+					// 防止假冒的Safari浏览器的URL
 					var types = clipboard.types;
 					if (types.indexOf('public.tiff') !== -1)
 					{
 						e.preventDefault();
 						return false;
 					}
-
-
 					if (!clipboard.items || !clipboard.items.length)
 					{
 						return;
 					}
-
 					var file = clipboard.items[0].getAsFile();
 					if (file === null)
 					{
 						return false;
 					}
-
 					var reader = new FileReader();
 					reader.readAsDataURL(file);
 					reader.onload = $.proxy(this.paste.insertFromClipboard, this);
-
 					return true;
 				},
 				clipboardUpload: function()
@@ -8294,15 +6975,12 @@
 						{
 							return;
 						}
-
 						var formData = !!window.FormData ? new FormData() : null;
 						if (!window.FormData)
 						{
 							return;
 						}
-
 						this.buffer.set();
-
 						this.upload.direct = true;
 						this.upload.type = 'image';
 						this.upload.url = this.opts.imageUpload;
@@ -8317,23 +6995,15 @@
 								var $parent = $(s).parent();
 								this.utils.replaceToTag($parent, 'figure');
 							}
-
-
 							s.src = data.filelink;
 							this.core.callback('imageUpload', $(s), data);
-
 						}, this);
-
 						var blob = this.utils.dataURItoBlob(s.src);
-
-
 						formData.append('clipboard', 1);
 						formData.append(this.opts.imageUploadParam, blob);
-
 						this.progress.show();
 						this.upload.send(formData, false);
 						this.code.sync();
-
 					}, this));
 				},
 				insertFromClipboard: function(e)
@@ -8343,19 +7013,14 @@
 					{
 						return;
 					}
-
 					this.buffer.set();
-
 					this.upload.direct = true;
 					this.upload.type = 'image';
 					this.upload.url = this.opts.imageUpload;
 					this.upload.callback = this.image.insert;
-
 					var blob = this.utils.dataURItoBlob(e.target.result);
-
 					formData.append('clipboard', 1);
 					formData.append(this.opts.imageUploadParam, blob);
-
 					this.progress.show();
 					this.upload.send(formData, e);
 				},
@@ -8373,29 +7038,24 @@
 					{
 						this.insert.html(html, data);
 					}
-
 					// Firefox Clipboard Observe
 					if (this.detect.isFirefox() && this.opts.clipboardImageUpload)
 					{
 						setTimeout($.proxy(this.paste.clipboardUpload, this), 100);
 					}
-
 				}
 			};
 		},
-
 		// =placeholder
 		placeholder: function()
 		{
 			return {
-
 				// public
 				enable: function()
 				{
 					setTimeout($.proxy(function()
 					{
 						return (this.placeholder.isEditorEmpty()) ? this.placeholder.show() : this.placeholder.hide();
-
 					}, this), 5);
 				},
 				show: function()
@@ -8415,8 +7075,6 @@
 				{
 					return this.core.editor().hasClass('redactor-placeholder');
 				},
-
-
 				// private
 				init: function()
 				{
@@ -8424,17 +7082,14 @@
 					{
 						return;
 					}
-
 					if (!this.utils.isEditorRelative())
 					{
 						this.utils.setEditorRelative();
 					}
-
 					this.placeholder.build();
 					this.placeholder.buildPosition();
 					this.placeholder.enable();
 					this.placeholder.enableEvents();
-
 				},
 				enabled: function()
 				{
@@ -8457,7 +7112,6 @@
 					var $style = $('<style />');
 					$style.addClass('redactor-placeholder-style-tag');
 					$style.html('#' + this.core.id() + '.redactor-placeholder::after ' + this.placeholder.getPosition());
-
 					$('head').append($style);
 				},
 				getPosition: function()
@@ -8468,7 +7122,6 @@
 				{
 					var html = $.trim(this.core.editor().html()).replace(/[\t\n]/g, '');
 					var states = ['', '<p>​</p>', '<p>​<br></p>'];
-
 					return ($.inArray(html, states) !== -1);
 				},
 				isAttr: function()
@@ -8478,15 +7131,12 @@
 				destroy: function()
 				{
 					this.core.editor().removeAttr('placeholder');
-
 					this.placeholder.hide();
 					this.placeholder.disableEvents();
-
 					$('.redactor-placeholder-style-tag').remove();
 				}
 			};
 		},
-
 		// =progress
 		progress: function()
 		{
@@ -8494,7 +7144,6 @@
 				$box: null,
 				$bar: null,
 				target: document.body,  // or id selector
-
 				// public
 				show: function()
 				{
@@ -8524,13 +7173,11 @@
 				{
 					return (this.progress.$box === null) ? false : true;
 				},
-
-				// private
+				//私有的
 				build: function()
 				{
 					this.progress.$bar = $('<span />');
 					this.progress.$box = $('<div id="redactor-progress" />');
-
 					this.progress.$box.append(this.progress.$bar);
 					$(this.progress.target).append(this.progress.$box);
 				},
@@ -8540,13 +7187,11 @@
 					{
 						this.progress.$box.remove();
 					}
-
 					this.progress.$box = null;
 					this.progress.$bar = null;
 				}
 			};
 		},
-
 		// =selection
 		selection: function()
 		{
@@ -8561,7 +7206,6 @@
 					{
 						return document.selection;
 					}
-
 					return null;
 				},
 				range: function(sel)
@@ -8570,12 +7214,10 @@
 					{
 						sel = this.selection.get();
 					}
-
 					if (sel.getRangeAt && sel.rangeCount)
 					{
 						return sel.getRangeAt(0);
 					}
-
 					return null;
 				},
 				is: function()
@@ -8585,23 +7227,19 @@
 				isRedactor: function()
 				{
 					var range = this.selection.range();
-
 					if (range !== null)
 					{
 						var el = range.startContainer.parentNode;
-
 						if ($(el).hasClass('redactor-in') || $(el).parents('.redactor-in').length !== 0)
 						{
 							return true;
 						}
 					}
-
 					return false;
 				},
 				isCollapsed: function()
 				{
 					var sel = this.selection.get();
-
 					return (sel === null) ? false : sel.isCollapsed;
 				},
 				update: function(sel, range)
@@ -8610,52 +7248,43 @@
 					{
 						return;
 					}
-
 					sel.removeAllRanges();
 					sel.addRange(range);
 				},
 				current: function()
 				{
 					var sel = this.selection.get();
-
 					return (sel === null) ? false : sel.anchorNode;
 				},
 				parent: function()
 				{
 					var current = this.selection.current();
-
 					return (current === null) ? false : current.parentNode;
 				},
 				block: function(node)
 				{
 					node = node || this.selection.current();
-
 					while (node)
 					{
 						if (this.utils.isBlockTag(node.tagName))
 						{
 							return ($(node).hasClass('redactor-in')) ? false : node;
 						}
-
 						node = node.parentNode;
 					}
-
 					return false;
 				},
 				inline: function(node)
 				{
 					node = node || this.selection.current();
-
 					while (node)
 					{
 						if (this.utils.isInlineTag(node.tagName))
 						{
 							return ($(node).hasClass('redactor-in')) ? false : node;
 						}
-
 						node = node.parentNode;
 					}
-
 					return false;
 				},
 				element: function(node)
@@ -8664,7 +7293,6 @@
 					{
 						node = this.selection.current();
 					}
-
 					while (node)
 					{
 						if (node.nodeType === 1)
@@ -8673,41 +7301,33 @@
 							{
 								return false;
 							}
-
 							return node;
 						}
-
 						node = node.parentNode;
 					}
-
 					return false;
 				},
 				prev: function()
 				{
 					var current = this.selection.current();
-
 					return (current === null) ? false : this.selection.current().previousSibling;
 				},
 				next: function()
 				{
 					var current = this.selection.current();
-
 					return (current === null) ? false : this.selection.current().nextSibling;
 				},
 				blocks: function(tag)
 				{
 					var blocks = [];
 					var nodes = this.selection.nodes(tag);
-
 					$.each(nodes, $.proxy(function(i,node)
 					{
 						if (this.utils.isBlock(node))
 						{
 							blocks.push(node);
 						}
-
 					}, this));
-
 					var block = this.selection.block();
 					if (blocks.length === 0 && block === false)
 					{
@@ -8721,22 +7341,18 @@
 					{
 						return blocks;
 					}
-
 				},
 				inlines: function(tag)
 				{
 					var inlines = [];
 					var nodes = this.selection.nodes(tag);
-
 					$.each(nodes, $.proxy(function(i,node)
 					{
 						if (this.utils.isInline(node))
 						{
 							inlines.push(node);
 						}
-
 					}, this));
-
 					var inline = this.selection.inline();
 					if (inlines.length === 0 && inline === false)
 					{
@@ -8754,7 +7370,6 @@
 				nodes: function(tag)
 				{
 					var filter = (typeof tag === 'undefined') ? [] : (($.isArray(tag)) ? tag : [tag]);
-
 					var sel = this.selection.get();
 					var range = this.selection.range(sel);
 					if (this.utils.isCollapsed())
@@ -8765,29 +7380,25 @@
 					{
 						var node = range.startContainer;
 						var endNode = range.endContainer;
-
 						// single node
 						if (node === endNode)
 						{
 							return [node];
 						}
-
 						// iterate
 						var nodes = [];
 						while (node && node !== endNode)
 						{
 							nodes.push(node = this.selection.nextNode(node));
 						}
-
-						// partially selected nodes
+						//部分选定的节点
 						node = range.startContainer;
 						while (node && node !== range.commonAncestorContainer)
 						{
 							nodes.unshift(node);
 							node = node.parentNode;
 						}
-
-						// remove service nodes
+						// 删除服务节点
 						var resultNodes = [];
 						$.each(nodes, function(i,s)
 						{
@@ -8805,10 +7416,8 @@
 								resultNodes.push(s);
 							}
 						});
-
 						return (resultNodes.length === 0) ? [] : resultNodes;
 					}
-
 				},
 				nextNode: function(node)
 				{
@@ -8822,12 +7431,10 @@
 						{
 							node = node.parentNode;
 						}
-
 						if (!node)
 						{
 							return null;
 						}
-
 						return node.nextSibling;
 					}
 				},
@@ -8840,12 +7447,10 @@
 				{
                     var node1 = this.marker.find(1);
 					var node2 = this.marker.find(2);
-
 					if (this.detect.isFirefox())
 					{
 						this.core.editor().focus();
 					}
-
 					if (node1.length !== 0 && node2.length !== 0)
 					{
 						this.caret.set(node1, node2);
@@ -8858,30 +7463,24 @@
 					{
 						this.core.editor().focus();
 					}
-
 					if (removeMarkers !== false)
 					{
 						this.marker.remove();
 						this.savedSel = false;
 					}
-
 				},
 				node: function(node)
 				{
 					$(node).prepend(this.marker.get(1));
 					$(node).append(this.marker.get(2));
-
 					this.selection.restore();
 				},
 				all: function()
 				{
 					this.core.editor().focus();
-
 					var sel = this.selection.get();
 					var range = this.selection.range(sel);
-
 					range.selectNodeContents(this.core.editor()[0]);
-
 					this.selection.update(sel, range);
 				},
 				remove: function()
@@ -8900,7 +7499,6 @@
 				{
 					var html = '';
 					var sel = this.selection.get();
-
 					if (sel.rangeCount)
 					{
 						var container = document.createElement('div');
@@ -8909,24 +7507,19 @@
 						{
 							container.appendChild(sel.getRangeAt(i).cloneContents());
 						}
-
 						html = this.clean.onGet(container.innerHTML);
 					}
-
 					return html;
 				},
 				extractEndOfNode: function(node)
 				{
 					var sel = this.selection.get();
 					var range = this.selection.range(sel);
-
 			        var clonedRange = range.cloneRange();
 			        clonedRange.selectNodeContents(node);
 			        clonedRange.setStart(range.endContainer, range.endOffset);
-
 			        return clonedRange.extractContents();
 				},
-
 				// #backward
 				removeMarkers: function()
 				{
@@ -8940,10 +7533,8 @@
 				{
 					return this.marker.html(num);
 				}
-
 			};
 		},
-
 		// =shortcuts
 		shortcuts: function()
 		{
@@ -8966,14 +7557,13 @@
 				},
 				init: function(e, key)
 				{
-					// disable browser's hot keys for bold and italic if shortcuts off
+					//禁用浏览器的粗体和斜体如果关闭快捷热键
 					if (this.opts.shortcuts === false)
 					{
 						if ((e.ctrlKey || e.metaKey) && (key === 66 || key === 73))
 						{
 							e.preventDefault();
 						}
-
 						return false;
 					}
 					else
@@ -8982,7 +7572,6 @@
 						$.each(this.opts.shortcuts, $.proxy(function(str, command)
 						{
 							this.shortcuts.build(e, str, command);
-
 						}, this));
 					}
 				},
@@ -8991,9 +7580,7 @@
 					var handler = $.proxy(function()
 					{
 						this.shortcuts.buildHandler(command);
-
 					}, this);
-
 					var keys = str.split(',');
 					var len = keys.length;
 					for (var i = 0; i < len; i++)
@@ -9003,7 +7590,6 @@
 							this.shortcuts.handler(e, $.trim(keys[i]), handler);
 						}
 					}
-
 				},
 				buildHandler: function(command)
 				{
@@ -9024,11 +7610,9 @@
 				handler: function(e, keys, origHandler)
 				{
 					keys = keys.toLowerCase().split(" ");
-
 					var special = this.shortcuts.hotkeysSpecialKeys[e.keyCode];
 					var character = String.fromCharCode(e.which).toLowerCase();
 					var modif = "", possible = {};
-
 					$.each([ "alt", "ctrl", "meta", "shift"], function(index, specialKey)
 					{
 						if (e[specialKey + 'Key'] && special !== specialKey)
@@ -9036,25 +7620,20 @@
 							modif += specialKey + '+';
 						}
 					});
-
-
 					if (special)
 					{
 						possible[modif + special] = true;
 					}
-
 					if (character)
 					{
 						possible[modif + character] = true;
 						possible[modif + this.shortcuts.hotkeysShiftNums[character]] = true;
-
 						// "$" can be triggered as "Shift+4" or "Shift+$" or just "$"
 						if (modif === "shift+")
 						{
 							possible[this.shortcuts.hotkeysShiftNums[character]] = true;
 						}
 					}
-
 					var len = keys.length;
 					for (var i = 0; i < len; i++)
 					{
@@ -9067,7 +7646,6 @@
 				}
 			};
 		},
-
 		// =storage
 		storage: function()
 		{
@@ -9075,10 +7653,9 @@
 				data: [],
 				add: function(data)
 				{
-					// type, node, url, id
+					// 类型，节点，网址，id
 					data.status = true;
 					data.url = decodeURI(this.link.removeSelfHostFromUrl(data.url));
-
 					this.storage.data[data.url] = data;
 				},
 				status: function(url, status)
@@ -9088,26 +7665,22 @@
 				observe: function()
 				{
 					var _this = this;
-
 					var $images = this.core.editor().find('[data-image]');
 					$images.each(function(i, s)
 					{
 						_this.storage.add({ type: 'image', node: s, url: s.src, id: $(s).attr('data-image') });
 					});
-
 					var $files = this.core.editor().find('[data-file]');
 					$files.each(function(i, s)
 					{
 						_this.storage.add({ type: 'file', node: s, url: s.href, id: $(s).attr('data-file') });
 					});
-
 					var $s3 = this.core.editor().find('[data-s3]');
 					$s3.each(function(i, s)
 					{
 						var url = (s.tagName === 'IMG') ? s.src : s.href;
 						_this.storage.add({ type: 's3', node: s, url: url, id: $(s).attr('data-s3') });
 					});
-
 				},
 				changes: function()
 				{
@@ -9116,7 +7689,6 @@
 						var data = this.storage.data[key];
 						var attr = (data.node.tagName === 'IMG') ? 'src' : 'href';
 						var $el = this.core.editor().find('[data-' + data.type + '][' + attr + '="' + data.url + '"]');
-
 						if ($el.length === 0)
 						{
 							this.storage.status(data.url, false);
@@ -9126,14 +7698,10 @@
 							this.storage.status(data.url, true);
 						}
 					}
-
-
 					return this.storage.data;
 				}
-
 			};
 		},
-
 		// =toolbar
 		toolbar: function()
 		{
@@ -9142,15 +7710,12 @@
 				{
 					this.button.hideButtons();
 					this.button.hideButtonsOnMobile();
-
 					this.$toolbar = this.toolbar.createContainer();
-
 					this.toolbar.append();
 					this.button.$toolbar = this.$toolbar;
 					this.button.setFormatting();
 					this.button.load(this.$toolbar);
 					this.toolbar.setFixed();
-
 				},
 				createContainer: function()
 				{
@@ -9173,7 +7738,6 @@
 						{
 							this.$element.before(this.$toolbar);
 						}
-
 					}
 				},
 				setFixed: function()
@@ -9182,16 +7746,13 @@
 					{
 						return;
 					}
-
 					if (this.opts.toolbarFixedTarget !== document)
 					{
 						var $el = $(this.opts.toolbarFixedTarget);
 						this.toolbarOffsetTop = ($el.length === 0) ? 0 : this.core.box().offset().top - $el.offset().top;
 					}
-
-					// bootstrap modal fix
+					// 自举模式修正
 					var late = (this.core.box().closest('.modal-body').length !== 0) ? 1000 : 0;
-
 					setTimeout($.proxy(function()
 					{
 						this.toolbar.observeScroll(false);
@@ -9211,12 +7772,9 @@
 									self.core.toolbar().show();
 									self.toolbar.observeScroll();
 								}, 250) );
-
 							});
 						}
-
 					}, this), late);
-
 				},
 				getBoxTop: function()
 				{
@@ -9224,22 +7782,18 @@
 				},
 				observeScroll: function(start)
 				{
-					// tolerance 0 if redactor in the hidden layer
+					// 公差0如果在隐层编辑
 					var tolerance = 0;
-
 					if (start !== false)
 					{
 						tolerance = (this.opts.toolbarFixedTarget === document) ? 20 : 0;
 					}
-
 					var scrollTop = $(this.opts.toolbarFixedTarget).scrollTop();
 					var boxTop = this.toolbar.getBoxTop();
-
                     if (scrollTop === boxTop)
                     {
                         return;
                     }
-
 					if ((scrollTop + this.opts.toolbarFixedTopOffset + tolerance) > boxTop)
 					{
 						this.toolbar.observeScrollEnable(scrollTop, boxTop);
@@ -9252,10 +7806,8 @@
 				observeScrollResize: function()
 				{
 					this.$toolbar.css({
-
 						width: this.core.box().innerWidth(),
 						left: this.core.box().offset().left
-
 					});
 				},
 				observeScrollEnable: function(scrollTop, boxTop)
@@ -9265,38 +7817,29 @@
 						this.toolbar.observeScrollDisable();
 						return;
 					}
-
 					var end = boxTop + this.core.box().outerHeight() - 32;
 					var width = this.core.box().innerWidth();
-
 					var position = (this.detect.isDesktop()) ? 'fixed' : 'absolute';
 					var top = (this.detect.isDesktop()) ? this.opts.toolbarFixedTopOffset : ($(this.opts.toolbarFixedTarget).scrollTop() - boxTop);
 					var left = (this.detect.isDesktop()) ? this.core.box().offset().left : 0;
-
 					if (this.opts.toolbarFixedTarget !== document)
 					{
 						 position = 'absolute';
 						 top = this.opts.toolbarFixedTopOffset + $(this.opts.toolbarFixedTarget).scrollTop() - boxTop;
 						 left = 0;
 					}
-
 					this.$toolbar.addClass('toolbar-fixed-box');
-
 					this.$toolbar.css({
 						position: position,
 						width: width,
 						top: top,
 						left: left
 					});
-
-
 					if (scrollTop > end)
 					{
 						$('.redactor-dropdown-' + this.uuid + ':visible').hide();
 					}
-
 					this.toolbar.setDropdownsFixed();
-
 					this.$toolbar.css('visibility', (scrollTop < end) ? 'visible' : 'hidden');
 					$(window).on('resize.redactor-toolbar.' + this.uuid, $.proxy(this.toolbar.observeScrollResize, this));
 				},
@@ -9309,7 +7852,6 @@
 						left: 0,
 						visibility: 'visible'
 					});
-
 					this.toolbar.unsetDropdownsFixed();
 					this.$toolbar.removeClass('toolbar-fixed-box');
 					$(window).off('resize.redactor-toolbar.' + this.uuid);
@@ -9331,13 +7873,11 @@
 						var $el = $(this);
 						var $button = self.button.get($el.attr('rel'));
 						var top = (position === 'fixed') ? self.opts.toolbarFixedTopOffset : $button.offset().top;
-
 						$el.css({ position: position, top: ($button.innerHeight() + top) + 'px' });
 					});
 				}
 			};
 		},
-
 		// =upload
 		upload: function()
 		{
@@ -9349,35 +7889,27 @@
 					this.upload.url = url;
 					this.upload.$el = $(id);
 					this.upload.$droparea = $('<div id="redactor-droparea" />');
-
 					this.upload.$placeholdler = $('<div id="redactor-droparea-placeholder" />').text(this.lang.get('upload-label'));
 					this.upload.$input = $('<input type="file" name="file" />');
-
 					this.upload.$placeholdler.append(this.upload.$input);
 					this.upload.$droparea.append(this.upload.$placeholdler);
 					this.upload.$el.append(this.upload.$droparea);
-
 					this.upload.$droparea.off('redactor.upload');
 					this.upload.$input.off('redactor.upload');
-
 					this.upload.$droparea.on('dragover.redactor.upload', $.proxy(this.upload.onDrag, this));
 					this.upload.$droparea.on('dragleave.redactor.upload', $.proxy(this.upload.onDragLeave, this));
-
-					// change
+					// 改变
 					this.upload.$input.on('change.redactor.upload', $.proxy(function(e)
 					{
 						e = e.originalEvent || e;
 						this.upload.traverseFile(this.upload.$input[0].files[0], e);
 					}, this));
-
-					// drop
+					//滴
 					this.upload.$droparea.on('drop.redactor.upload', $.proxy(function(e)
 					{
 						e.preventDefault();
-
 						this.upload.$droparea.removeClass('drag-hover').addClass('drag-drop');
 						this.upload.onDrop(e);
-
 					}, this));
 				},
 				directUpload: function(file, e)
@@ -9389,7 +7921,6 @@
 				{
 					e = e.originalEvent || e;
 					var files = e.dataTransfer.files;
-
 					if (this.opts.multipleImageUpload)
 					{
 						var len = files.length;
@@ -9411,16 +7942,13 @@
 						this.uploads3.send(file, e);
 						return;
 					}
-
 					var formData = !!window.FormData ? new FormData() : null;
 					if (window.FormData)
 					{
 						this.upload.setConfig(file);
-
 						var name = (this.upload.type === 'image') ? this.opts.imageUploadParam : this.opts.fileUploadParam;
 						formData.append(name, file);
 					}
-
 					this.progress.show();
 					this.core.callback('uploadStart', e, formData);
 					this.upload.send(formData, e);
@@ -9428,7 +7956,6 @@
 				setConfig: function(file)
 				{
 					this.upload.getType(file);
-
 					if (this.upload.direct)
 					{
 						this.upload.url = (this.upload.type === 'image') ? this.opts.imageUpload : this.opts.fileUpload;
@@ -9438,7 +7965,6 @@
 				getType: function(file)
 				{
 					this.upload.type = (this.opts.imageTypes.indexOf(file.type) === -1) ? 'file' : 'image';
-
 					if (this.opts.imageUpload === null && this.opts.fileUpload !== null)
 					{
 						this.upload.type = 'file';
@@ -9450,24 +7976,19 @@
 					{
 						return fd;
 					}
-
 					$.each(obj, $.proxy(function(k, v)
 					{
 						if (v !== null && v.toString().indexOf('#') === 0)
 						{
 							v = $(v).val();
 						}
-
 						fd.append(k, v);
-
 					}, this));
-
 					return fd;
-
 				},
 				send: function(formData, e)
 				{
-					// append hidden fields
+					//追加隐藏字段
 					if (this.upload.type === 'image')
 					{
 						formData = this.utils.appendFields(this.opts.imageUploadFields, formData);
@@ -9480,21 +8001,17 @@
 						formData = this.utils.appendForms(this.opts.fileUploadForms, formData);
 						formData = this.upload.getHiddenFields(this.upload.fileFields, formData);
 					}
-
 					var xhr = new XMLHttpRequest();
 					xhr.open('POST', this.upload.url);
 					xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-
 					// complete
 					xhr.onreadystatechange = $.proxy(function()
 					{
 					    if (xhr.readyState === 4)
 					    {
 					        var data = xhr.responseText;
-
 							data = data.replace(/^\[/, '');
 							data = data.replace(/\]$/, '');
-
 							var json;
 							try
 							{
@@ -9504,19 +8021,14 @@
 							{
 								json = { error: true };
 							}
-
-
 							this.progress.hide();
-
 							if (!this.upload.direct)
 							{
 								this.upload.$droparea.removeClass('drag-drop');
 							}
-
 							this.upload.callback(json, this.upload.direct, e);
 					    }
 					}, this);
-
 					xhr.send(formData);
 				},
 				onDrag: function(e)
@@ -9555,7 +8067,6 @@
 				}
 			};
 		},
-
 		// =s3
 		uploads3: function()
 		{
@@ -9571,15 +8082,12 @@
 				{
 					var xhr = new XMLHttpRequest();
 					var mark = (this.opts.s3.search(/\?/) === -1) ? '?' : '&';
-
 					xhr.open('GET', this.opts.s3 + mark + 'name=' + file.name + '&type=' + file.type, true);
-
-					// hack to pass bytes through unprocessed.
+					// 黑客通过字节通过未加工的。
 					if (xhr.overrideMimeType)
 					{
 						xhr.overrideMimeType('text/plain; charset=x-user-defined');
 					}
-
 					var that = this;
 					xhr.onreadystatechange = function(e)
 					{
@@ -9589,7 +8097,6 @@
 							callback(decodeURIComponent(this.responseText));
 						}
 					};
-
 					xhr.send();
 				},
 				createCORSRequest: function(method, url)
@@ -9608,7 +8115,6 @@
 					{
 						xhr = null;
 					}
-
 					return xhr;
 				},
 				sendToS3: function(file, url, e)
@@ -9618,60 +8124,43 @@
 					{
 						return;
 					}
-
 					xhr.onload = $.proxy(function()
 					{
 						var json;
-
 						this.progress.hide();
-
 						if (xhr.status !== 200)
 						{
-							// error
+							// 错误
 							json = { error: true };
 							this.upload.callback(json, this.upload.direct, xhr);
-
 							return;
 						}
-
 						var s3file = url.split('?');
-
 						if (!s3file[0])
 						{
-							 // url parsing is fail
+							 // URL解析为fail
 							 return false;
 						}
-
-
 						if (!this.upload.direct)
 						{
 							this.upload.$droparea.removeClass('drag-drop');
 						}
-
 						json = { url: s3file[0], id: s3file[0], s3: true };
 						if (this.upload.type === 'file')
 						{
 							var arr = s3file[0].split('/');
 							json.name = arr[arr.length-1];
 						}
-
 						this.upload.callback(json, this.upload.direct, e);
-
-
 					}, this);
-
 					xhr.onerror = function() {};
 					xhr.upload.onprogress = function(e) {};
-
 					xhr.setRequestHeader('Content-Type', file.type);
 					xhr.setRequestHeader('x-amz-acl', 'public-read');
-
 					xhr.send(file);
-
 				}
 			};
 		},
-
 		// =utils
 		utils: function()
 		{
@@ -9679,7 +8168,6 @@
 				isEmpty: function(html)
 				{
 					html = (typeof html === 'undefined') ? this.core.editor().html() : html;
-
 					html = html.replace(/[\u200B-\u200D\uFEFF]/g, '');
 					html = html.replace(/&nbsp;/gi, '');
 					html = html.replace(/<\/?br\s?\/?>/g, '');
@@ -9687,19 +8175,16 @@
 					html = html.replace(/^<p>[^\W\w\D\d]*?<\/p>$/i, '');
 					html = html.replace(/<iframe(.*?[^>])>$/i, 'iframe');
 					html = html.replace(/<source(.*?[^>])>$/i, 'source');
-
 					// remove empty tags
 					html = html.replace(/<[^\/>][^>]*><\/[^>]+>/gi, '');
 					html = html.replace(/<[^\/>][^>]*><\/[^>]+>/gi, '');
-
 					html = $.trim(html);
-
 					return html === '';
 				},
 				isElement: function(obj)
 				{
 					try {
-						// Using W3 DOM2 (works for FF, Opera and Chrome)
+						//使用DOM W32（适用于FF，Opera和Chrome浏览器）
 						return obj instanceof HTMLElement;
 					}
 					catch(e)
@@ -9723,15 +8208,12 @@
 					{
 						byteString = unescape(dataURI.split(',')[1]);
 					}
-
 					var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
 					var ia = new Uint8Array(byteString.length);
 					for (var i = 0; i < byteString.length; i++)
 					{
 						ia[i] = byteString.charCodeAt(i);
 					}
-
 					return new Blob([ia], { type:mimeString });
 				},
 				getOuterHtml: function(el)
@@ -9742,7 +8224,6 @@
 				{
 					from = from[0] || from;
 					to = $(to);
-
 					var attrs = from.attributes;
 					var len = attrs.length;
 					while (len--)
@@ -9750,7 +8231,6 @@
 					    var attr = attrs[len];
 					    to.attr(attr.name, attr.value);
 					}
-
 					return to;
 				},
 				breakBlockTag: function()
@@ -9760,16 +8240,12 @@
 					{
     					return false;
 					}
-
 					var isEmpty = this.utils.isEmpty(block.innerHTML);
-
 					var tag = block.tagName.toLowerCase();
 					if (tag === 'pre' || tag === 'li' || tag === 'td' || tag === 'th')
 					{
 						return false;
 					}
-
-
 					if (!isEmpty && this.utils.isStartOfElement(block))
 					{
 						return { $block: $(block), $next: $(block).next(), type: 'start' };
@@ -9782,18 +8258,15 @@
 					{
 						var endOfNode = this.selection.extractEndOfNode(block);
 						var $nextPart = $('<' + tag + ' />').append(endOfNode);
-
 						$nextPart = this.utils.cloneAttributes(block, $nextPart);
 						$(block).after($nextPart);
-
 						return { $block: $(block), $next: $nextPart, type: 'break' };
 					}
 				},
-				// tag detection
+				//标签检测
 				inBlocks: function(tags)
 				{
 					tags = ($.isArray(tags)) ? tags : [tags];
-
 					var blocks = this.selection.blocks();
 					var len = blocks.length;
 					var contains = false;
@@ -9802,36 +8275,29 @@
 						if (blocks[i] !== false)
 						{
 							var tag = blocks[i].tagName.toLowerCase();
-
 							if ($.inArray(tag, tags) !== -1)
 							{
 								contains = true;
 							}
 						}
 					}
-
 					return contains;
-
 				},
 				inInlines: function(tags)
 				{
 					tags = ($.isArray(tags)) ? tags : [tags];
-
 					var inlines = this.selection.inlines();
 					var len = inlines.length;
 					var contains = false;
 					for (var i = 0; i < len; i++)
 					{
 						var tag = inlines[i].tagName.toLowerCase();
-
 						if ($.inArray(tag, tags) !== -1)
 						{
 							contains = true;
 						}
 					}
-
 					return contains;
-
 				},
 				isTag: function(current, tag)
 				{
@@ -9840,7 +8306,6 @@
 					{
 						return element[0];
 					}
-
 					return false;
 				},
 				isBlock: function(block)
@@ -9849,9 +8314,7 @@
 					{
 						return false;
 					}
-
 					block = block[0] || block;
-
 					return block && this.utils.isBlockTag(block.tagName);
 				},
 				isBlockTag: function(tag)
@@ -9861,26 +8324,23 @@
 				isInline: function(inline)
 				{
 					inline = inline[0] || inline;
-
 					return inline && this.utils.isInlineTag(inline.tagName);
 				},
 				isInlineTag: function(tag)
 				{
 					return (typeof tag === 'undefined') ? false : this.reIsInline.test(tag);
 				},
-				// parents detection
+				//父母的检测
 				isRedactorParent: function(el)
 				{
 					if (!el)
 					{
 						return false;
 					}
-
 					if ($(el).parents('.redactor-in').length === 0 || $(el).hasClass('redactor-in'))
 					{
 						return false;
 					}
-
 					return el;
 				},
 				isCurrentOrParentHeader: function()
@@ -9891,7 +8351,6 @@
 				{
 					var parent = this.selection.parent();
 					var current = this.selection.current();
-
 					if ($.isArray(tagName))
 					{
 						var matched = 0;
@@ -9902,7 +8361,6 @@
 								matched++;
 							}
 						}, this));
-
 						return (matched === 0) ? false : true;
 					}
 					else
@@ -9913,14 +8371,12 @@
 				isCurrentOrParentOne: function(current, parent, tagName)
 				{
 					tagName = tagName.toUpperCase();
-
 					return parent && parent.tagName === tagName ? parent : current && current.tagName === tagName ? current : false;
 				},
 				isEditorRelative: function()
 				{
 					var position = this.core.editor().css('position');
 					var arr = ['absolute', 'fixed', 'relative'];
-
 					return ($.inArray(arr, position) !== -1);
 				},
 				setEditorRelative: function()
@@ -9939,7 +8395,6 @@
 					{
 						return;
 					}
-
 					$(document).scrollTop(this.freezeScrollTop);
 				},
 				saveScroll: function()
@@ -9952,7 +8407,6 @@
 					{
 						return;
 					}
-
 					$(document).scrollTop(this.tmpScrollTop);
 				},
 				isStartOfElement: function(element)
@@ -9965,7 +8419,6 @@
 							return false;
 						}
 					}
-
 					return (this.offset.get(element) === 0) ? true : false;
 				},
 				isEndOfElement: function(element)
@@ -9978,10 +8431,8 @@
 							return false;
 						}
 					}
-
 					var text = $.trim($(element).text()).replace(/[\t\n\r\n]/g, '').replace(/\u200B/g, '');
 					var offset = this.offset.get(element);
-
 					return (offset === text.length) ? true : false;
 				},
 				removeEmptyAttr: function(el, attr)
@@ -9991,13 +8442,11 @@
 					{
 						return true;
 					}
-
 					if ($el.attr(attr) === '')
 					{
 						$el.removeAttr(attr);
 						return true;
 					}
-
 					return false;
 				},
 				replaceToTag: function(node, tag)
@@ -10006,18 +8455,15 @@
 					$(node).replaceWith(function()
 					{
 						replacement = $('<' + tag + ' />').append($(this).contents());
-
 						for (var i = 0; i < this.attributes.length; i++)
 						{
 							replacement.attr(this.attributes[i].name, this.attributes[i].value);
 						}
-
 						return replacement;
 					});
-
 					return replacement;
 				},
-				// select all
+				// 选择所有
 				isSelectAll: function()
 				{
 					return this.selectAll;
@@ -10039,10 +8485,8 @@
 						var documentElementRect = document.documentElement.getBoundingClientRect();
 						windowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
 					}
-
 					var isOverflowing = document.body.clientWidth < windowWidth;
 					var scrollbarWidth = this.utils.measureScrollbar();
-
 					$body.css('overflow', 'hidden');
 					if (isOverflowing)
 					{
@@ -10054,7 +8498,6 @@
 					var $body = $('body');
 					var scrollDiv = document.createElement('div');
 					scrollDiv.className = 'redactor-scrollbar-measure';
-
 					$body.append(scrollDiv);
 					var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
 					$body[0].removeChild(scrollDiv);
@@ -10079,14 +8522,10 @@
     						{
         						v = $(v).val();
                             }
-
     						data.append(k, v);
-
     					});
-
     					return data;
 					}
-
 					var $fields = $(appendFields);
 					if ($fields.length === 0)
 					{
@@ -10099,7 +8538,6 @@
 						{
 							data.append($(this).attr('name'), $(this).val());
 						});
-
 						return data;
 					}
 				},
@@ -10109,7 +8547,6 @@
 					{
 						return data;
 					}
-
 					var $forms = $(appendForms);
 					if ($forms.length === 0)
 					{
@@ -10118,16 +8555,13 @@
 					else
 					{
 						var formData = $forms.serializeArray();
-
 						$.each(formData, function(z,f)
 						{
 							data.append(f.name, f.value);
 						});
-
 						return data;
 					}
 				},
-
 				// #backward
 				isCollapsed: function()
 				{
@@ -10145,10 +8579,8 @@
 				{
 					return this.detect.isIpad();
 				}
-
 			};
 		},
-
 		// #backward
 		browser: function()
 		{
@@ -10168,17 +8600,13 @@
 			};
 		}
 	};
-
 	$(window).on('load.tools.redactor', function()
 	{
 		$('[data-tools="redactor"]').redactor();
 	});
-
-	// constructor
+	// 构造函数
 	Redactor.prototype.init.prototype = Redactor.prototype;
-
 })(jQuery);
-
 (function($)
 {
 	$.fn.redactorAnimation = function(animation, options, callback)
@@ -10188,10 +8616,9 @@
 			new redactorAnimation(this, animation, options, callback);
 		});
 	};
-
 	function redactorAnimation(element, animation, options, callback)
 	{
-		// default
+		// 默认
 		var opts = {
 			duration: 0.5,
 			iterate: 1,
@@ -10199,14 +8626,12 @@
 			prefix: 'redactor-',
 			timing: 'linear'
 		};
-
 		this.animation = animation;
 		this.slide = (this.animation === 'slideDown' || this.animation === 'slideUp');
 		this.$element = $(element);
 		this.prefixes = ['', '-moz-', '-o-animation-', '-webkit-'];
 		this.queue = [];
-
-		// options or callback
+		//选项或回调
 		if (typeof options === 'function')
 		{
 			callback = options;
@@ -10216,31 +8641,23 @@
 		{
 			this.opts = $.extend(opts, options);
 		}
-
 		// slide
 		if (this.slide)
 		{
 			this.$element.height(this.$element.height());
 		}
-
-		// init
+		// 初始化
 		this.init(callback);
-
 	}
-
 	redactorAnimation.prototype = {
-
 		init: function(callback)
 		{
 			this.queue.push(this.animation);
-
 			this.clean();
-
 			if (this.animation === 'show')
 			{
 				this.opts.timing = 'linear';
 				this.$element.removeClass('hide').show();
-
 				if (typeof callback === 'function')
 				{
 					callback(this);
@@ -10250,7 +8667,6 @@
 			{
 				this.opts.timing = 'linear';
 				this.$element.hide();
-
 				if (typeof callback === 'function')
 				{
 					callback(this);
@@ -10260,15 +8676,12 @@
 			{
 				this.animate(callback);
 			}
-
 		},
 		animate: function(callback)
 		{
 			this.$element.addClass('animated').css('display', '').removeClass('hide');
 			this.$element.addClass(this.opts.prefix + this.queue[0]);
-
 			this.set(this.opts.duration + 's', this.opts.delay + 's', this.opts.iterate, this.opts.timing);
-
 			var _callback = (this.queue.length > 1) ? null : callback;
 			this.complete('AnimationEnd', $.proxy(function()
 			{
@@ -10276,19 +8689,16 @@
 				{
 					this.clean();
 					this.queue.shift();
-
 					if (this.queue.length)
 					{
 						this.animate(callback);
 					}
 				}
-
 			}, this), _callback);
 		},
 		set: function(duration, delay, iterate, timing)
 		{
 			var len = this.prefixes.length;
-
 			while (len--)
 			{
 				this.$element.css(this.prefixes[len] + 'animation-duration', duration);
@@ -10296,15 +8706,12 @@
 				this.$element.css(this.prefixes[len] + 'animation-iteration-count', iterate);
 				this.$element.css(this.prefixes[len] + 'animation-timing-function', timing);
 			}
-
 		},
 		clean: function()
 		{
 			this.$element.removeClass('animated');
 			this.$element.removeClass(this.opts.prefix + this.queue[0]);
-
 			this.set('', '', '', '');
-
 		},
 		complete: function(type, make, callback)
 		{
@@ -10314,28 +8721,22 @@
 				{
 					make();
 				}
-
 				if (typeof callback === 'function')
 				{
 					callback(this);
 				}
-
-				// hide
+				//隐藏
 				var effects = ['fadeOut', 'slideUp', 'zoomOut', 'slideOutUp', 'slideOutRight', 'slideOutLeft'];
 				if ($.inArray(this.animation, effects) !== -1)
 				{
 					this.$element.css('display', 'none');
 				}
-
 				// slide
 				if (this.slide)
 				{
 					this.$element.css('height', '');
 				}
-
 			}, this));
-
 		}
 	};
-
 })(jQuery);
