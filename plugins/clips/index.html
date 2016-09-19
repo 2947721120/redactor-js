@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+    <head>
+    <title>剪辑</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+ 
+
+    <link rel="stylesheet" type="text/css" href="../../assets/css/font.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/kube.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/kube.legenda.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/master.css?v111">
+
+    <link rel="stylesheet" type="text/css" href="../../assets/css/redactor.css">
+
+    <link rel="stylesheet" href="clips.css">
+    
+
+
+
+    <script type="text/javascript" src="https://cdnjs.c2cbc.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="../../assets/js/kube.js"></script>
+    <script type="text/javascript" src="../../assets/js/kube.legenda.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/master.js"></script>
+
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/redactor.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/plugins/table/table.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/plugins/video/video.js"></script>
+    <script src="clips.js"></script>
+<script type="text/javascript">
+$(function()
+{
+	$('#redactor').redactor({
+		plugins: ['clips']
+	});
+});
+</script>
+    
+
+
+</head><style type="text/css" id="520311018000"></style>
+<body class="page-redactor">
+
+	<div class="show-on-small">
+    	<div id="nav-toggle-box">
+    		<div id="nav-toggle-brand">
+    		    
+    			<a href="/">Imperavi</a>
+    			
+    		</div>
+            <a href="#" id="nav-toggle" class="toggleme" data-target="#header" data-component-toggleme-loaded="true"><i class="menu-icon"></i></a>
+    	</div>
+	</div>
+
+	<div id="header" class="hide-on-small">
+		<div id="header-brand">
+			
+			<a href="/">Imperavi</a>
+			
+		</div>
+		<nav id="header-nav">
+			<ul>
+	
+
+		
+			<li><b><a href="/redactor/">Redactor</a></b></li>
+		
+
+	
+
+		
+			<li><a href="/kube/">Kube</a></li>
+		
+
+	
+
+		
+			<li><a href="/company/">Company</a></li>
+		
+
+	
+
+		
+			<li><a href="/blog/">Blog</a></li>
+		
+
+	
+
+		
+			<li><a href="/account/">Log in</a></li>
+		
+
+	
+</ul>
+
+		</nav>
+	</div>
+
+	<div id="main">
+
+
+
+
+
+
+<div id="main-cover">
+    <div id="hero">
+        <div id="hero-path"><a href="/redactor/plugins/">Redactor插件</a></div>
+    	<h1>
+        	Clips
+        </h1>
+        <p>创建一个下拉菜单经常使用的“片段”代码，文本、图标、表情符号，你的名字.</p>
+
+    	<div id="hero-plugin-button">
+    		<a href="/download/redactor/plugins/6/" class="button primary outline">下载插件</a>
+        </div>
+
+    </div>
+</div>
+
+<div class="content">
+
+<textarea id="redactor" name="content-0" style="display: none;">	&lt;h2&gt;Hello and welcome&lt;/h2&gt;
+	&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+	&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+</textarea></div>
+
+
+
+<br>
+<pre class="prettyprint linenums">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Redactor&lt;/title&gt;
+        &lt;meta charset="utf-8"&gt;
+
+        &lt;script src="//cdnjs.c2cbc.com/ajax/libs/jquery/2.1.1/jquery.js"&gt;&lt;/script&gt;
+
+        &lt;link rel="stylesheet" href="/js/redactor/redactor.css" /&gt;
+        &lt;script src="/js/redactor/redactor.js"&gt;&lt;/script&gt;
+
+        &lt;!-- Plugin --&gt;
+        &lt;link rel="stylesheet" href="/js/redactor/plugins/clips/clips.css" /&gt;
+        &lt;script src="/js/redactor/plugins/clips/clips.js"&gt;&lt;/script&gt;
+
+        &lt;script type="text/javascript"&gt;
+        $(function()
+        {
+            $('#redactor').redactor({
+                plugins: ['clips']
+            });
+        });
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;textarea id="redactor"&gt;...&lt;/textarea&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+
+
+   
+    <footer id="footer">
+    	<p>© Imperavi 2009-2016. All rights reserved.</p>
+    	<nav>
+    		<ul>
+	
+
+		
+			<li><b><a href="/redactor/">Redactor</a></b></li>
+		
+
+	
+
+		
+			<li><a href="/kube/">Kube</a></li>
+		
+
+	
+
+		
+			<li><a href="/company/">Company</a></li>
+		
+
+	
+
+		
+			<li><a href="/blog/">Blog</a></li>
+		
+
+	
+
+		
+			<li><a href="http://twitter.com/imperavi">Follow us on Twitter</a></li>
+		
+
+	
+</ul>
+
+    	</nav>
+    </footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Manager</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="https://imperavi.com/blog/feed/" rel="alternate" type="application/rss+xml" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/kube.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/kube.legenda.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/master.css?v111" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/css/redactor.css" />
+
+    
+    
+
+
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-25923300-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+ <script src="//cdnjs.c2cbc.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+    <script type="text/javascript" src="../../assets/js/kube.js"></script>
+    <script type="text/javascript" src="../../assets/js/kube.legenda.js"></script>
+    <script type="text/javascript" src="../../assets/js/master.js"></script>
+
+    <script type="text/javascript" src="../../assets/js/redactor.js"></script>
+    <script type="text/javascript" src="../../assets/js/plugins/table/table.js"></script>
+    <script type="text/javascript" src="../../assets/js/plugins/video/video.js"></script>
+    <script src="../../assets/js/plugins/filemanager/filemanager.js"></script>
+<script type="text/javascript">
+$(function()
+{
+	$('#redactor').redactor({
+		fileUpload: '/webUpload/redactor/fileUpload/',
+		fileManagerJson: '/tests/files.json',
+		plugins: ['filemanager']
+	});
+});
+</script>
+    
+
+
+</head>
+<body class="page-redactor">
+
+	<div class="show-on-small">
+    	<div id="nav-toggle-box">
+    		<div id="nav-toggle-brand">
+    		    
+    			<a href="/">Imperavi</a>
+    			
+    		</div>
+            <a href="#" id="nav-toggle" class="toggleme" data-target="#header"><i class="menu-icon"></i></a>
+    	</div>
+	</div>
+
+	<div id="header" class="hide-on-small">
+		<div id="header-brand">
+			
+			<a href="/">Imperavi</a>
+			
+		</div>
+		<nav id="header-nav">
+			<ul>
+	
+
+		
+			<li><b><a href="/redactor/">Redactor</a></b></li>
+		
+
+	
+
+		
+			<li><a href="/kube/">Kube</a></li>
+		
+
+	
+
+		
+			<li><a href="/company/">Company</a></li>
+		
+
+	
+
+		
+			<li><a href="/blog/">Blog</a></li>
+		
+
+	
+
+		
+			<li><a href="/account/">Log in</a></li>
+		
+
+	
+</ul>
+
+		</nav>
+	</div>
+
+	<div id="main">
+
+
+
+
+
+
+<div id="main-cover">
+    <div id="hero">
+        <div id="hero-path"><a href="/redactor/plugins/">Redactor Plugins</a></div>
+    	<h1>
+        	File Manager
+        </h1>
+        <p>Manage, upload, select files and place them anywhere in Redactor.</p>
+
+    	<div id="hero-plugin-button">
+    		<a href="/download/redactor/plugins/5/" class="button primary outline">Download Plugin</a>
+        </div>
+
+    </div>
+</div>
+
+<div class="content">
+<textarea id="redactor">
+	<h2>Hello and welcome</h2>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</textarea>
+
+
+<br>
+<pre class="prettyprint linenums">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Redactor&lt;/title&gt;
+        &lt;meta charset="utf-8"&gt;
+
+        &lt;script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"&gt;&lt;/script&gt;
+
+        &lt;link rel="stylesheet" href="/js/redactor/redactor.css" /&gt;
+        &lt;script src="/js/redactor/redactor.js"&gt;&lt;/script&gt;
+
+        &lt;!-- Plugin --&gt;
+        &lt;script src="/js/redactor/plugins/filemanager.js"&gt;&lt;/script&gt;
+
+        &lt;script type="text/javascript"&gt;
+        $(function()
+        {
+            $('#redactor').redactor({
+                fileUpload: '/upload.php',
+                fileManagerJson: '/files/files.json',
+                plugins: ['filemanager']
+            });
+        });
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;textarea id="redactor"&gt;...&lt;/textarea&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+
+<p><var>files.json</var> example:</p>
+
+
+
+<pre class="prettyprint linenums">[
+    { "title": "Some Image", "name": "1.jpg", "url": "/images/1.jpg", "id": 1, "size": "301Kb"  },
+    { "title": "My Book", "name": "my-book.pdf", "url": "/files/my-book.pdf", "id": 2, "size": "1MB"  }
+]
+</pre>
+</div>
+
+
+    </div>
+    <footer id="footer">
+    	<p>&copy; Imperavi 2009-2016. All rights reserved.</p>
+    	<nav>
+    		<ul>
+	
+
+		
+			<li><b><a href="/redactor/">Redactor</a></b></li>
+		
+
+	
+
+		
+			<li><a href="/kube/">Kube</a></li>
+		
+
+	
+
+		
+			<li><a href="/company/">Company</a></li>
+		
+
+	
+
+		
+			<li><a href="/blog/">Blog</a></li>
+		
+
+	
+
+		
+			<li><a href="http://twitter.com/imperavi">Follow us on Twitter</a></li>
+		
+
+	
+</ul>
+
+    	</nav>
+    </footer>
+
+
+</body>
+</html>

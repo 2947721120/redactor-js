@@ -1,0 +1,4 @@
+CodeMirror 
+此插件让源代码高亮，搭载CodeMirror。对于所有可用的设置和命令，请参考CodeMirror用户手册。
+
+这个插件仅与主编II 1.0.1或更高版本兼容。
