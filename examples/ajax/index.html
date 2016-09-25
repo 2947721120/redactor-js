@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajax 加载</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="https://imperavi.com/blog/feed/" rel="alternate" type="application/rss+xml" />
+
+<link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/font.css" />
+<link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/kube.css" />
+<link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/kube.legenda.css" />
+<link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/master.css?v111" />
+<link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/redactor.css" />
+
+    
+    
+
+
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-25923300-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/kube.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/kube.legenda.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/master.js"></script>
+
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/redactor.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/plugins/table/table.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/plugins/video/video.js"></script>
+    
+    <script>
+function exampleAjaxLoad()
+{
+	$('#redactor-box').load('tests/demo-ajax.html');
+}
+</script>
+
+
+</head>
+<body class="page-redactor">
+
+	<div class="show-on-small">
+    	<div id="nav-toggle-box">
+    		<div id="nav-toggle-brand">
+    		    
+    			<a href="/">Imperavi</a>
+    			
+    		</div>
+            <a href="#" id="nav-toggle" class="toggleme" data-target="#header"><i class="menu-icon"></i></a>
+    	</div>
+	</div>
+
+	<div id="header" class="hide-on-small">
+		<div id="header-brand">
+			
+			<a href="/">Imperavi</a>
+			
+		</div>
+		<nav id="header-nav">
+			<ul>
+	
+
+		
+			<li><b><a href="/redactor/">Redactor</a></b></li>
+		
+
+	
+
+		
+			<li><a href="/grafs/">Grafs</a></li>
+		
+
+	
+
+		
+			<li><a href="/kube/">Kube</a></li>
+		
+
+	
+
+		
+			<li><a href="/company/">Company</a></li>
+		
+
+	
+
+		
+			<li><a href="/blog/">Blog</a></li>
+		
+
+	
+
+		
+			<li><a href="/account/">Log in</a></li>
+		
+
+	
+</ul>
+
+		</nav>
+	</div>
+
+	<div id="main">
+
+
+
+
+
+
+
+<div id="hero">
+    <div id="hero-path"><a href="/redactor/examples/">减速器的例子</a></div>
+	<h1>
+    	Ajax Load
+    </h1>
+</div>
+
+
+
+<div class="content">
+
+	
+	<p>
+	<button onclick="exampleAjaxLoad();" class="button primary outline">Load</button>
+</p>
+
+
+<div id="redactor-box"></div>
+
+
+	<br>
+
+
+<pre class="prettyprint">
+&lt;script&gt;
+function exampleAjaxLoad()
+{
+    $('#redactor-box').load('/tests/demo-ajax.html');
+}
+&lt;/script&gt;
+ 
+&lt;p&gt;
+    &lt;button onclick=&quot;exampleAjaxLoad();&quot;&gt;Load&lt;/button&gt;
+&lt;/p&gt;
+ 
+&lt;div id=&quot;redactor-box&quot;&gt;&lt;/div&gt;
+</pre>
+
+
+	
+
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    	<p>&copy; Imperavi 2009-2016. All rights reserved.</p>
+    	<nav>
+    		<ul>
+	
+
+		
+			<li><b><a href="/redactor/">Redactor</a></b></li>
+		
+
+	
+
+		
+			<li><a href="/grafs/">Grafs</a></li>
+		
+
+	
+
+		
+			<li><a href="/kube/">Kube</a></li>
+		
+
+	
+
+		
+			<li><a href="/company/">Company</a></li>
+		
+
+	
+
+		
+			<li><a href="/blog/">Blog</a></li>
+		
+
+	
+
+		
+			<li><a href="http://twitter.com/imperavi">Follow us on Twitter</a></li>
+		
+
+	
+</ul>
+
+    	</nav>
+    </footer>
+
+
+</body>
+</html>

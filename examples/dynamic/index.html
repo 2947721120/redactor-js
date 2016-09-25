@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>动态文本</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="https://imperavi.com/blog/feed/" rel="alternate" type="application/rss+xml" />
+
+   <link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/kube.css" />
+    <link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/kube.legenda.css" />
+    <link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/master.css?v111" />
+    <link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/redactor.css" />
+
+    
+    
+
+
+
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/kube.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/kube.legenda.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/master.js"></script>
+
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/redactor.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/plugins/table/table.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/plugins/video/video.js"></script>
+    
+    <script>
+$(function()
+{
+	var textarea = $('<textarea style="height: 200px;">');
+	$('#testdynamic').append(textarea);
+	$(textarea).redactor({
+		focus: true,
+		callbacks: {
+			init: function()
+			{
+				this.code.set("<h3>它的工作原理！</h3><p>Lorem存有悲坐阿梅德，consectetur adipisicing ELIT，sed的根本eiusmod tempor incididunt UT labore等dolore麦格纳aliqua。 UT enim广告微量veniam，QUIS nostrud实习ullamco laboris暂准UT aliquip前EA commodo consequat。DUIS奥特irure悲在reprehenderit在voluptate velit埃塞cillum dolore欧盟fugiat法无pariatur。 Excepteur SINT occaecat cupidatat非proident，必须遵守的过失魁正式开通了deserunt mollit阿尼姆ID EST laborum。</ p> <p> Lorem存有悲坐阿梅德，consectetur adipisicing ELIT，sed的根本eiusmod incididunt tempor UT labore等dolore麦格纳aliqua。 UT enim广告微量veniam，QUIS nostrud实习ullamco laboris暂准UT aliquip前EA commodo consequat。 DUIS奥特irure悲在reprehenderit在voluptate velit埃塞cillum dolore欧盟fugiat法无pariatur。 Excepteur SINT occaecat cupidatat非proident，必须遵守的过失魁正式开通了deserunt mollit阿尼姆ID EST laborum.</p>");
+			}
+		}
+	});
+});
+</script>
+
+
+</head>
+<body class="page-redactor">
+
+	<div class="show-on-small">
+    	<div id="nav-toggle-box">
+    		<div id="nav-toggle-brand">
+    		    
+    			<a href="/">Imperavi</a>
+    			
+    		</div>
+            <a href="#" id="nav-toggle" class="toggleme" data-target="#header"><i class="menu-icon"></i></a>
+    	</div>
+	</div>
+
+	<div id="header" class="hide-on-small">
+		<div id="header-brand">
+			
+			<a href="/">Imperavi</a>
+			
+		</div>
+		<nav id="header-nav">
+			<ul>
+	
+
+		
+			<li><b><a href="/redactor/">Redactor</a></b></li>
+		
+
+	
+
+		
+			<li><a href="/grafs/">Grafs</a></li>
+		
+
+	
+
+		
+			<li><a href="/kube/">Kube</a></li>
+		
+
+	
+
+		
+			<li><a href="/company/">Company</a></li>
+		
+
+	
+
+		
+			<li><a href="/blog/">Blog</a></li>
+		
+
+	
+
+		
+			<li><a href="/account/">Log in</a></li>
+		
+
+	
+</ul>
+
+		</nav>
+	</div>
+
+	<div id="main">
+
+
+
+
+
+
+
+<div id="hero">
+    <div id="hero-path"><a href="/redactor/examples/">减速器的例子</a></div>
+	<h1>
+    	动态文本
+    </h1>
+</div>
+
+
+
+<div class="content">
+
+	
+	<div id="testdynamic"></div>
+
+	<br>
+
+
+<pre class="prettyprint">
+&lt;script&gt;
+$(function()
+{
+    var textarea = $('&lt;textarea style=&quot;height: 200px;&quot;&gt;');
+    $('#testdynamic').append(textarea);
+    $(textarea).redactor({
+        focus: true,
+        callbacks: {
+            init: function()
+            {
+                this.code.set(&quot;&lt;p&gt;Lorem ipsum...&lt;/p&gt;&quot;);
+            }
+        }
+    });
+});
+&lt;/script&gt;
+ 
+&lt;div id=&quot;testdynamic&quot;&gt;&lt;/div&gt;
+</pre>
+
+
+	
+
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    	<p>&copy; Imperavi 2009-2016. All rights reserved.</p>
+    	<nav>
+    		<ul>
+	
+
+		
+			<li><b><a href="/redactor/">Redactor</a></b></li>
+		
+
+	
+
+		
+			<li><a href="/grafs/">Grafs</a></li>
+		
+
+	
+
+		
+			<li><a href="/kube/">Kube</a></li>
+		
+
+	
+
+		
+			<li><a href="/company/">Company</a></li>
+		
+
+	
+
+		
+			<li><a href="/blog/">Blog</a></li>
+		
+
+	
+
+		
+			<li><a href="http://twitter.com/imperavi">Follow us on Twitter</a></li>
+		
+
+	
+</ul>
+
+    	</nav>
+    </footer>
+
+
+</body>
+</html>

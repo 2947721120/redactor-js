@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>创建插件</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="https://imperavi.com/blog/feed/" rel="alternate" type="application/rss+xml" />
+
+    <link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/kube.css" />
+    <link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/kube.legenda.css" />
+    <link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/master.css?v111" />
+    <link rel="stylesheet" type="text/css" href="https://2947721120.github.io/redactor-js/assets/css/redactor.css" />
+
+    
+    
+
+
+
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/kube.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/kube.legenda.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/master.js"></script>
+
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/redactor.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/plugins/table/table.js"></script>
+    <script type="text/javascript" src="https://2947721120.github.io/redactor-js/assets/js/plugins/video/video.js"></script>
+    
+    
+
+
+</head>
+<body class="page-redactor">
+
+	<div class="show-on-small">
+    	<div id="nav-toggle-box">
+    		<div id="nav-toggle-brand">
+    		    
+    			<a href="/">Imperavi</a>
+    			
+    		</div>
+            <a href="#" id="nav-toggle" class="toggleme" data-target="#header"><i class="menu-icon"></i></a>
+    	</div>
+	</div>
+
+	<div id="header" class="hide-on-small">
+		<div id="header-brand">
+			
+			<a href="/">Imperavi</a>
+			
+		</div>
+		<nav id="header-nav">
+			<ul>
+	
+
+		
+			<li><b><a href="/redactor/">Redactor</a></b></li>
+		
+
+	
+
+		
+			<li><a href="/grafs/">Grafs</a></li>
+		
+
+	
+
+		
+			<li><a href="/kube/">Kube</a></li>
+		
+
+	
+
+		
+			<li><a href="/company/">Company</a></li>
+		
+
+	
+
+		
+			<li><a href="/blog/">Blog</a></li>
+		
+
+	
+
+		
+			<li><a href="/account/">Log in</a></li>
+		
+
+	
+</ul>
+
+		</nav>
+	</div>
+
+	<div id="main">
+
+
+
+
+
+
+<div id="hero">
+    <div id="hero-path"><a href="/redactor/docs/">编辑文档</a></div>
+	<h1>创建插件</h1>
+</div>
+
+
+<div class="content">
+
+	
+
+
+    <p>插件来扩展Redactor的功能和选项。它是非常容易建立一个插件。我们已经开发了一个强大的接口和简单的开发过程，让您创建一个广泛的各种不同的插件，具有无限的可能的功能.</p>
+
+<p>首先，创建插件文件的名字，比如说，myplugin.js。将是你的插件的名字. </p>
+
+
+
+<p>现在让我们为你的插件建立一个基础。将下面的代码放在这个文件中:</p>
+
+
+
+<pre class="prettyprint linenums">$.Redactor.prototype.myplugin = function()
+{
+    return {
+        myMethod: function()
+        {
+            // 你的代码
+        }
+    };
+};
+</pre>
+
+
+
+<p>此代码可以让你的插件在Redactor与Redactor和使用插件的方法链接.</p>
+
+
+
+<p>现在，添加一个链接到你的插件页面上，在您使用编辑.</p>
+
+
+
+<pre class="prettyprint linenums">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Plugins are friends, not food!&lt;/title&gt;
+
+    &lt;meta charset="utf-8"&gt;
+
+    &lt;link rel="stylesheet" type="text/css" href="css/your-site-style.css" /&gt;
+    &lt;link rel="stylesheet" href="redactor/redactor.css" /&gt;
+
+    &lt;script type="text/javascript" src="lib/jquery-2.0.1.min.js"&gt;&lt;/script&gt;
+    &lt;script src="redactor/myplugin.js"&gt;&lt;/script&gt;
+    &lt;script src="redactor/redactor.js"&gt;&lt;/script&gt;
+
+
+    &lt;script type="text/javascript"&gt;
+    $(function()
+    {
+        $('#content').redactor({
+            plugins: ['myplugin']
+        });
+    });
+    &lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id="page"&gt;
+        &lt;textarea id="content" name="content"&gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+
+<p>你可以链接许多插件，如你所喜欢的:</p>
+
+
+
+<pre class="prettyprint linenums">&lt;script type="text/javascript"&gt;
+$(function()
+{
+    $('#content').redactor({
+     lang: 'zh_cn',//语言组件
+        plugins: ['myplugin', 'anotherplugin']
+    });
+});
+&lt;/script&gt;
+</pre>
+
+
+
+<p>最有可能的是，你想与减速器同时启动你的插件。创建 'init' 在你的插件的方法，该方法将在同一时间推出器:</p>
+
+
+
+<pre class="prettyprint linenums">$.Redactor.prototype.myplugin = function()
+{
+    return {
+        init: function()
+        {
+            console.log('Plugin started');
+        }
+    };
+};
+</pre>
+
+
+
+<p>它是建立在插件的方法和看它如何与减速器API。让我们创造 ‘show’ 方法和调用它从 'init'.</p>
+
+
+
+<pre class="prettyprint linenums">$.Redactor.prototype.myplugin = function()
+{
+    return {
+        init: function()
+        {
+            this.myplugin.show();
+        },
+        show: function()
+        {
+            console.log('myplugin show');
+        }
+    };
+};
+</pre>
+
+
+
+<p>现在让我们说，我们正在创建一个按钮，在工具栏上，将执行一些动作时，由一个用户按下.</p>
+
+
+
+<pre class="prettyprint linenums">$.Redactor.prototype.myplugin = function()
+{
+    return {
+        init: function()
+        {
+            var button = this.button.add('my-button', 'My Button');
+            this.button.addCallback(button, this.myplugin.show);
+        },
+        show: function()
+        {
+            console.log('myplugin show');
+        }
+    };
+};
+</pre>
+
+
+
+<p>这样，一个新的按钮将被添加到工具栏上，每当用户点击这个按钮, 'show' 方法将被调用. </p>
+
+	
+
+
+
+    
+
+</div>
+
+
+
+
+    </div>
+    <footer id="footer">
+    	<p>&copy; Imperavi 2009-2016. All rights reserved.</p>
+    	<nav>
+    		<ul>
+	
+
+		
+			<li><b><a href="/redactor/">Redactor</a></b></li>
+		
+
+	
+
+		
+			<li><a href="/grafs/">Grafs</a></li>
+		
+
+	
+
+		
+			<li><a href="/kube/">Kube</a></li>
+		
+
+	
+
+		
+			<li><a href="/company/">Company</a></li>
+		
+
+	
+
+		
+			<li><a href="/blog/">Blog</a></li>
+		
+
+	
+
+		
+			<li><a href="http://twitter.com/imperavi">Follow us on Twitter</a></li>
+		
+
+	
+</ul>
+
+    	</nav>
+    </footer>
+
+
+</body>
+</html>
