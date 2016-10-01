@@ -15,8 +15,8 @@ $(function()
     if ($('#redactor-intro-box').size() !== 0)
     {
 	    $('#redactor').redactor({
-		    imageUpload: 'http://up.imgapi.com/',
-            fileUpload: 'http://up.imgapi.com/',
+		    imageUpload: 'https://api.imgur.com/3/image',
+            fileUpload: 'https://api.imgur.com/3/image',
             plugins: ['table', 'video']
         });
     }
@@ -34,11 +34,15 @@ $(function()
     if ($('#redactor-buying').size() !== 0)
     {
     	var handler = StripeCheckout.configure({
-    		token: '02e2cd6ecdc6c197eb2e9fc4cc9442506e1ae474:SmoL_SmQd93K_LGzwGs8_uAhyEs=:eyJkZWFkbGluZSI6MTQ3MTM1Mzc2MiwiYWN0aW9uIjoiZ2V0IiwidWlkIjoiNDg5MCIsImFpZCI6IjEyMzgyOTUiLCJmcm9tIjoiZmlsZSJ9',
-    		image: '/assets/img/stripe-128x128.png',
+    	   headers : {
+              'Content-Type': file.type ? file.type : 'application/octet-stream',
+           Authorization : 'Client-ID ebd061b0a74c9e5',
+            },
+       image: '/assets/img/stripe-128x128.png',
     		allowRememberMe: false,
     		locale: "auto",
     		alipay: "auto",
+    		Authorization : 'Client-ID ebd061b0a74c9e5',
     	//	token: handleStripeToken
     	});
 
